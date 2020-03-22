@@ -1,0 +1,14 @@
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\EasyEOrder.Dal.deps.json
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\EasyEOrder.Dal.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\EasyEOrder.Dal.pdb
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.csprojAssemblyReference.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.csproj.CoreCompileInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.AssemblyInfoInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.AssemblyInfo.cs
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.csproj.CopyComplete
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp2.2\EasyEOrder.Dal.pdb
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp2.2\Microsoft.Extensions.Identity.Stores.xml
