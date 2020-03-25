@@ -10,15 +10,11 @@ namespace EasyEOrder.Dal.Entities
 
         public Guid RestaurantId { get; set; }
 
-        public Restaurant Restaurant { get; set; }
-
         public Guid ReservationId { get; set; }
 
         public Reservation Reservation { get; set; }
 
         public Guid UserId { get; set; }
-
-        public MyUser User { get; set; }
 
     }
 }

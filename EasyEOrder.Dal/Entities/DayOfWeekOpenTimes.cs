@@ -9,9 +9,7 @@ namespace EasyEOrder.Dal.Entities
         public Guid Id{ get; set; }
 
         public Guid RestaurantId { get; set; }
-
-        public Restaurant Restaurant{ get; set; }
-
+        
         public DayOfWeek DayOfWeek { get; set; }
 
         public OpenTime OpenTimes { get; set; }

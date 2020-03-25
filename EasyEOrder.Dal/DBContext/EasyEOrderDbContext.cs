@@ -31,14 +31,14 @@ namespace EasyEOrder.Dal.DBContext
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Restaurant>()
-                   .HasOne(a => a.Menu)
-                   .WithOne(b => b.Restaurant)
-                   .HasForeignKey<Menu>(b => b.RestaurantId);
-            builder.Entity<Table>()
-                .HasOne(a => a.Reservation)
-                .WithOne(b => b.Table)
-                .HasForeignKey<Reservation>(b => b.TableId);
+            //builder.Entity<Restaurant>()
+            //       .HasOne(a => a.Menu)
+            //       .WithOne(b => b.Restaurant)
+            //       .HasForeignKey<Menu>(b => b.RestaurantId);
+            //builder.Entity<Table>()
+            //    .HasOne(a => a.Reservation)
+            //    .WithOne(b => b.Table)
+            //    .HasForeignKey<Reservation>(b => b.TableId);
 
             //builder.Entity<Chapter>()
             //       .HasOne(a => a.Discussion)

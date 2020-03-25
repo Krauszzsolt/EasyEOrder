@@ -12,8 +12,6 @@ namespace EasyEOrder.Dal.Entities
 
         public DateTime To { get; set; }
 
-        public Table Table { get; set; }
-
         public Guid TableId { get; set; }
 
         public MyUser MyUser { get; set; }

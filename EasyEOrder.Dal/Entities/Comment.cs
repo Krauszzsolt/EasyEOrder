@@ -10,11 +10,7 @@ namespace EasyEOrder.Dal.Entities
 
         public Guid FoodId { get; set; }
 
-        public Food Food { get; set; }
-
         public Guid UserId { get; set; }
-
-        public MyUser User { get; set; }
 
         public string CommentContent { get; set; }
     }

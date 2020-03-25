@@ -15,7 +15,7 @@ namespace EasyEOrder.Dal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,15 +28,15 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<Guid>("FoodId");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("MyUserId");
 
-                    b.Property<string>("UserId1");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FoodId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("MyUserId");
 
                     b.ToTable("Comments");
                 });
@@ -115,9 +115,6 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<Guid>("RestaurantId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId")
-                        .IsUnique();
 
                     b.ToTable("Menus");
                 });
@@ -233,9 +230,6 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TableId")
-                        .IsUnique();
-
                     b.ToTable("Reservations");
                 });
 
@@ -250,9 +244,13 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<Guid>("MenuId");
 
+                    b.Property<Guid?>("MenuId1");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MenuId1");
 
                     b.ToTable("Restaurants");
                 });
@@ -262,19 +260,23 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("MyUserId");
+
                     b.Property<Guid>("ReservationId");
+
+                    b.Property<Guid?>("ReservationId1");
 
                     b.Property<Guid>("RestaurantId");
 
                     b.Property<Guid>("UserId");
 
-                    b.Property<string>("UserId1");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RestaurantId");
+                    b.HasIndex("MyUserId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("ReservationId1");
+
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Tables");
                 });
@@ -395,14 +397,14 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Comment", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Food", "Food")
+                    b.HasOne("EasyEOrder.Dal.Entities.Food")
                         .WithMany("Comments")
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EasyEOrder.Dal.Entities.MyUser", "User")
+                    b.HasOne("EasyEOrder.Dal.Entities.MyUser")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("MyUserId");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.DayOfWeekOpenTimes", b =>
@@ -411,7 +413,7 @@ namespace EasyEOrder.Dal.Migrations
                         .WithMany()
                         .HasForeignKey("OpenTimesId");
 
-                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
+                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
                         .WithMany("DayOfWeekOpenTimes")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -419,7 +421,7 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Food", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Menu", "Menu")
+                    b.HasOne("EasyEOrder.Dal.Entities.Menu")
                         .WithMany("Foods")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -434,14 +436,6 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasOne("EasyEOrder.Dal.Entities.Food")
                         .WithMany("FoodAllergens")
                         .HasForeignKey("FoodId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EasyEOrder.Dal.Entities.Menu", b =>
-                {
-                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
-                        .WithOne("Menu")
-                        .HasForeignKey("EasyEOrder.Dal.Entities.Menu", "RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -460,30 +454,33 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Order", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
+                    b.HasOne("EasyEOrder.Dal.Entities.Reservation")
                         .WithMany("Orders")
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EasyEOrder.Dal.Entities.Reservation", b =>
+            modelBuilder.Entity("EasyEOrder.Dal.Entities.Restaurant", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Table", "Table")
-                        .WithOne("Reservation")
-                        .HasForeignKey("EasyEOrder.Dal.Entities.Reservation", "TableId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("EasyEOrder.Dal.Entities.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId1");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Table", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
+                    b.HasOne("EasyEOrder.Dal.Entities.MyUser")
+                        .WithMany("Tables")
+                        .HasForeignKey("MyUserId");
+
+                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId1");
+
+                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EasyEOrder.Dal.Entities.MyUser", "User")
-                        .WithMany("Tables")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
