@@ -146,8 +146,8 @@ namespace EasyEOrder.Dal.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Picture = table.Column<string>(nullable: true),
-                    RestaurantId = table.Column<Guid>(nullable: false),
-                    ReservationId = table.Column<Guid>(nullable: false)
+                    RestaurantId = table.Column<Guid>(nullable: true),
+                    ReservationId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,13 +157,13 @@ namespace EasyEOrder.Dal.Migrations
                         column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -430,8 +430,7 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ReservationId",
                 table: "AspNetUsers",
-                column: "ReservationId",
-                unique: true);
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_RestaurantId",

@@ -24,8 +24,8 @@
       <FileName>Entities\Food.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="FoodAllergens" />
       <Property Name="Comments" />
+      <Property Name="FoodAllergens" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.FoodAllergen">
@@ -48,12 +48,12 @@
   <Class Name="EasyEOrder.Dal.Entities.MyUser">
     <Position X="5.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAABAAAAAAAAQAAAAAAAAAAAAAAEAAAAIAA=</HashCode>
+      <HashCode>AAAAgAAAAAABAAAAEAAAQAAAAAAAAAAAAAAEAAAAIAA=</HashCode>
       <FileName>Entities\MyUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Comments" />
       <Property Name="Tables" />
+      <Property Name="Comments" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.OpenTime">
@@ -75,26 +75,16 @@
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Reservation">
     <Position X="4" Y="6.5" Width="1.5" />
-    <AssociationLine Name="MyUser" Type="EasyEOrder.Dal.Entities.MyUser" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.938" Y="6.5" />
-        <Point X="4.938" Y="5.625" />
-        <Point X="5.75" Y="5.625" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AgECAQAAAAAAAAAAAAAAQAwAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgECAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Reservation.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="MyUser" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Orders" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Restaurant">
-    <Position X="9.75" Y="3.25" Width="1.5" />
+    <Position X="10.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAAAAAASAQACAAIBAACAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Restaurant.cs</FileName>
@@ -103,8 +93,8 @@
       <Property Name="Menu" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Employees" />
       <Property Name="Tables" />
+      <Property Name="Employees" />
       <Property Name="DayOfWeekOpenTimes" />
     </ShowAsCollectionAssociation>
   </Class>

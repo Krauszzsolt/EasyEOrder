@@ -9,9 +9,11 @@ namespace EasyEOrder.Dal.Entities
     {
         public string Picture { get; set; }
 
-        public Guid RestaurantId { get; set; }
+        public Guid? RestaurantId { get; set; }
 
-        public Guid ReservationId { get; set; }
+        public Guid? ReservationId { get; set; }
+
+        public Reservation Reservation{ get; set; }
 
         public ICollection<Table> Tables { get; set; }
 

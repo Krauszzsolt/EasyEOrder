@@ -152,9 +152,9 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<string>("Picture");
 
-                    b.Property<Guid>("ReservationId");
+                    b.Property<Guid?>("ReservationId");
 
-                    b.Property<Guid>("RestaurantId");
+                    b.Property<Guid?>("RestaurantId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -173,8 +173,7 @@ namespace EasyEOrder.Dal.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ReservationId")
-                        .IsUnique();
+                    b.HasIndex("ReservationId");
 
                     b.HasIndex("RestaurantId");
 
@@ -441,15 +440,13 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.MyUser", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Reservation")
-                        .WithOne("MyUser")
-                        .HasForeignKey("EasyEOrder.Dal.Entities.MyUser", "ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId");
 
                     b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
                         .WithMany("Employees")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RestaurantId");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Order", b =>

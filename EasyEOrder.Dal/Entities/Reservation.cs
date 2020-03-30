@@ -14,8 +14,6 @@ namespace EasyEOrder.Dal.Entities
 
         public Guid TableId { get; set; }
 
-        public MyUser MyUser { get; set; }
-
         public Guid UserId { get; set; }
 
         public ICollection<Order> Orders { get; set; }
