@@ -9,6 +9,8 @@ namespace EasyEOrder.Dal.Entities
     {
         public Guid Id { get; set; }
 
+        public Food Food { get; set; }
+
         public Guid FoodId { get; set; }
 
         public Allergen Allergen { get; set; }

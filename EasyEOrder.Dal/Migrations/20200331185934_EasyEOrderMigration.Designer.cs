@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyEOrder.Dal.Migrations
 {
     [DbContext(typeof(EasyEOrderDbContext))]
-    [Migration("20200330200636_EasyEOrderMigration")]
+    [Migration("20200331185934_EasyEOrderMigration")]
     partial class EasyEOrderMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,8 +221,6 @@ namespace EasyEOrder.Dal.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ReservationId");
-
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("AspNetUsers");
@@ -232,13 +230,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "test1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db2dbce5-e355-4774-b34e-825bc5ef355e",
+                            ConcurrencyStamp = "d2cc0239-90f6-4c83-9cc2-0cea04a0f49c",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
                             NormalizedUserName = "TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPt+CTDNRJ2Fw1zoLhPkz94HtGiCiFWV0IUEB6YzyKpyGwbRcxtrzSuuJI8xnzigBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBNce3A45SOPmAq1t8ucUuWZRb6sN05FgghQsH5FjLGai6+BaS1VHIucgNyoUg/ueQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "test"
@@ -314,6 +312,10 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.HasIndex("TableId")
                         .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Reservations");
 
@@ -527,19 +529,19 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Food", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Menu")
+                    b.HasOne("EasyEOrder.Dal.Entities.Menu", "Menu")
                         .WithMany("Foods")
                         .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EasyEOrder.Dal.Entities.Order")
+                    b.HasOne("EasyEOrder.Dal.Entities.Order", "Order")
                         .WithMany("Foods")
                         .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.FoodAllergen", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Food")
+                    b.HasOne("EasyEOrder.Dal.Entities.Food", "Food")
                         .WithMany("FoodAllergens")
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -555,18 +557,14 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.MyUser", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("ReservationId");
-
-                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
+                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
                         .WithMany("Employees")
                         .HasForeignKey("RestaurantId");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Order", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Reservation")
+                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
                         .WithMany("Orders")
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -578,6 +576,10 @@ namespace EasyEOrder.Dal.Migrations
                         .WithOne("Reservation")
                         .HasForeignKey("EasyEOrder.Dal.Entities.Reservation", "TableId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EasyEOrder.Dal.Entities.MyUser", "User")
+                        .WithOne("Reservation")
+                        .HasForeignKey("EasyEOrder.Dal.Entities.Reservation", "UserId");
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Table", b =>
@@ -586,7 +588,7 @@ namespace EasyEOrder.Dal.Migrations
                         .WithMany("Tables")
                         .HasForeignKey("MyUserId");
 
-                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
+                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);

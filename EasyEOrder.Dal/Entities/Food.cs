@@ -22,11 +22,17 @@ namespace EasyEOrder.Dal.Entities
 
         public string BaseInfo { get; set; }
 
+        public Menu Menu { get; set; }
+
         public Guid MenuId { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<FoodAllergen> FoodAllergens { get; set; }
-    
+
+        public Order Order { get; set; }
+
+        public Guid? OrderId{ get; set; }
+
     }
 }

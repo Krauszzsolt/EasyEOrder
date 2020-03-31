@@ -16,6 +16,8 @@ namespace EasyEOrder.Dal.Entities
 
         public ICollection<Food> Foods { get; set; }
 
+        public Reservation Reservation { get; set; }
+
         public Guid ReservationId { get; set; }
     }
 }

@@ -32,15 +32,46 @@ namespace EasyEOrder.Dal.DBContext
 
             base.OnModelCreating(builder);
 
-            builder.Entity<Restaurant>()
-                   .HasOne(a => a.Menu)
-                   .WithOne(b => b.Restaurant)
-                   .HasForeignKey<Menu>(b => b.RestaurantId);
-
             builder.Entity<Table>()
                   .HasOne(a => a.Reservation)
                   .WithOne(b => b.Table)
                   .HasForeignKey<Reservation>(b => b.TableId);
+
+            builder.Entity<Menu>()
+                .HasMany(a => a.Foods)
+                .WithOne(b => b.Menu)
+                .HasForeignKey(b => b.MenuId);
+
+            builder.Entity<Food>()
+                .HasMany(a => a.FoodAllergens)
+                .WithOne(b => b.Food)
+                .HasForeignKey(b => b.FoodId);
+
+            builder.Entity<Order>()
+                 .HasMany(a => a.Foods)
+                 .WithOne(b => b.Order)
+                 .HasForeignKey(b => b.OrderId);
+
+           builder.Entity<Restaurant>()
+                  .HasMany(a => a.Tables)
+                  .WithOne(b => b.Restaurant)
+                  .HasForeignKey(b => b.RestaurantId);
+
+            builder.Entity<Restaurant>()
+                  .HasMany(a => a.Employees)
+                  .WithOne(b => b.Restaurant)
+                  .HasForeignKey(b => b.RestaurantId);
+
+            builder.Entity<Restaurant>()
+                  .HasOne(a => a.Menu)
+                  .WithOne(b => b.Restaurant)
+                  .HasForeignKey<Menu>(b => b.RestaurantId);
+                       
+            builder.Entity<MyUser>()
+                  .HasOne(a => a.Reservation)
+                  .WithOne(b => b.User)
+                  .HasForeignKey<Reservation>(b => b.UserId);
+
 
             var user = new MyUser
             {

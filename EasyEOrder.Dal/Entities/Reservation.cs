@@ -14,7 +14,9 @@ namespace EasyEOrder.Dal.Entities
 
         public Guid TableId { get; set; }
 
-        public String UserId { get; set; }
+        public MyUser User{ get; set; }
+
+        public string UserId { get; set; }
 
         public Table Table { get; set; }
 
