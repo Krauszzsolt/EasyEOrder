@@ -4443,7 +4443,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.2"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.2",
+          "Microsoft.Extensions.Identity.Core": "2.2.0"
         },
         "compile": {
           "bin/placeholder/EasyEOrder.Dal.dll": {}

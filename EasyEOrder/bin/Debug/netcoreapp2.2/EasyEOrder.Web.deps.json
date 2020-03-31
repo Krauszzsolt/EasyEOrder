@@ -150,7 +150,8 @@
       },
       "EasyEOrder.Dal/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.2"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.2",
+          "Microsoft.Extensions.Identity.Core": "2.2.0"
         },
         "runtime": {
           "EasyEOrder.Dal.dll": {}

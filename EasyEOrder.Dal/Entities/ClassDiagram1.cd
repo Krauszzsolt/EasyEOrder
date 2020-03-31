@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EasyEOrder.Dal.Entities.Comment">
-    <Position X="10.25" Y="9.25" Width="1.5" />
+    <Position X="6.75" Y="11.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAgAQAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Comment.cs</FileName>
@@ -18,7 +18,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Food">
-    <Position X="7.25" Y="7.75" Width="1.5" />
+    <Position X="11" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABCAAAAAQAAAAAAAAAAAAQAAAAABAEAAAAAAIAALAA=</HashCode>
       <FileName>Entities\Food.cs</FileName>
@@ -29,7 +29,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.FoodAllergen">
-    <Position X="3.75" Y="9.25" Width="1.5" />
+    <Position X="4.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Entities\FoodAllergen.cs</FileName>
@@ -84,7 +84,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Restaurant">
-    <Position X="10.5" Y="3.25" Width="1.5" />
+    <Position X="12.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAAAAAASAQACAAIBAACAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Restaurant.cs</FileName>

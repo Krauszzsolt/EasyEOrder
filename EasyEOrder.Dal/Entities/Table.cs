@@ -14,7 +14,7 @@ namespace EasyEOrder.Dal.Entities
 
         public Reservation Reservation { get; set; }
 
-        public Guid UserId { get; set; }
+        public String UserId { get; set; }
 
     }
 }

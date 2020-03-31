@@ -6,5 +6,7 @@ namespace EasyEOrder.Dal.Entities.Enums
 {
     public enum Allergen
     {
+        Gluten = 0,
+        Laktoz = 1
     }
 }

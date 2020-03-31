@@ -10,6 +10,8 @@ namespace EasyEOrder.Dal.Entities
 
         public ICollection<Food> Foods { get; set; }
 
+        public Restaurant Restaurant { get; set; }
+
         public Guid RestaurantId { get; set; }
 
     }

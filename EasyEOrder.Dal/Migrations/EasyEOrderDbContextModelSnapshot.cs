@@ -30,8 +30,6 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<string>("MyUserId");
 
-                    b.Property<Guid>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FoodId");
@@ -39,6 +37,15 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("MyUserId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"),
+                            CommentContent = "HejHejHej",
+                            FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                            MyUserId = "test1"
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.DayOfWeekOpenTimes", b =>
@@ -59,6 +66,14 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("DayOfWeekOpenTimes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+                            DayOfWeek = 0,
+                            RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843")
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Food", b =>
@@ -89,6 +104,19 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("Foods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                            BaseInfo = "BaseInfo",
+                            Category = 1,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "FoodTest",
+                            Price = 0,
+                            Rating = 0
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.FoodAllergen", b =>
@@ -105,6 +133,14 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("FoodId");
 
                     b.ToTable("FoodAllergens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"),
+                            Allergen = 0,
+                            FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Menu", b =>
@@ -116,7 +152,17 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RestaurantId")
+                        .IsUnique();
+
                     b.ToTable("Menus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843")
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.MyUser", b =>
@@ -178,6 +224,23 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "test1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "db2dbce5-e355-4774-b34e-825bc5ef355e",
+                            Email = "test@test.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TEST@TEST.COM",
+                            NormalizedUserName = "TEST",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPt+CTDNRJ2Fw1zoLhPkz94HtGiCiFWV0IUEB6YzyKpyGwbRcxtrzSuuJI8xnzigBA==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "test"
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.OpenTime", b =>
@@ -192,6 +255,14 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OpenTimes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe863"),
+                            From = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            To = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Order", b =>
@@ -212,6 +283,16 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasIndex("ReservationId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe851"),
+                            Comment = "OrderComment",
+                            OrderTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"),
+                            TotalPrice = 2000
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Reservation", b =>
@@ -225,11 +306,24 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<DateTime>("To");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TableId")
+                        .IsUnique();
+
                     b.ToTable("Reservations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"),
+                            From = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TableId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
+                            To = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "test1"
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Restaurant", b =>
@@ -241,17 +335,23 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<Guid>("MenuId");
-
-                    b.Property<Guid?>("MenuId1");
+                    b.Property<Guid?>("MenuId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuId1");
-
                     b.ToTable("Restaurants");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
+                            Address = "Adress",
+                            Email = "email@email.email",
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "RestauranName"
+                        });
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Table", b =>
@@ -263,21 +363,26 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<Guid>("ReservationId");
 
-                    b.Property<Guid?>("ReservationId1");
-
                     b.Property<Guid>("RestaurantId");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MyUserId");
 
-                    b.HasIndex("ReservationId1");
-
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("Tables");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
+                            ReservationId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"),
+                            RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
+                            UserId = "test1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -438,6 +543,14 @@ namespace EasyEOrder.Dal.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EasyEOrder.Dal.Entities.Menu", b =>
+                {
+                    b.HasOne("EasyEOrder.Dal.Entities.Restaurant", "Restaurant")
+                        .WithOne("Menu")
+                        .HasForeignKey("EasyEOrder.Dal.Entities.Menu", "RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EasyEOrder.Dal.Entities.MyUser", b =>
                 {
                     b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
@@ -457,11 +570,12 @@ namespace EasyEOrder.Dal.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EasyEOrder.Dal.Entities.Restaurant", b =>
+            modelBuilder.Entity("EasyEOrder.Dal.Entities.Reservation", b =>
                 {
-                    b.HasOne("EasyEOrder.Dal.Entities.Menu", "Menu")
-                        .WithMany()
-                        .HasForeignKey("MenuId1");
+                    b.HasOne("EasyEOrder.Dal.Entities.Table", "Table")
+                        .WithOne("Reservation")
+                        .HasForeignKey("EasyEOrder.Dal.Entities.Reservation", "TableId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.Table", b =>
@@ -469,10 +583,6 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasOne("EasyEOrder.Dal.Entities.MyUser")
                         .WithMany("Tables")
                         .HasForeignKey("MyUserId");
-
-                    b.HasOne("EasyEOrder.Dal.Entities.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("ReservationId1");
 
                     b.HasOne("EasyEOrder.Dal.Entities.Restaurant")
                         .WithMany("Tables")

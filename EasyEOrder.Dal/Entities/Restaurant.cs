@@ -20,7 +20,7 @@ namespace EasyEOrder.Dal.Entities
 
         public Menu Menu { get; set; }
 
-        public Guid MenuId { get; set; }
+        public Guid? MenuId { get; set; }
 
         public ICollection<DayOfWeekOpenTimes> DayOfWeekOpenTimes { get; set; }
 
