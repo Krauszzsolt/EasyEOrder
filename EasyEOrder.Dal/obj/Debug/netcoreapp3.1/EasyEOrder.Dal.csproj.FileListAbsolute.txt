@@ -1,0 +1,9 @@
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.deps.json
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.pdb
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.csprojAssemblyReference.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.csproj.CoreCompileInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.AssemblyInfoInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.AssemblyInfo.cs
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.pdb

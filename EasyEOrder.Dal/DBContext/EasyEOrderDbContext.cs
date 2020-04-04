@@ -1,7 +1,7 @@
 ﻿using EasyEOrder.Dal.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EasyEOrder.Dal.DBContext
 {
@@ -80,7 +80,8 @@ namespace EasyEOrder.Dal.DBContext
                 NormalizedEmail = "TEST@TEST.TEST",
                 UserName = "test@test.test",
                 NormalizedUserName = "TEST@TEST.TEST",
-                SecurityStamp = "string"
+                SecurityStamp = "string",
+                EmailConfirmed = true
             };
             var password = new PasswordHasher<MyUser>();
             var hashed = password.HashPassword(user, "123456");
