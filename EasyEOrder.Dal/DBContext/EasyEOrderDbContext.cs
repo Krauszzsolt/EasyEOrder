@@ -75,15 +75,15 @@ namespace EasyEOrder.Dal.DBContext
 
             var user = new MyUser
             {
-                Id = "test1",
-                Email = "test@test.com",
-                NormalizedEmail = "TEST@TEST.COM",
-                UserName = "test",
-                NormalizedUserName = "TEST",
-
+                Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
+                Email = "test@test.test",
+                NormalizedEmail = "TEST@TEST.TEST",
+                UserName = "test@test.test",
+                NormalizedUserName = "TEST@TEST.TEST",
+                SecurityStamp = "string"
             };
             var password = new PasswordHasher<MyUser>();
-            var hashed = password.HashPassword(user, "asdasd");
+            var hashed = password.HashPassword(user, "123456");
             user.PasswordHash = hashed;
 
             builder.Entity<MyUser>().HasData(user);
@@ -119,7 +119,7 @@ namespace EasyEOrder.Dal.DBContext
             builder.Entity<Table>().HasData(new Table
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
-                UserId = "test1",
+                UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                 RestaurantId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
                 ReservationId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe848"),
             });
@@ -130,7 +130,7 @@ namespace EasyEOrder.Dal.DBContext
                 From = new System.DateTime(),
                 To = new System.DateTime(),
                 TableId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
-                UserId = "test1",
+                UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
             });
 
             builder.Entity<Order>().HasData(new Order
@@ -168,7 +168,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe841"),
                 CommentContent = "HejHejHej",
                 FoodId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
-                MyUserId = "test1"
+                MyUserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
             });
 
         }

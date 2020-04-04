@@ -1104,7 +1104,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyInjection/2.2.0": {
-      "sha512": "MZtBIwfDFork5vfjpJdG5g8wuJFt7d/y3LOSVVtDK/76wlbtz6cjltfKHqLx2TKVqTj5/c41t77m1+h20zqtPA==",
+      "sha512": "ASF77AJjnyi9hL7IJU1KCAvnCTgI3JEwkU+D4gnKd53nFIYpibVjR6SW8tdTkkuZ+QkmIx2rPvKdTMNVPfVU9A==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection/2.2.0",
       "files": [
@@ -1121,7 +1121,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
-      "sha512": "f9hstgjVmr6rmrfGSpfsVOl2irKAgr1QjrSi3FgnS7kulxband50f2brRLwySAQTADPZeTdow0mpSMcoAdadCw==",
+      "sha512": "2xMk9LHz1EY+7gVG0lG4qBvkUiVjg8QNPqd2HYmEP5+PL7Ayo96EhBieAhd++Gx4yM+xN8kNqmhZdFMBHeG0HQ==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection.abstractions/2.2.0",
       "files": [
@@ -3565,23 +3565,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\krausz.zsolt\\.nuget\\packages\\": {},
+    "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+      "projectUniqueName": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
       "projectName": "EasyEOrder.Dal",
-      "projectPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
-      "packagesPath": "C:\\Users\\krausz.zsolt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
+      "projectPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+      "packagesPath": "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\krausz.zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Krausz Zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3589,7 +3589,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://devw:8081/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3622,16 +3621,10 @@
           }
         },
         "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
+          "net461"
         ],
         "assetTargetFallback": true,
-        "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "warn": true
       }
     }
   }

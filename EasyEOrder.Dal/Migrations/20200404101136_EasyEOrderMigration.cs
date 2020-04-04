@@ -388,7 +388,7 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "ReservationId", "RestaurantId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "test1", 0, "d2cc0239-90f6-4c83-9cc2-0cea04a0f49c", "test@test.com", false, false, null, "TEST@TEST.COM", "TEST", "AQAAAAEAACcQAAAAEBNce3A45SOPmAq1t8ucUuWZRb6sN05FgghQsH5FjLGai6+BaS1VHIucgNyoUg/ueQ==", null, false, null, null, null, null, false, "test" });
+                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "6edb9183-8869-46b1-ab1e-00d2c27c4f28", "test@test.test", false, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAEAbiF2LeosVKYk8YlB1b1s4duGSePcc0qo9rEKgQ1oiRZhEOfqocZOWz091wOe95AQ==", null, false, null, null, null, "string", false, "test@test.test" });
 
             migrationBuilder.InsertData(
                 table: "OpenTimes",
@@ -413,7 +413,7 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "Tables",
                 columns: new[] { "Id", "MyUserId", "ReservationId", "RestaurantId", "UserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"), new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "test1" });
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"), new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "Foods",
@@ -423,12 +423,12 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "Reservations",
                 columns: new[] { "Id", "From", "TableId", "To", "UserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "test1" });
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "CommentContent", "FoodId", "MyUserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"), "HejHejHej", new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "test1" });
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"), "HejHejHej", new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "FoodAllergens",

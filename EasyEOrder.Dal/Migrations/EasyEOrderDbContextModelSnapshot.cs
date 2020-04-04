@@ -15,7 +15,7 @@ namespace EasyEOrder.Dal.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,7 +44,7 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"),
                             CommentContent = "HejHejHej",
                             FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
-                            MyUserId = "test1"
+                            MyUserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
                         });
                 });
 
@@ -226,18 +226,19 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "test1",
+                            Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2cc0239-90f6-4c83-9cc2-0cea04a0f49c",
-                            Email = "test@test.com",
+                            ConcurrencyStamp = "6edb9183-8869-46b1-ab1e-00d2c27c4f28",
+                            Email = "test@test.test",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "TEST@TEST.COM",
-                            NormalizedUserName = "TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBNce3A45SOPmAq1t8ucUuWZRb6sN05FgghQsH5FjLGai6+BaS1VHIucgNyoUg/ueQ==",
+                            NormalizedEmail = "TEST@TEST.TEST",
+                            NormalizedUserName = "TEST@TEST.TEST",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAbiF2LeosVKYk8YlB1b1s4duGSePcc0qo9rEKgQ1oiRZhEOfqocZOWz091wOe95AQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "string",
                             TwoFactorEnabled = false,
-                            UserName = "test"
+                            UserName = "test@test.test"
                         });
                 });
 
@@ -324,7 +325,7 @@ namespace EasyEOrder.Dal.Migrations
                             From = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
                             To = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "test1"
+                            UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
                         });
                 });
 
@@ -383,7 +384,7 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
                             ReservationId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"),
                             RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
-                            UserId = "test1"
+                            UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
                         });
                 });
 
