@@ -139,9 +139,6 @@ C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreap
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.dll
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.pdb
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csprojAssemblyReference.cache
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.RazorAssemblyInfo.cache
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.RazorAssemblyInfo.cs
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.AssemblyInfoInputs.cache
@@ -167,3 +164,6 @@ C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreap
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.dll
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.pdb
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.genruntimeconfig.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache

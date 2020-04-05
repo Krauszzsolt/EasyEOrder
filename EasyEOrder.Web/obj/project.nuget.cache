@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kmFAHmvXu19clQZzyEH2m9Ftw1+V3HQqShuLbY+NsLdbICfR89OMyc1iAaTBxWmSMmuj2G/LhSh51fFY4ifKWQ==",
+  "dgSpecHash": "Iq95WsXgnP0GX//OYxLFnSGcEXaWfOYaolylNh8PMcWVkeqpuRElJsNFEfry4XjsK9UmOdsciPPkZr7iyfu7Jw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Web\\EasyEOrder.Web.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\bootstrap.sass\\4.4.1\\bootstrap.sass.4.4.1.nupkg.sha512",
+    "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
@@ -58,6 +60,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\popper.js\\1.16.0\\popper.js.1.16.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
