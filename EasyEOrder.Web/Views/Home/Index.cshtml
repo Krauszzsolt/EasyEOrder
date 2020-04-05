@@ -1,13 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+
+
 <environment include="Development">
     <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
 </environment>
 <environment exclude="Development">
     <link rel="stylesheet" href="~/lib/css/bootstrap.min.css" />
 </environment>
-
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/site.css" />
+</environment>
 
 <environment include="Development">
     <script src="~/lib/js/jquery-3.3.1.js"></script>
@@ -21,34 +26,28 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+
 </div>
-<table class="table table-dark">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>asd</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>asd</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>asd</td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="card-list">
+    @{
+        var i = 0;
+        while (i < 5)
+        {
+            i += 1;
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper" />
+                <div class="card-body">
+                    <h5 class="card-title">The Last Supper</h5>
+                    <h6 class="card-subtitle">Free</h6>
+                    <p class="card-text">Test test testtesttest test test test test test test test test test</p>
+                    <a href="#" class="btn btn-primary">Részletek</a>
+                </div>
+            </div>
+        }
+    }
+</div>
+</html>
