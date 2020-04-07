@@ -30,11 +30,11 @@ namespace EasyEOrder
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
-            services.AddControllersWithViews();
-            services.AddMvc();
+
+            
 
             services.AddTransient<IFoodService, FoodService>();
-
+            services.AddScoped<FoodService>();
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Lockout settings.
@@ -52,7 +52,9 @@ namespace EasyEOrder
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
-         
+            services.AddControllersWithViews();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddMvc();
         }
 
        
@@ -84,7 +86,6 @@ namespace EasyEOrder
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }

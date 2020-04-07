@@ -2789,11 +2789,12 @@
       ]
     },
     "System.Collections.Specialized/4.3.0": {
-      "sha512": "NoPBj0ykejqAWW4p4gGtrrL+3c84ZLSvGnHgq422ew1Rj4WKj1FA8/BCybqC111EtgcqUl6ZJNFYYS22HLgbjA==",
+      "sha512": "Epx8PoVZR0iuOnJJDzp7pWvdfMMOAvpUo95pC4ScH2mJuXkKA2Y4aR3cG9qt2klHgSons1WFh4kcGW7cSXvrxg==",
       "type": "package",
       "path": "system.collections.specialized/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5758,23 +5759,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\": {},
+    "C:\\Users\\krausz.zsolt\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+      "projectUniqueName": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
       "projectName": "EasyEOrder.Dal",
-      "projectPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
-      "packagesPath": "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
+      "projectPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+      "packagesPath": "C:\\Users\\krausz.zsolt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Krausz Zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\krausz.zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5782,6 +5783,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://devw:8081/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5826,7 +5828,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -33,6 +33,5 @@ namespace EasyEOrder.Dal.Entities
         public Order Order { get; set; }
 
         public Guid? OrderId{ get; set; }
-
     }
 }

@@ -132,7 +132,73 @@ namespace EasyEOrder.Dal.Migrations
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                             Name = "FoodTest",
                             Price = 0,
-                            Rating = 0
+                            Rating = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"),
+                            BaseInfo = "BaseInfo",
+                            Category = 1,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Soup1",
+                            Price = 1010,
+                            Rating = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"),
+                            BaseInfo = "BaseInfo",
+                            Category = 1,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Soup2",
+                            Price = 12312,
+                            Rating = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"),
+                            BaseInfo = "BaseInfoasd",
+                            Category = 2,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Meal1",
+                            Price = 21312,
+                            Rating = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"),
+                            BaseInfo = "BaseInfo",
+                            Category = 2,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Meal2",
+                            Price = 1230,
+                            Rating = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"),
+                            BaseInfo = "BaseInfo",
+                            Category = 2,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Meal3",
+                            Price = 3210,
+                            Rating = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"),
+                            BaseInfo = "BaseInfo",
+                            Category = 2,
+                            IsAvailable = true,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            Name = "Meal4",
+                            Price = 4320,
+                            Rating = 10
                         });
                 });
 
@@ -267,13 +333,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa0fa1af-3431-4c64-b26a-378dfc42c2c2",
+                            ConcurrencyStamp = "aabf90c8-2314-4264-a9b6-699fb92a6cfb",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDC/cxi1tiNwAcOKtbjgHurvhe6hMbztzMCUXqqW15YnI3Xc7HUP1zpVAB/3FI7uJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED2exBSGPIgj1cXtGHk196PyI7AOzw+b8nc70Gu+WLds7/dWVM8Ds8TCnYxNWK3tMw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             TwoFactorEnabled = false,

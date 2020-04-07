@@ -74,7 +74,9 @@ body {
 .card-list{
     display: flex;
     flex-direction: row;
-    color:black
+    color:black;
+    flex-wrap: wrap;
+        
 }
 
 .card{

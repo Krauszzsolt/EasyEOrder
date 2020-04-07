@@ -21,13 +21,16 @@ namespace EasyEOrder.Controllers
             _foodService = foodService;
         }
 
-        public IActionResult GetFood()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View(_foodService.getFoodForTest(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")));
+            ViewData["GetFood"] = (await _foodService.GetFoodsGroupByType()).ToList();
+            return View((await _foodService.GetFoodsGroupByType()).ToList());
         }
 
-        public IActionResult Index()
+        public IActionResult About()
         {
+            ViewData["Message"] = "Your application description page.";
+
             return View();
         }
 

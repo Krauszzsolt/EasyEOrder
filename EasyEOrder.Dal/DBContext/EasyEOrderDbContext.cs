@@ -113,8 +113,74 @@ namespace EasyEOrder.Dal.DBContext
                 BaseInfo = "BaseInfo",
                 Price = 0,
                 IsAvailable = true,
-                Rating = 0,
+                Rating = 4,
                 Category = Entities.Enums.FoodCategories.soup,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe124"),
+                Name = "Soup1",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfo",
+                Price = 1010,
+                IsAvailable = true,
+                Rating = 3,
+                Category = Entities.Enums.FoodCategories.soup,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe125"),
+                Name = "Soup2",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfo",
+                Price = 12312,
+                IsAvailable = true,
+                Rating = 1,
+                Category = Entities.Enums.FoodCategories.soup,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe126"),
+                Name = "Meal1",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfoasd",
+                Price = 21312,
+                IsAvailable = true,
+                Rating = 4,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe127"),
+                Name = "Meal2",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfo",
+                Price = 1230,
+                IsAvailable = true,
+                Rating = 3,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe128"),
+                Name = "Meal3",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfo",
+                Price = 3210,
+                IsAvailable = true,
+                Rating = 2,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe129"),
+                Name = "Meal4",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                BaseInfo = "BaseInfo",
+                Price = 4320,
+                IsAvailable = true,
+                Rating = 10,
+                Category = Entities.Enums.FoodCategories.meat,
             });
 
             builder.Entity<Table>().HasData(new Table
