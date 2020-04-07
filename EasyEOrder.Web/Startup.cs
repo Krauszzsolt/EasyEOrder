@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EasyEOrder.Dal.DBContext;
 using EasyEOrder.Dal.Entities;
+using EasyEOrder.Dal.Services;
+using EasyEOrder.Dal.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 
@@ -29,8 +31,9 @@ namespace EasyEOrder
             services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddMvc();
 
+            services.AddTransient<IFoodService, FoodService>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -49,6 +52,7 @@ namespace EasyEOrder
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+         
         }
 
        

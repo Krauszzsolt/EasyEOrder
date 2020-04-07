@@ -1,5 +1,7 @@
-﻿@{
+﻿@using EasyEOrder.Dal.DTOs;
+@{
     ViewData["Title"] = "Home Page";
+
 }
 
 
@@ -23,6 +25,14 @@
     <script src="~/lib/js/bootstrap.bundle.min.js"></script>
 </environment>
 
+@{
+
+    FoodDto Food = ViewData["GetFood"] as FoodDto;
+}
+
+
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -41,7 +51,7 @@
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper" />
                 <div class="card-body">
-                    <h5 class="card-title">The Last Supper</h5>
+                        <h5 class="card-title">The Last Supper:  @Food.Name</h5>
                     <h6 class="card-subtitle">Free</h6>
                     <p class="card-text">Test test testtesttest test test test test test test test test test</p>
                     <a href="#" class="btn btn-primary">Részletek</a>

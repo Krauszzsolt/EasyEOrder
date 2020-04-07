@@ -6,16 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EasyEOrder.Models;
+using EasyEOrder.Dal.Interfaces;
+using EasyEOrder.Dal.DTOs;
 
 namespace EasyEOrder.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IFoodService _foodService;
+        public HomeController(ILogger<HomeController> logger, IFoodService foodService)
         {
             _logger = logger;
+            _foodService = foodService;
+        }
+
+        public IActionResult GetFood()
+        {
+            return View(_foodService.getFoodForTest(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")));
         }
 
         public IActionResult Index()
