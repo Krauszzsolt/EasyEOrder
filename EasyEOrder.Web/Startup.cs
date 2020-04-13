@@ -10,6 +10,8 @@ using EasyEOrder.Dal.Services;
 using EasyEOrder.Dal.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace EasyEOrder
 {
@@ -31,10 +33,11 @@ namespace EasyEOrder
             services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
 
-            
+
 
             services.AddTransient<IFoodService, FoodService>();
             services.AddScoped<FoodService>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Lockout settings.
@@ -57,7 +60,7 @@ namespace EasyEOrder
             services.AddMvc();
         }
 
-       
+
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,10 +79,12 @@ namespace EasyEOrder
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -87,6 +92,8 @@ namespace EasyEOrder
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.UseMvc();
         }
     }
 }

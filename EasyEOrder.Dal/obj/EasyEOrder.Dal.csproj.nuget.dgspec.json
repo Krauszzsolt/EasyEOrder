@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj": {}
+    "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj": {
+    "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+        "projectUniqueName": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
         "projectName": "EasyEOrder.Dal",
-        "projectPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
-        "packagesPath": "C:\\Users\\krausz.zsolt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
+        "projectPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\EasyEOrder.Dal.csproj",
+        "packagesPath": "C:\\Users\\Krausz Zsolt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Krausz Zsolt\\source\\repos\\EasyEOrder\\EasyEOrder.Dal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\krausz.zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Krausz Zsolt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://devw:8081/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -70,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

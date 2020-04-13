@@ -1,28 +1,28 @@
-﻿
+﻿<link rel="stylesheet" href="~/css/Layout.css" type="text/css" />
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>*@
 
 
+<div class="layout">
+    <div >
+        <partial name="SideBar" />
+    </div>
 
-
-<div class="card-list">
-    @foreach (var foodOrderByCategory in Model)
-    {
-        <h4> @foodOrderByCategory.Category</h4>
-
-        @foreach (var food in foodOrderByCategory.Foods)
-        {
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
-                <div class="card-body">
-                    <h5 class="card-title">The Last Supper:  @food.Name</h5>
-                    <h6 class="card-subtitle">@food.Price</h6>
-                    <h7 class="card-subtitle">@food.Price</h7>
-                    <p class="card-text">@food.BaseInfo</p>
-                    <a href="#" class="btn btn-primary">Részletek</a>
-                </div>
-            </div>
-        }
-    }
+    <div class="content">
+        @*<partial name="FoodList" />*@
+        <partial name="FoodDetails" />
+    </div>
 </div>
+
+
+
 
 
 
