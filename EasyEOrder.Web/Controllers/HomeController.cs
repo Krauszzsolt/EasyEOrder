@@ -27,6 +27,11 @@ namespace EasyEOrder.Controllers
             return View((await _foodService.GetFoodsGroupByType()).ToList());
         }
 
+        public IActionResult FoodDetailsaPageAsync()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
