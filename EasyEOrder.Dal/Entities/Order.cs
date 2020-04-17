@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Order
+    public class Order : Base
     {
         public Guid Id { get; set; }
               

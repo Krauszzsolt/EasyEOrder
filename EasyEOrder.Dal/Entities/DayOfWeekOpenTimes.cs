@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class DayOfWeekOpenTimes
+    public class DayOfWeekOpenTimes : Base
     {
         public Guid Id{ get; set; }
 

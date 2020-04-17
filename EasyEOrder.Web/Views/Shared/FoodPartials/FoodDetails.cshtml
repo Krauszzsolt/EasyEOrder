@@ -1,0 +1,41 @@
+﻿<link rel="stylesheet" href="~/css/FoodDetails.css" type="text/css" />
+
+
+<div class="card">
+    <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
+
+    <div class="card-body">
+        <div class="card-body-top">
+            <div class="card-body-left">
+                <h5 class="card-title">The Last Supper:  @Model.Name</h5>
+
+                <h6 class="card-subtitle">Allergének: @foreach (var allergen in Model.FoodAllergens) {@allergen}</h6>
+                <h7 class="card-subtitle">@Model.Category</h7>
+                
+            </div>
+            <div class="card-body-rigth">
+                @for (int i = 0; i < Model.Rating; i++)
+                {
+                    <img src="~/assets/icons/star-fill.svg" alt="" width="25" height="25">
+                }
+                @for (int i = 0; i < 5-Model.Rating; i++)
+                {
+                 <img src="~/assets/icons/star.svg" alt="" width="25" height="25">
+                }
+
+
+                
+                <div class="card-price-text">
+                    @Model.Price ft
+                </div>
+            </div>
+        </div>
+        <div class="card-bottom">
+            <p class="card-detail-text">
+                @Model.BaseInfo
+            </p>
+            <a href="#" class="btn buy-button">Megveszem</a>
+        </div>
+    </div>
+</div>
+

@@ -10,5 +10,8 @@ namespace EasyEOrder.Dal.Interfaces
     {
         public Task<List<FoodDto>> GetFoods();
         public Task<List<FoodGroupByTypeDto>> GetFoodsGroupByType();
+        public Task<FoodDetailsDto> GetFooDetails(Guid Id);
+
+        public Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems();
     }
 }

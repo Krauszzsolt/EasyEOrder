@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class OpenTime
+    public class OpenTime : Base
     {
         public Guid Id { get; set; }
 

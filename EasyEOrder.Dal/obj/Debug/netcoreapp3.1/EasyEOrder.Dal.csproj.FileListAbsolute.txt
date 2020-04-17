@@ -2,8 +2,8 @@ C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcor
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.dll
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\bin\Debug\netcoreapp3.1\EasyEOrder.Dal.pdb
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.csprojAssemblyReference.cache
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.csproj.CoreCompileInputs.cache
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.AssemblyInfoInputs.cache
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.AssemblyInfo.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.dll
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.pdb
+C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Dal\obj\Debug\netcoreapp3.1\EasyEOrder.Dal.csproj.CoreCompileInputs.cache

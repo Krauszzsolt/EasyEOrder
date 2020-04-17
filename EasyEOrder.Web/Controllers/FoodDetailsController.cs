@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyEOrder.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,16 @@ namespace EasyEOrder.Web.Controllers
 {
     public class FoodDetailsController : Controller
     {
-        // GET: FoodDetails
-        public ActionResult Index()
+        private readonly IFoodService _foodService;
+        public FoodDetailsController(IFoodService foodService)
         {
-            return View();
+            _foodService = foodService;
+        }
+        // GET: FoodDetails
+        public async Task<IActionResult> IndexAsync()
+        {
+
+            return View(await _foodService.GetFooDetails(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")));
         }
 
         // GET: FoodDetails/Details/5

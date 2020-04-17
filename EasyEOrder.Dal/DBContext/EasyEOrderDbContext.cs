@@ -52,10 +52,10 @@ namespace EasyEOrder.Dal.DBContext
                  .WithOne(b => b.Order)
                  .HasForeignKey(b => b.OrderId);
 
-           builder.Entity<Restaurant>()
-                  .HasMany(a => a.Tables)
-                  .WithOne(b => b.Restaurant)
-                  .HasForeignKey(b => b.RestaurantId);
+            builder.Entity<Restaurant>()
+                   .HasMany(a => a.Tables)
+                   .WithOne(b => b.Restaurant)
+                   .HasForeignKey(b => b.RestaurantId);
 
             builder.Entity<Restaurant>()
                   .HasMany(a => a.Employees)
@@ -66,7 +66,7 @@ namespace EasyEOrder.Dal.DBContext
                   .HasOne(a => a.Menu)
                   .WithOne(b => b.Restaurant)
                   .HasForeignKey<Menu>(b => b.RestaurantId);
-                       
+
             builder.Entity<MyUser>()
                   .HasOne(a => a.Reservation)
                   .WithOne(b => b.User)
@@ -110,7 +110,13 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
                 Name = "FoodTest",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                BaseInfo =
+                "At vero eos et accusamus et iusto odio " +
+                "dignissimos ducimus qui blanditiis praesentium " +
+                "voluptatum deleniti atque corrupti quos dolores et qu" +
+                "as molestias excepturi sint occaecati cupiditate non provident," +
+                " similique sunt in culpa qui officia deserunt mollitia animi," +
+                " id est laborum et dolorum fuga. ",
                 Price = 0,
                 IsAvailable = true,
                 Rating = 4,
@@ -187,6 +193,7 @@ namespace EasyEOrder.Dal.DBContext
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
                 UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
+                Number = 1,
                 RestaurantId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
                 ReservationId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe848"),
             });

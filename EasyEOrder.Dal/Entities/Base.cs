@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    class Base
+    public class Base
     {
         public DateTime CreateTime{ get; set; }
 

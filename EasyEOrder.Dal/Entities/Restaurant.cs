@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Restaurant
+    public class Restaurant : Base
     {
         public Guid Id { get; set; }
 

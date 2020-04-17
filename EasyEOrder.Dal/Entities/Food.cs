@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Food
+    public class Food : Base
     {
         public Guid Id { get; set; }
         

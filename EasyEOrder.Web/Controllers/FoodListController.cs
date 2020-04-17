@@ -17,9 +17,9 @@ namespace EasyEOrder.Web.Controllers
             _foodService = foodService;
         }
         // GET: FoodList
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
-            ViewData["GetFood"] = (await _foodService.GetFoodsGroupByType()).ToList();
+            //ViewData["GetFood"] = (await _foodService.GetFoodsGroupByType()).ToList();
             return View((await _foodService.GetFoodsGroupByType()).ToList());
         }
 

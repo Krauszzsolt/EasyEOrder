@@ -4,9 +4,11 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Table
+    public class Table : Base
     {
         public Guid Id { get; set; }
+
+        public int Number { get; set; }
 
         public Guid RestaurantId { get; set; }
 

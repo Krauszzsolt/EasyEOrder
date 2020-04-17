@@ -26,6 +26,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
                     To = table.Column<DateTime>(nullable: false)
                 },
@@ -39,6 +42,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -109,6 +115,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     RestaurantId = table.Column<Guid>(nullable: false),
                     DayOfWeek = table.Column<int>(nullable: false),
                     OpenTimesId = table.Column<Guid>(nullable: true)
@@ -135,6 +144,10 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     RestaurantId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -238,6 +251,10 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
                     RestaurantId = table.Column<Guid>(nullable: false),
                     ReservationId = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
@@ -265,6 +282,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
                     To = table.Column<DateTime>(nullable: false),
                     TableId = table.Column<Guid>(nullable: false),
@@ -292,6 +312,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     TotalPrice = table.Column<int>(nullable: false),
                     Comment = table.Column<string>(nullable: true),
                     OrderTime = table.Column<DateTime>(nullable: false),
@@ -313,6 +336,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<int>(nullable: false),
                     Category = table.Column<int>(nullable: false),
@@ -344,6 +370,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     FoodId = table.Column<Guid>(nullable: false),
                     MyUserId = table.Column<string>(nullable: true),
                     CommentContent = table.Column<string>(nullable: true)
@@ -370,6 +399,9 @@ namespace EasyEOrder.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    ModifyTime = table.Column<DateTime>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false),
                     FoodId = table.Column<Guid>(nullable: false),
                     Allergen = table.Column<int>(nullable: false)
                 },
@@ -387,66 +419,66 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "ReservationId", "RestaurantId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "aabf90c8-2314-4264-a9b6-699fb92a6cfb", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAED2exBSGPIgj1cXtGHk196PyI7AOzw+b8nc70Gu+WLds7/dWVM8Ds8TCnYxNWK3tMw==", null, false, null, null, null, "string", false, "test@test.test" });
+                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "471cf900-7191-4f57-8053-b1993dc6b1ea", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAENwBaYdguyKwbH7LNlH6Lq9wCfBtZWR3Xy984hpG/HcmYzegJHo6vIyl8m0A5j6YAg==", null, false, null, null, null, "string", false, "test@test.test" });
 
             migrationBuilder.InsertData(
                 table: "OpenTimes",
-                columns: new[] { "Id", "From", "To" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe863"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                columns: new[] { "Id", "CreateTime", "From", "IsDelete", "ModifyTime", "To" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe863"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Restaurants",
-                columns: new[] { "Id", "Address", "Email", "MenuId", "Name" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "Adress", "email@email.email", new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "RestauranName" });
+                columns: new[] { "Id", "Address", "CreateTime", "Email", "IsDelete", "MenuId", "ModifyTime", "Name" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "Adress", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "email@email.email", false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "RestauranName" });
 
             migrationBuilder.InsertData(
                 table: "DayOfWeekOpenTimes",
-                columns: new[] { "Id", "DayOfWeek", "OpenTimesId", "RestaurantId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"), 0, null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe843") });
+                columns: new[] { "Id", "CreateTime", "DayOfWeek", "IsDelete", "ModifyTime", "OpenTimesId", "RestaurantId" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe843") });
 
             migrationBuilder.InsertData(
                 table: "Menus",
-                columns: new[] { "Id", "RestaurantId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new Guid("fe1ee058-9e79-4544-bf93-026f477fe843") });
+                columns: new[] { "Id", "CreateTime", "IsDelete", "ModifyTime", "Name", "RestaurantId" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe843") });
 
             migrationBuilder.InsertData(
                 table: "Tables",
-                columns: new[] { "Id", "MyUserId", "ReservationId", "RestaurantId", "UserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), null, new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"), new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
+                columns: new[] { "Id", "CreateTime", "IsDelete", "ModifyTime", "MyUserId", "Number", "ReservationId", "RestaurantId", "UserId" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"), new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "Foods",
-                columns: new[] { "Id", "BaseInfo", "Category", "IsAvailable", "MenuId", "Name", "OrderId", "Price", "Rating" },
+                columns: new[] { "Id", "BaseInfo", "Category", "CreateTime", "IsAvailable", "IsDelete", "MenuId", "ModifyTime", "Name", "OrderId", "Price", "Rating" },
                 values: new object[,]
                 {
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "BaseInfo", 1, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "FoodTest", null, 0, 4 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"), "BaseInfo", 1, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Soup1", null, 1010, 3 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"), "BaseInfo", 1, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Soup2", null, 12312, 1 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"), "BaseInfoasd", 2, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Meal1", null, 21312, 4 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"), "BaseInfo", 2, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Meal2", null, 1230, 3 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"), "BaseInfo", 2, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Meal3", null, 3210, 2 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"), "BaseInfo", 2, true, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), "Meal4", null, 4320, 10 }
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "BaseInfo", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "FoodTest", null, 0, 4 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"), "BaseInfo", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup1", null, 1010, 3 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"), "BaseInfo", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup2", null, 12312, 1 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"), "BaseInfoasd", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal1", null, 21312, 4 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal2", null, 1230, 3 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal3", null, 3210, 2 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal4", null, 4320, 10 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Reservations",
-                columns: new[] { "Id", "From", "TableId", "To", "UserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
+                columns: new[] { "Id", "CreateTime", "From", "IsDelete", "ModifyTime", "TableId", "To", "UserId" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
-                columns: new[] { "Id", "CommentContent", "FoodId", "MyUserId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"), "HejHejHej", new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
+                columns: new[] { "Id", "CommentContent", "CreateTime", "FoodId", "IsDelete", "ModifyTime", "MyUserId" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"), "HejHejHej", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db" });
 
             migrationBuilder.InsertData(
                 table: "FoodAllergens",
-                columns: new[] { "Id", "Allergen", "FoodId" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"), 0, new Guid("fe1ee058-9e79-4544-bf93-026f477fe123") });
+                columns: new[] { "Id", "Allergen", "CreateTime", "FoodId", "IsDelete", "ModifyTime" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Comment", "OrderTime", "ReservationId", "TotalPrice" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe851"), "OrderComment", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), 2000 });
+                columns: new[] { "Id", "Comment", "CreateTime", "IsDelete", "ModifyTime", "OrderTime", "ReservationId", "TotalPrice" },
+                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe851"), "OrderComment", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"), 2000 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

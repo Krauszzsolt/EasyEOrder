@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class FoodAllergen
+    public class FoodAllergen : Base
     {
         public Guid Id { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Reservation
+    public class Reservation : Base
     {
         public Guid Id { get; set; }
 

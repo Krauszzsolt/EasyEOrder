@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyEOrder.Dal.Migrations
 {
     [DbContext(typeof(EasyEOrderDbContext))]
-    [Migration("20200407123423_EasyEOrderMigration")]
+    [Migration("20200415184200_EasyEOrderMigration")]
     partial class EasyEOrderMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,17 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<string>("CommentContent")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("FoodId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MyUserId")
                         .HasColumnType("nvarchar(450)");
@@ -49,7 +58,10 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe841"),
                             CommentContent = "HejHejHej",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MyUserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
                         });
                 });
@@ -60,8 +72,17 @@ namespace EasyEOrder.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("OpenTimesId")
                         .HasColumnType("uniqueidentifier");
@@ -81,7 +102,10 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DayOfWeek = 0,
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843")
                         });
                 });
@@ -98,11 +122,20 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("MenuId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -130,8 +163,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
                             BaseInfo = "BaseInfo",
                             Category = 1,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "FoodTest",
                             Price = 0,
                             Rating = 4
@@ -141,8 +177,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"),
                             BaseInfo = "BaseInfo",
                             Category = 1,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Soup1",
                             Price = 1010,
                             Rating = 3
@@ -152,8 +191,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"),
                             BaseInfo = "BaseInfo",
                             Category = 1,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Soup2",
                             Price = 12312,
                             Rating = 1
@@ -163,8 +205,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"),
                             BaseInfo = "BaseInfoasd",
                             Category = 2,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Meal1",
                             Price = 21312,
                             Rating = 4
@@ -174,8 +219,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"),
                             BaseInfo = "BaseInfo",
                             Category = 2,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Meal2",
                             Price = 1230,
                             Rating = 3
@@ -185,8 +233,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"),
                             BaseInfo = "BaseInfo",
                             Category = 2,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Meal3",
                             Price = 3210,
                             Rating = 2
@@ -196,8 +247,11 @@ namespace EasyEOrder.Dal.Migrations
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"),
                             BaseInfo = "BaseInfo",
                             Category = 2,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Meal4",
                             Price = 4320,
                             Rating = 10
@@ -213,8 +267,17 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<int>("Allergen")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("FoodId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -227,7 +290,10 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"),
                             Allergen = 0,
-                            FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -236,6 +302,18 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RestaurantId")
                         .HasColumnType("uniqueidentifier");
@@ -251,6 +329,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843")
                         });
                 });
@@ -335,13 +416,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aabf90c8-2314-4264-a9b6-699fb92a6cfb",
+                            ConcurrencyStamp = "471cf900-7191-4f57-8053-b1993dc6b1ea",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAED2exBSGPIgj1cXtGHk196PyI7AOzw+b8nc70Gu+WLds7/dWVM8Ds8TCnYxNWK3tMw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENwBaYdguyKwbH7LNlH6Lq9wCfBtZWR3Xy984hpG/HcmYzegJHo6vIyl8m0A5j6YAg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             TwoFactorEnabled = false,
@@ -355,7 +436,16 @@ namespace EasyEOrder.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("To")
@@ -369,7 +459,10 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe863"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             From = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             To = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -382,6 +475,15 @@ namespace EasyEOrder.Dal.Migrations
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
@@ -403,6 +505,9 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe851"),
                             Comment = "OrderComment",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReservationId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"),
                             TotalPrice = 2000
@@ -415,7 +520,16 @@ namespace EasyEOrder.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("TableId")
@@ -442,7 +556,10 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe849"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             From = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TableId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
                             To = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
@@ -458,11 +575,20 @@ namespace EasyEOrder.Dal.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("MenuId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -476,8 +602,11 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
                             Address = "Adress",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "email@email.email",
+                            IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RestauranName"
                         });
                 });
@@ -488,8 +617,20 @@ namespace EasyEOrder.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("MyUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("ReservationId")
                         .HasColumnType("uniqueidentifier");
@@ -512,6 +653,10 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe847"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Number = 1,
                             ReservationId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe848"),
                             RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
                             UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
