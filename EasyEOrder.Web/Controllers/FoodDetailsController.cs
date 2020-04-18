@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Dal.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyEOrder.Web.Controllers
 {
+    [Authorize]
     public class FoodDetailsController : Controller
     {
         private readonly IFoodService _foodService;

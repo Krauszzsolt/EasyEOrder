@@ -99,12 +99,28 @@ namespace EasyEOrder.Dal.DBContext
 
             });
 
+            builder.Entity<Restaurant>().HasData(new Restaurant
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe899"),
+                Name = "RestauranTest",
+                Address = "Adress",
+                Email = "email@email.email",
+                MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+
+            });
+
             builder.Entity<Menu>().HasData(new Menu
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                Name = "BestMenu",
                 RestaurantId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
             });
-
+            builder.Entity<Menu>().HasData(new Menu
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+                Name = "TestMenu",
+                RestaurantId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe899"),
+            });
             builder.Entity<Food>().HasData(new Food
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),

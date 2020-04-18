@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Dal.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyEOrder.Web.Controllers
 {
+    [Authorize]
     public class FoodListController : Controller
     {
 
@@ -17,6 +19,7 @@ namespace EasyEOrder.Web.Controllers
             _foodService = foodService;
         }
         // GET: FoodList
+        
         public async Task<IActionResult> Index()
         {
             //ViewData["GetFood"] = (await _foodService.GetFoodsGroupByType()).ToList();

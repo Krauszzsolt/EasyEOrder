@@ -21,10 +21,12 @@ namespace EasyEOrder.Dal.Services
     {
 
         private readonly EasyEOrderDbContext _context;
+
         public FoodService(EasyEOrderDbContext context)
         {
             _context = context;
         }
+
         public async Task<List<FoodGroupByTypeDto>> GetFoodsGroupByType()
         {
             var result = new List<FoodGroupByTypeDto>();
@@ -66,6 +68,7 @@ namespace EasyEOrder.Dal.Services
                 FoodAllergens = entity.FoodAllergens
             };
         }
+
         public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()
         {
             List<SelectListItem> MenuIds = await _context.Menus
@@ -103,7 +106,20 @@ namespace EasyEOrder.Dal.Services
                 }).ToListAsync();
         }
 
-
-
+        public async Task AddFood(FoodCreateDto foodCreateDto)
+        {
+            var entity = new Food()
+            {
+                Name = foodCreateDto.Name,
+                MenuId = foodCreateDto.MenuId,
+                BaseInfo = foodCreateDto.BaseInfo,
+                Category = foodCreateDto.Category,
+                FoodAllergens = foodCreateDto.FoodAllergens,
+                Price = foodCreateDto.Price
+            };
+            await _context.Foods.AddAsync(entity);
+            _context.SaveChanges();
+        }
+       
     }
 }

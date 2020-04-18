@@ -159,7 +159,7 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
-                            BaseInfo = "BaseInfo",
+                            BaseInfo = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. ",
                             Category = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAvailable = true,
@@ -330,7 +330,17 @@ namespace EasyEOrder.Dal.Migrations
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDelete = false,
                             ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BestMenu",
                             RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe843")
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "TestMenu",
+                            RestaurantId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe899")
                         });
                 });
 
@@ -414,13 +424,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "471cf900-7191-4f57-8053-b1993dc6b1ea",
+                            ConcurrencyStamp = "fc4c57c2-3e80-4d2d-9abf-4153bab715ca",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAENwBaYdguyKwbH7LNlH6Lq9wCfBtZWR3Xy984hpG/HcmYzegJHo6vIyl8m0A5j6YAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJJnX/SnwPqugkgOiCcDKUUTV+Pg7Fq1pMtn8VWz2HsZeItL3RIyqHvh8w84X1gNBg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             TwoFactorEnabled = false,
@@ -606,6 +616,17 @@ namespace EasyEOrder.Dal.Migrations
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                             ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RestauranName"
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe899"),
+                            Address = "Adress",
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "email@email.email",
+                            IsDelete = false,
+                            MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe855"),
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RestauranTest"
                         });
                 });
 

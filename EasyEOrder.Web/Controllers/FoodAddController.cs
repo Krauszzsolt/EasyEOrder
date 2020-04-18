@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Dal.DTOs;
 using EasyEOrder.Dal.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EasyEOrder.Web.Controllers
 {
+    [Authorize]
     public class FoodAddController : Controller
     {
         private readonly IFoodService _foodService;
@@ -32,7 +34,7 @@ namespace EasyEOrder.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(FoodCreateDto newFood)
         {
-            ViewBag.MenuId = _foodService.GetFoodCreateSelectItems();
+           _foodService.AddFood(newFood);
 
             
             return RedirectToAction(nameof(FoodListController.Index), "FoodList");
