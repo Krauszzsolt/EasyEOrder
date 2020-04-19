@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyEOrder.Dal.Migrations
 {
     [DbContext(typeof(EasyEOrderDbContext))]
-    [Migration("20200418101914_EasyEOrderMigration")]
+    [Migration("20200418124641_EasyEOrderMigration")]
     partial class EasyEOrderMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,8 +288,17 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"),
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe321"),
                             Allergen = 0,
+                            CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                            IsDelete = false,
+                            ModifyTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe322"),
+                            Allergen = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FoodId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
                             IsDelete = false,
@@ -426,13 +435,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc4c57c2-3e80-4d2d-9abf-4153bab715ca",
+                            ConcurrencyStamp = "02576d8e-8e8b-49f8-83ef-995558bd45ce",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJJnX/SnwPqugkgOiCcDKUUTV+Pg7Fq1pMtn8VWz2HsZeItL3RIyqHvh8w84X1gNBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECpEjYZx2EizYM9n3K/H98pBdu39D8mhbyeZ2VRLuSk+WaCt5BWQubmAjruIas/DBA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             TwoFactorEnabled = false,

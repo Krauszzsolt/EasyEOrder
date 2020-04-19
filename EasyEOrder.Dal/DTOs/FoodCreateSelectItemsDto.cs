@@ -10,6 +10,7 @@ namespace EasyEOrder.Dal.DTOs
 
         public List<SelectListItem> Menu { get; set; }
         public List<SelectListItem> Category { get; set; }
+        public List<SelectListItem> Allergen { get; set; }
 
 
     }

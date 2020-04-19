@@ -19,7 +19,7 @@ namespace EasyEOrder.Dal.DTOs
 
         public Guid MenuId { get; set; }
 
-        public ICollection<FoodAllergen> FoodAllergens { get; set; }
+        public ICollection<Allergen> FoodAllergens { get; set; }
 
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace EasyEOrder.Dal.DBContext
 {
@@ -137,6 +139,7 @@ namespace EasyEOrder.Dal.DBContext
                 IsAvailable = true,
                 Rating = 4,
                 Category = Entities.Enums.FoodCategories.soup,
+               
             });
             builder.Entity<Food>().HasData(new Food
             {
@@ -235,9 +238,15 @@ namespace EasyEOrder.Dal.DBContext
 
             builder.Entity<FoodAllergen>().HasData(new FoodAllergen
             {
-                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe853"),
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe321"),
                 Allergen = Entities.Enums.Allergen.Gluten,
-                FoodId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
+                FoodId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123")
+            });
+            builder.Entity<FoodAllergen>().HasData(new FoodAllergen
+            {
+                Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe322"),
+                Allergen = Entities.Enums.Allergen.Laktoz,
+                FoodId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123")
             });
 
             builder.Entity<OpenTime>().HasData(new OpenTime

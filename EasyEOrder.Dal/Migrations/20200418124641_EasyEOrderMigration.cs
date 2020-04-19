@@ -419,7 +419,7 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "ReservationId", "RestaurantId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "fc4c57c2-3e80-4d2d-9abf-4153bab715ca", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAEJJnX/SnwPqugkgOiCcDKUUTV+Pg7Fq1pMtn8VWz2HsZeItL3RIyqHvh8w84X1gNBg==", null, false, null, null, null, "string", false, "test@test.test" });
+                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "02576d8e-8e8b-49f8-83ef-995558bd45ce", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAECpEjYZx2EizYM9n3K/H98pBdu39D8mhbyeZ2VRLuSk+WaCt5BWQubmAjruIas/DBA==", null, false, null, null, null, "string", false, "test@test.test" });
 
             migrationBuilder.InsertData(
                 table: "OpenTimes",
@@ -481,7 +481,11 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "FoodAllergens",
                 columns: new[] { "Id", "Allergen", "CreateTime", "FoodId", "IsDelete", "ModifyTime" },
-                values: new object[] { new Guid("fe1ee058-9e79-4544-bf93-026f477fe853"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[,]
+                {
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe321"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe322"), 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Orders",

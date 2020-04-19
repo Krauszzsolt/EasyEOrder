@@ -22,10 +22,10 @@ namespace EasyEOrder.Web.Controllers
         // GET: FoodAdd
         public async Task<ActionResult> Index()
         {
-           
              var FoodCreateSelectItem = await _foodService.GetFoodCreateSelectItems();
             ViewBag.Menu = FoodCreateSelectItem.Menu;
             ViewBag.Category = FoodCreateSelectItem.Category;
+            ViewBag.Allergen = FoodCreateSelectItem.Allergen;
             return View(new FoodCreateDto());
         }
 
@@ -35,8 +35,7 @@ namespace EasyEOrder.Web.Controllers
         public ActionResult Index(FoodCreateDto newFood)
         {
            _foodService.AddFood(newFood);
-
-            
+                        
             return RedirectToAction(nameof(FoodListController.Index), "FoodList");
         }
 

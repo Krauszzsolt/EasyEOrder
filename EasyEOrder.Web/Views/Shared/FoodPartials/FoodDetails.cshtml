@@ -9,7 +9,8 @@
             <div class="card-body-left">
                 <h5 class="card-title">The Last Supper:  @Model.Name</h5>
 
-                <h6 class="card-subtitle">Allergének: @foreach (var allergen in Model.FoodAllergens) {@allergen}</h6>
+                <h6 class="card-subtitle">Allergének: @foreach (var allergen in Model.FoodAllergens)
+                {@allergen.Allergen @Html.Raw(", ")} </h6>
                 <h7 class="card-subtitle">@Model.Category</h7>
                 
             </div>
