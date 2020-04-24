@@ -42,4 +42,9 @@
 
 .sidebar {
     width: 15.5em;
+    position:fixed;
+}
+
+.sidebar-wrapper {
+    width: 15.5em;
 }

@@ -18,10 +18,16 @@ namespace EasyEOrder.Web.Controllers
             _foodService = foodService;
         }
         // GET: FoodDetails
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> IndexAsync(Guid? id)
         {
-
-            return View(await _foodService.GetFooDetails(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")));
+           if(id == null)
+            {
+                return View(await _foodService.GetFooDetails(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123")));
+            }
+            else
+            {
+                return View(await _foodService.GetFooDetails(id.Value));
+            }
         }
 
         // GET: FoodDetails/Details/5

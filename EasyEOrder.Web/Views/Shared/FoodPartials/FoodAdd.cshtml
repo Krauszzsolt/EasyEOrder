@@ -14,15 +14,8 @@
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
-        @*<div class="form-group">
-        <label asp-for="Rating" class="control-label"></label>
-        <input asp-for="Rating" class="form-control" />
-        <span asp-validation-for="Rating" class="text-danger"></span>*@
-        @*</div>*@
         <div class="form-group form-check">
-            @*<label class="form-check-label">
-            <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)*@
-            @*</label>*@
+
         </div>
         <div class="form-group">
             <label asp-for="BaseInfo" class="control-label"></label>
@@ -34,27 +27,17 @@
             <select asp-for="Category" class="form-control"></select>
             <span asp-validation-for="Category" class="text-danger"></span>
         </div>
-        @*@Html.ListBoxFor(m => m.FoodAllergens, ViewBag.Menu)*@
-        @*@Html.DropDownListFor(Function(m) m.SalesOrders, DirectCast(ViewBag.Orders, MultiSelectList),
-            New With {.multiple = "multiple"})
-        @Html.ListBoxFor(Function(m) m.SalesOrders, DirectCast(ViewBag.Orders, MultiSelectList))*@
-        @Html.ListBoxFor(m => m.FoodAllergens,
-new MultiSelectList(ViewBag.Allergen, "Value", "Text")
-, null)
+
+        @Html.ListBoxFor(m => m.FoodAllergens, new MultiSelectList(ViewBag.Allergen, "Value", "Text"), null)
+
         <div class="form-group">
             @Html.DropDownList("MenuId", (IEnumerable<SelectListItem>)ViewBag.Menu)
         </div>
+
         <div class="form-group">
             @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category)
         </div>
-        @*<div class="form-group">
-            <label asp-for="MenuId" class="control-label"></label>
-            <select asp-for="MenuId" class="form-control" asp-items=" @Html.DropDownList("MenuId", (IEnumerable<SelectListItem>)ViewBag.Menu)"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="OrderId" class="control-label"></label>
-            <select asp-for="OrderId" class="form-control" asp-items=@Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category)></select>
-        </div>*@
+
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>

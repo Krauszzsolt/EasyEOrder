@@ -3,8 +3,24 @@
 <div>
     @foreach (var foodOrderByCategory in Model)
     {
-        <div class="category-title">
-            <h4> @foodOrderByCategory.Category</h4>
+        <div>
+            <div class="category-title">
+                @if (@foodOrderByCategory.Category == 1)
+                {
+
+                    @Html.Raw("- Levesek -")
+
+
+                }
+                @if (@foodOrderByCategory.Category == 2)
+                {
+                    @Html.Raw("- Főételek -")
+                }
+            </div>
+            @*<div class="category-title">
+                    @foodOrderByCategory.Category
+                </div>*@
+
 
             <div class="card-list">
                 @foreach (var food in foodOrderByCategory.Foods)
@@ -12,11 +28,31 @@
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
                         <div class="card-body">
-                            <h5 class="card-title">The Last Supper:  @food.Name</h5>
-                            <h6 class="card-subtitle">@food.Price</h6>
-                            <h7 class="card-subtitle">@food.Price</h7>
-                            <p class="card-text">food.BaseInfo</p>
-                            <a href="#" class="btn btn-primary">Részletek</a>
+                            <h5 class="card-title">The Last Supper: @food.Name</h5>
+                            @if (food.FoodAllergens != null)
+                            {
+                                <h6 class="card-subtitle mb-3">
+                                    Allergének: @foreach (var allergen in food.FoodAllergens)
+                                    {@allergen.Allergen @Html.Raw("  ")}
+                                </h6>
+                            }
+                            <h6 class="card-subtitle mb-4">
+                                @for (int i = 0; i < food.Rating; i++)
+                                {
+                                    <img src="~/assets/icons/star-fill.svg" alt="" width="25" height="25">
+                                }
+                                @for (int i = 0; i < 5 - food.Rating; i++)
+                                {
+                                    <img src="~/assets/icons/star.svg" alt="" width="25" height="25">
+                                }
+                            </h6>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="card-subtitle mb-2">Ár: </h6>  <h6 class="card-subtitle mb-2">  @food.Price Ft</h6>
+                            </div>
+
+                            @*<h7 class="card-subtitle">@food.Price</h7>
+                                <p class="card-text">food.BaseInfo</p>*@
+                            <a asp-area="" asp-controller="FoodDetails" asp-action="Index" asp-route-id="@food.Id" class="btn btn-primary">Részletek</a>
                         </div>
                     </div>
                 }

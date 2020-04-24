@@ -30,10 +30,10 @@ namespace EasyEOrder.Dal.Services
         public async Task<List<FoodGroupByTypeDto>> GetFoodsGroupByType()
         {
             var result = new List<FoodGroupByTypeDto>();
-            var foodgroups = (await _context.Foods.ToListAsync()).GroupBy(f => f.Category);
+            var foodgroups = (await _context.Foods.Include(x => x.FoodAllergens).ToListAsync()).GroupBy(f => f.Category);
             result = foodgroups.Select(x => new FoodGroupByTypeDto()
             {
-                Category = x.Key,
+                Category = (int)x.Key,
                 Foods = x.Select(f => new FoodDto()
                 {
                     Id = f.Id,

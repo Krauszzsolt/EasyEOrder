@@ -419,7 +419,7 @@ namespace EasyEOrder.Dal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "ReservationId", "RestaurantId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "02576d8e-8e8b-49f8-83ef-995558bd45ce", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAECpEjYZx2EizYM9n3K/H98pBdu39D8mhbyeZ2VRLuSk+WaCt5BWQubmAjruIas/DBA==", null, false, null, null, null, "string", false, "test@test.test" });
+                values: new object[] { "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db", 0, "78aeb2d4-810b-4057-b248-3ee20dbd4320", "test@test.test", true, false, null, "TEST@TEST.TEST", "TEST@TEST.TEST", "AQAAAAEAACcQAAAAEAIwakddWhpZTDxOiunnQcrO7lu+upqdoq2xlecHHu0aXp8kNjpvep+oB/29q+E/Ug==", null, false, null, null, null, "string", false, "test@test.test" });
 
             migrationBuilder.InsertData(
                 table: "OpenTimes",

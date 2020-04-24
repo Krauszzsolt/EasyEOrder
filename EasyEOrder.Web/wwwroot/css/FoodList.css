@@ -3,9 +3,18 @@
     flex-direction: row;
     color: black;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .card {
     margin: 15px;
 }
 
+.category-title {
+    /*display:flex;
+    justify-content:center;
+    align-items: center;*/
+    text-align: center;
+    font-size: 2rem;
+    FONT-WEIGHT: 600;
+}
