@@ -64,7 +64,7 @@ html {
 body {
     /* Margin bottom by footer height */
     /*margin-bottom: 60px;*/
-    font-family: 'Times New Roman', Times, serif !important;
+    font-family: Amatic SC,Arial,Helvetica,FreeSans,Nimbus Sans L !important;
 }
 
 .container {

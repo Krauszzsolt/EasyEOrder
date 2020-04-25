@@ -24,30 +24,42 @@
         </div>
 
 
+        @*<div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control"></select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>*@
+
         <div class="form-group">
-            <label asp-for="Category" class="control-label"></label>
-            <select asp-for="Category" class="form-control"></select>
-            <span asp-validation-for="Category" class="text-danger"></span>
+            <label for="exampleFromControlSelect"> Allergének </label>
+            <select asp-for="FoodAllergens" multiple class="form-control" id="exampleFromControlSelect">
+                @foreach (var allergen in ViewBag.Allergen)
+                {
+                    <option>@allergen.Text</option>
+                }
+
+
+            </select>
         </div>
 
-        @Html.ListBoxFor(m => m.FoodAllergens, new MultiSelectList(ViewBag.Allergen, "Value", "Text"), null)
+      @*  @Html.ListBoxFor(m => m.FoodAllergens, new MultiSelectList(ViewBag.Allergen, "Value", "Text"), null)*@
 
-    <div class="form-group">
-        <select class="form-control" asp-for="MenuId" asp-items=ViewBag.menu></select>
-    </div>
-    <div class="form-group">
-        <select class="form-control" asp-for="Category" asp-items=ViewBag.Category></select>
-    </div>
-            @*<div class="form-group">
+        <div class="form-group">
+            <select class="form-control" asp-for="MenuId" asp-items=ViewBag.menu></select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" asp-for="Category" asp-items=ViewBag.Category></select>
+        </div>
+        @*<div class="form-group">
                 @Html.DropDownList("MenuId", (IEnumerable<SelectListItem>)ViewBag.Menu, null, new { @class = "dropdown " })
             </div>*@
-           
-            @*<div class="form-group">
+
+        @*<div class="form-group">
                 @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category)
             </div>*@
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
     </form>
 </div>
