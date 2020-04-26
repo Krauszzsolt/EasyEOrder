@@ -69,6 +69,24 @@ namespace EasyEOrder.Dal.Services
             };
         }
 
+        public async Task<List<FoodDto>> GetFoodListByIdList(List<Guid> Ids)
+        {
+            return await _context.Foods
+                .Where(dbFood => Ids
+                    .Any(id => id == dbFood.Id))
+                .Select(f => new FoodDto()
+                    {
+                        Id = f.Id,
+                        BaseInfo = f.BaseInfo,
+                        FoodAllergens = f.FoodAllergens,
+                        IsAvailable = f.IsAvailable,
+                        Name = f.Name,
+                        Price = f.Price,
+                        Rating = f.Rating
+                    })
+                .ToListAsync();
+        }
+
         public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()
         {
             List<SelectListItem> MenuIds = await _context.Menus
@@ -119,9 +137,9 @@ namespace EasyEOrder.Dal.Services
             foodCreateDto.FoodAllergens.ToList()
                 .ForEach
                 (x => allergens.Add(new FoodAllergen()
-            {
-                Allergen = x
-            }
+                {
+                    Allergen = x
+                }
                 ));
 
 

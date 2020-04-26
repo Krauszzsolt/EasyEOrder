@@ -1,0 +1,23 @@
+﻿.card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-radius: 10px;
+}
+
+.img {
+    height: 100px;
+    border-radius: 10px;
+}
+
+.delete-button {
+    width: 40vw;
+    background-color: red;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: #fff;
+    margin: auto 25px;
+    max-width: 150px;
+    border-radius: 10px;
+}

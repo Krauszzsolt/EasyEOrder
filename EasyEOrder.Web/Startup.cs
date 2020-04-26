@@ -27,6 +27,23 @@ namespace EasyEOrder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.IsEssential = true;
+            });
+
+
             services.AddDbContext<EasyEOrderDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -55,9 +72,17 @@ namespace EasyEOrder
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+
+
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-           
+
+            services.AddControllersWithViews()
+                .AddSessionStateTempDataProvider();
+            services.AddRazorPages()
+                .AddSessionStateTempDataProvider();
+            services.AddSession();
         }
 
 
@@ -66,7 +91,7 @@ namespace EasyEOrder
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -78,8 +103,13 @@ namespace EasyEOrder
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+
+            //app.UseHttpContextItemsMiddleware();
 
             app.UseRouting();
             app.UseAuthentication();
@@ -94,8 +124,6 @@ namespace EasyEOrder
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-    
 
             //app.UseMvc();
         }

@@ -4,6 +4,7 @@
     color: black;
     flex-wrap: wrap;
     justify-content: space-around;
+    border-radius:15px;
 }
 
 .card {
