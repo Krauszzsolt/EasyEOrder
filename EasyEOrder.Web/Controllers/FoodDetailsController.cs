@@ -48,10 +48,10 @@ namespace EasyEOrder.Web.Controllers
 
         // GET: FoodDetails/Details/5
         [HttpPost]
-        public ActionResult AddCart(Guid id)
+        public ActionResult AddCart(string id)
         {
             List<Guid> Ids = IdsInSession == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(IdsInSession);
-            Ids.Add(id);
+            Ids.Add(new Guid(id));
             IdsInSession = JsonConvert.SerializeObject(Ids);
 
             return Json(new { success = true });
@@ -71,6 +71,31 @@ namespace EasyEOrder.Web.Controllers
             //    HttpContext.Current.Session["test"] = Ids;
             //return View();
         }
+
+        //[HttpPost]
+        //public ActionResult AddCart(string id)
+        //{
+        //    List<Guid> Ids = IdsInSession == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(IdsInSession);
+        //    Ids.Add(new Guid());
+        //    IdsInSession = JsonConvert.SerializeObject(Ids);
+
+        //    return Json(new { success = true });
+        //    //new List<Guid>();
+        //    //JsonConvert.DeserializeObject<List<PopupMessage>>(TempData["PopupMessages"]);
+
+        //    //Message.Add(id);
+
+        //    //Ids.AddRange();
+        //    //    HttpContext.Session.SetString(SessionKeyName, "The Doctor");
+        //    //    HttpContext.Session.SetInt32(SessionKeyAge, 773);
+
+        //    //var name = HttpContext.Session.GetString(SessionKeyName);
+        //    //var age = HttpContext.Session.GetInt32(SessionKeyAge);
+        //    //Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"));
+        //    //    Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"));
+        //    //    HttpContext.Current.Session["test"] = Ids;
+        //    //return View();
+        //}
 
         // GET: FoodDetails/Create
         public ActionResult Create()

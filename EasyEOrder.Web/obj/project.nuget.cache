@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "szMMBWZ1ow5JQhrYCoOM1hwA94GEGkeL2xwzPdrsu7ZFPrEOzREPBbgTj82ehrivKU9do+b/GdM3Wg+Zbp3e1A==",
+  "dgSpecHash": "fLasGHKtJWKLZDDARkPnnFtjOolwjAyjP3pnrEjoUw9iJmIOUz9PevWDRoXHlp40V9WG3iX2vewwvgZJTcaYqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\krausz.zsolt\\Desktop\\onlabor\\EasyEOrder\\EasyEOrder.Web\\EasyEOrder.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\krausz.zsolt\\.nuget\\packages\\bootstrap.sass\\4.4.1\\bootstrap.sass.4.4.1.nupkg.sha512",
-    "C:\\Users\\krausz.zsolt\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
+    "C:\\Users\\krausz.zsolt\\.nuget\\packages\\jquery\\3.5.0.1\\jquery.3.5.0.1.nupkg.sha512",
     "C:\\Users\\krausz.zsolt\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\krausz.zsolt\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\krausz.zsolt\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

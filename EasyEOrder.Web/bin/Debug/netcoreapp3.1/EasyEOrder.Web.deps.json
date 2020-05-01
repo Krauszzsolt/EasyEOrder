@@ -38,6 +38,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.1",
           "Microsoft.jQuery.Unobtrusive.Ajax": "3.2.6",
           "bootstrap.sass": "4.4.1",
+          "jQuery": "3.5.0.1",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies.Reference": "3.1.0.0",
@@ -303,11 +304,11 @@
       },
       "bootstrap.sass/4.4.1": {
         "dependencies": {
-          "jQuery": "3.0.0",
+          "jQuery": "3.5.0.1",
           "popper.js": "1.16.0"
         }
       },
-      "jQuery/3.0.0": {},
+      "jQuery/3.5.0.1": {},
       "Microsoft.AspNetCore.Antiforgery/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.DataProtection": "2.2.0",
@@ -1318,7 +1319,7 @@
       },
       "Microsoft.jQuery.Unobtrusive.Ajax/3.2.6": {
         "dependencies": {
-          "jQuery": "3.0.0"
+          "jQuery": "3.5.0.1"
         }
       },
       "Microsoft.Net.Http.Headers/2.2.0": {
@@ -4141,12 +4142,12 @@
       "path": "bootstrap.sass/4.4.1",
       "hashPath": "bootstrap.sass.4.4.1.nupkg.sha512"
     },
-    "jQuery/3.0.0": {
+    "jQuery/3.5.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xFfntV19HzCtKdJWOp/XT9PUY3SslokTDDLFJZdBug36j1XVhw1+vPQ/n7Gd5y+jdpesn5B1m1yn1qIUq57jlA==",
-      "path": "jquery/3.0.0",
-      "hashPath": "jquery.3.0.0.nupkg.sha512"
+      "sha512": "sha512-nonOMyjbk06vF05LECisH6HY2dZlKTAAXZ2UdvumY8pWMsWPo949G2KLvdyNWRMWL1Nv9vrYb1IEUVN+U+nt/Q==",
+      "path": "jquery/3.5.0.1",
+      "hashPath": "jquery.3.5.0.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Antiforgery/2.2.0": {
       "type": "package",

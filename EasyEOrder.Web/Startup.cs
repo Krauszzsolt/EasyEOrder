@@ -29,20 +29,21 @@ namespace EasyEOrder
         {
             services.AddDistributedMemoryCache();
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    //options.IdleTimeout = TimeSpan.FromSeconds(10);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
 
-            services.AddSession(options =>
-            {
-                options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.Name = ".AdventureWorks.Session";
+            //    //options.IdleTimeout = TimeSpan.FromSeconds(10);
+            //    options.Cookie.IsEssential = true;
+            //});
 
+            services.AddSession();
 
             services.AddDbContext<EasyEOrderDbContext>(options =>
                 options.UseSqlServer(
@@ -59,7 +60,7 @@ namespace EasyEOrder
             {
                 // Default Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
+                //options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
                 options.Password.RequireDigit = false;
@@ -114,7 +115,7 @@ namespace EasyEOrder
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {
