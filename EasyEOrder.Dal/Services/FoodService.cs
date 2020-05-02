@@ -71,20 +71,30 @@ namespace EasyEOrder.Dal.Services
 
         public async Task<List<FoodDto>> GetFoodListByIdList(List<Guid> Ids)
         {
-            return await _context.Foods
+            Dictionary<Guid, int> IdQuantityList = new Dictionary<Guid, int>();
+
+            IdQuantityList = Ids.GroupBy(x => x)
+              .Where(g => g.Count() > 1)
+              .ToDictionary(x => x.Key, y => y.Count());
+
+            //var a = IdQuantityList.Get)(.Value
+
+            return (await _context.Foods.AsNoTracking()
                 .Where(dbFood => Ids
                     .Any(id => id == dbFood.Id))
+                .ToListAsync())
+                 .SelectMany(p => Enumerable.Range(0, IdQuantityList[p.Id])
                 .Select(f => new FoodDto()
                     {
-                        Id = f.Id,
-                        BaseInfo = f.BaseInfo,
-                        FoodAllergens = f.FoodAllergens,
-                        IsAvailable = f.IsAvailable,
-                        Name = f.Name,
-                        Price = f.Price,
-                        Rating = f.Rating
-                    })
-                .ToListAsync();
+                        Id = p.Id,
+                        BaseInfo = p.BaseInfo,
+                        FoodAllergens = p.FoodAllergens,
+                        IsAvailable = p.IsAvailable,
+                        Name = p.Name,
+                        Price = p.Price,
+                        Rating = p.Rating
+                    }))
+                .ToList();
         }
 
         public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()

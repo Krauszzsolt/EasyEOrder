@@ -6,27 +6,31 @@ using EasyEOrder.Dal.DTOs;
 using EasyEOrder.Dal.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EasyEOrder.Web.Controllers
 {
     public class FoodCartController : Controller
     {
         private readonly IFoodService _foodService;
+
+        public const string SessionKeyName = "_Ids";
         public FoodCartController(IFoodService foodService)
         {
             _foodService = foodService;
         }
-
+        [TempData]
+        public string IdsInSession { get; set; }
         // GET: FoodCart
         public async Task<ActionResult> Index()
         {
 
-            List<Guid> Ids = new List<Guid>();
+            List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
 
             //Ids.AddRange();
 
-            Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"));
-            Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"));
+            //Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"));
+            //Ids.Add(new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"));
 
             List<FoodDto> FoodList = (await _foodService.GetFoodListByIdList(Ids)).ToList();
             ViewBag.SumPrice = FoodList.Count() > 0 ? FoodList.Select(x => x.Price).Sum() : 0;

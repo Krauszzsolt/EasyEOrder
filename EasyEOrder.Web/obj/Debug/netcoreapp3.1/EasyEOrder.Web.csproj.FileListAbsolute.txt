@@ -873,9 +873,12 @@ C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreap
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\FoodCart\Index.cshtml.g.cs
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodCartConfirm.cshtml.g.cs
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodCartList.cshtml.g.cs
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\FoodCart\Index.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodCartConfirm.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodCartList.cshtml.g.cs
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\System.Web.Providers.dll
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache

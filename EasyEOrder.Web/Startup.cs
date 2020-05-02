@@ -43,7 +43,12 @@ namespace EasyEOrder
             //    options.Cookie.IsEssential = true;
             //});
 
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            }
+              );
 
             services.AddDbContext<EasyEOrderDbContext>(options =>
                 options.UseSqlServer(

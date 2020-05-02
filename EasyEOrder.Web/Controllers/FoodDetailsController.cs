@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Providers.Entities;
 using EasyEOrder.Dal.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ namespace EasyEOrder.Web.Controllers
     [Authorize]
     public class FoodDetailsController : Controller
     {
-
+        public const string SessionKeyName = "_Ids";
         //public const string SessionKeyName = "_Name";
         //public const string SessionKeyAge = "_Age";
         //const string SessionKeyTime = "_Time";
@@ -23,8 +24,8 @@ namespace EasyEOrder.Web.Controllers
         //public string SessionInfo_CurrentTime { get; private set; }
         //public string SessionInfo_SessionTime { get; private set; }
         //public string SessionInfo_MiddlewareValue { get; private set; }
-        [TempData]
-        public string IdsInSession { get; set; } 
+        //[Session]
+        //public string IdsInSession { get; set; } 
 
     
 
@@ -50,9 +51,12 @@ namespace EasyEOrder.Web.Controllers
         [HttpPost]
         public ActionResult AddCart(string id)
         {
-            List<Guid> Ids = IdsInSession == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(IdsInSession);
+
+            List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
             Ids.Add(new Guid(id));
-            IdsInSession = JsonConvert.SerializeObject(Ids);
+
+            HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
+   
 
             return Json(new { success = true });
             //new List<Guid>();
