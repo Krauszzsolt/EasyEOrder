@@ -74,7 +74,7 @@ namespace EasyEOrder.Dal.Services
             Dictionary<Guid, int> IdQuantityList = new Dictionary<Guid, int>();
 
             IdQuantityList = Ids.GroupBy(x => x)
-              .Where(g => g.Count() > 1)
+              .Where(g => g.Count() >= 1)
               .ToDictionary(x => x.Key, y => y.Count());
 
             //var a = IdQuantityList.Get)(.Value

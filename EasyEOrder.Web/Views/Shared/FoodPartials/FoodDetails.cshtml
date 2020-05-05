@@ -40,7 +40,6 @@
             </p>
             <a id="addCart" class="btn buy-button">Megveszem</a>
         
-            <input type="button" value="Use Shipping Address" id="UseShipAddr" />
         </div>
     </div>
 </div>
@@ -65,7 +64,7 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-    $('#UseShipAddr').click(function ()
+        $('#addCart').click(function ()
     {
         $.ajax({
         url: '@Url.Action("AddCart", "FoodDetails")',
