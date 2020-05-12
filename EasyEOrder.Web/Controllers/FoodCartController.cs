@@ -38,15 +38,15 @@ namespace EasyEOrder.Web.Controllers
             return View(FoodList);
         }
 
-        [HttpDelete]
-        public ActionResult Delete(String id)
+        [HttpPost]
+        public ActionResult DeleteCartItem(String id)
         {
             List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
             //Array.IndexOf(Ids, id);
             Ids.Remove(new Guid(id));
             HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
 
-            return Json(new { success = true });
+             return RedirectToAction(nameof(FoodCartController.Index), "FoodCart");
         }
         // GET: FoodCart/Details/5
         public ActionResult Details(int id)

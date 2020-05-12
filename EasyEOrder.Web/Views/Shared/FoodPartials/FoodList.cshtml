@@ -1,10 +1,10 @@
-﻿<link rel="stylesheet" href="~/css/FoodList.css" type="text/css" />
+﻿
 
 <div>
     @foreach (var foodOrderByCategory in Model)
     {
         <div>
-            <div class="category-title">
+            <div class="foodlist-category-title">
                 @if (@foodOrderByCategory.Category == 1)
                 {
 
@@ -22,11 +22,11 @@
                 </div>*@
 
 
-            <div class="card-list">
+            <div class="foodlist-card-list">
                 @foreach (var food in foodOrderByCategory.Foods)
                 {
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
+                    <div class="foodlist-card" style="width: 18rem;">
+                        <img style="width: 17rem;" class="card-img-top" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
                         <div class="card-body">
                             <h5 class="card-title">The Last Supper: @food.Name</h5>
                             @if (food.FoodAllergens != null)

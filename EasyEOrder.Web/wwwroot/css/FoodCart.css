@@ -1,16 +1,18 @@
-﻿.card {
+﻿.cart-card {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     border-radius: 10px;
+    border: solid 1px #dee2e6;
+    border-radius: 15px;
 }
 
-.img {
+.cart-img {
     height: 100px;
     border-radius: 10px;
 }
 
-.delete-button {
+.cart-delete-button {
     width: 40vw;
     background-color: red;
     border-radius: 3px;

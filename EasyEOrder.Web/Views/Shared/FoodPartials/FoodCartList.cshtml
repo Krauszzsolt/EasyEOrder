@@ -1,49 +1,52 @@
-﻿<link rel="stylesheet" href="~/css/FoodCart.css" type="text/css" />
+﻿
 
 
 @model List<EasyEOrder.Dal.DTOs.FoodDto>
-@foreach (var food in Model)
+@if (Model.Count == 0)
 {
+    <h4>Jelenleg nincs rendelt étele.</h4>
+}
+else
+    foreach (var food in Model)
+    {
 
 
-<div class="card m-4">
-    <img class="img" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
-    <div class="card-body">
-        <div class="card-body-top">
-            <div class="card-body-left">
-                <h5 class="card-title">The Last Supper:  @food.Name</h5>
-            </div>
-            <div class="card-body-rigth">
-                <div class="card-price-text">
-                    @food.Price ft
+        <div class="cart-card m-4">
+            <img class="cart-img" src="https://4cdn.hu/kraken/image/upload/s--mttn3MQz--/w_1160/6pn3V8Q207lICG8Bs.jpeg" alt="The Last Supper " />
+            <div class="card-body">
+                <div class="card-body-top">
+                    <div class="card-body-left">
+                        <h5 class="card-title">The Last Supper:  @food.Name</h5>
+                    </div>
+                    <div class="card-body-rigth">
+                        <div class="card-price-text">
+                            @food.Price ft
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <form id="new-comment-form" method="post" asp-action="DeleteCartItem">
+                @*    <textarea name="text" class="html-editor"></textarea>*@
+                @*<div class="text-right mt-2">*@
+                <button class="btn cart-delete-button" value="@food.Id" name="Id">
+                    Törlés
+                </button>
+                @*</div>*@
+            </form>
+
+            @*<a class="btn"
+                   asp-action="DeleteCartItem"
+                   asp-controller="FoodCart"
+                   data="@food.Id"
+                   method="post">Delete</a>
+                <input type="hidden" asp-for="@food.Id" value="@food.Id" />*@
+            @*  <a id="delete" input="@food.Id" class="btn cart-delete-button">Törlés</a>*@
+            @*<input type="submit" value="Étel törlése"></input>*@
+
         </div>
-    </div>
-    <a id="delete" input="@food.Id" lass="btn delete-button">Törlés</a>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $('#delete').click(function (id)
-    {
-        $.ajax({
-        url: '@Url.Action("Delete", "FoodCart")',
-        type: 'DELETE',
-        data: { id: id },
-        //contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        alert(data.success);
-        },
-        error: function () {
-        alert("error");
-        }
-    })}
-        );
-    });
-    </script>
-</div>
 
 
+    }
 
-}
 
