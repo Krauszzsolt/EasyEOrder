@@ -21,6 +21,7 @@
     }
 
     #sidebar-wrapper .list-group {
+       
         width: 15rem;
     }
 
@@ -42,7 +43,17 @@
 
 .sidebar {
     width: 15.5em;
-    position:fixed;
+    position: fixed;
+    background-color: #2e2d2b;
+}
+
+.side-bar-item {
+    background-color: #2e2d2b;
+    color: c49c5f;
+}
+
+.side-bar-item :hover {
+    background-color: #2e2d2b;
 }
 
 .sidebar-wrapper {

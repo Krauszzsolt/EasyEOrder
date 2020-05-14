@@ -8,34 +8,34 @@
 
 <div class="sidebar-wrapper">
     <!-- Sidebar -->
-    <div class="bg-light border-right sidebar" id="sidebar-wrapper">
+    <div class=" border-right sidebar" id="sidebar-wrapper">
         <div class="sidebar-heading">EasyEOrder </div>
         @if (SignInManager.IsSignedIn(User))
         {
             <div class="ml-4 mb-3"> @User.Identity.Name </div>
         }
-        <div class="list-group list-group-flush">
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="FoodList" asp-action="Index">Ajánlataink</a>
-                <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="FoodCart" asp-action="Index">Rendeléseim</a>
-                <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="FoodAdd" asp-action="Index">Étel hozzáadása</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Elérhetőség</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Rólunk</a>
-                <a class="list-group-item list-group-item-action bg-light">Profilom</a>
+    <div class="nav-list list-group list-group-flush">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodList" asp-action="Index">Ajánlataink</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodCart" asp-action="Index">Rendeléseim</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodAdd" asp-action="Index">Étel hozzáadása</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Contact" asp-action="Index">Elérhetőség</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="About" asp-action="Index">Rólunk</a>
+            @*<a class="list-group-item list-group-item-action bg-light">Profilom</a>*@
 
-                <form class="list-group-item list-group-item-action bg-light" type="submit" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">Kijelentkezés</button>
-                </form>
+            <form class="list-group-item list-group-item-action side-bar-item" type="submit" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Kijelentkezés</button>
+            </form>
 
-            }
-            else
-            {
-                <a class="list-group-item list-group-item-action bg-light" asp-area="Identity" asp-page="/Account/Login">Bejelentkezés</a>
-                <a class="list-group-item list-group-item-action bg-light" asp-area="Identity" asp-page="/Account/Register">Regszitráció</a>
-            }
+        }
+        else
+        {
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="Identity" asp-page="/Account/Login">Bejelentkezés</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="Identity" asp-page="/Account/Register">Regszitráció</a>
+        }
 
-        </div>
+    </div>
     </div>
 
 </div>

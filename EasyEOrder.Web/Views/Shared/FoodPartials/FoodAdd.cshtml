@@ -1,10 +1,10 @@
 ﻿@model EasyEOrder.Dal.DTOs.FoodCreateDto
 
-<div class="col-md-12  mt-5">
+<div class="col-md-8  mt-5 " >
     <form asp-action="Index">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div  class="  flex-row flex-nowrap d-md-flex justify-content-around">
-            <div class=col-md-4>
+        <div  class="  flex-row flex-nowrap d-md-flex justify-content-start">
+            <div class="col-md-6 mr-4">
 
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"> Név</label>
@@ -27,12 +27,8 @@
                 </div>
 
             </div>
-            @*<div class="form-group">
-                    <label asp-for="Category" class="control-label"></label>
-                    <select asp-for="Category" class="form-control"></select>
-                    <span asp-validation-for="Category" class="text-danger"></span>
-                </div>*@
-            <div class=col-md-4>
+
+            <div class=col-md-6>
                 <div class="form-group">
 
                     <label for="exampleFromControlSelect"> Allergének </label>
@@ -46,8 +42,6 @@
                     </select>
                 </div>
 
-                @*  @Html.ListBoxFor(m => m.FoodAllergens, new MultiSelectList(ViewBag.Allergen, "Value", "Text"), null)*@
-
                 <div class="form-group">
                     <label for="exampleFromControlSelect"> Menu </label>
                     <select class="form-control" asp-for="MenuId" asp-items=ViewBag.menu></select>
@@ -57,13 +51,6 @@
                     <label for="exampleFromControlSelect"> Kategória </label>
                     <select class="form-control" asp-for="Category" asp-items=ViewBag.Category></select>
                 </div>
-                @*<div class="form-group">
-                        @Html.DropDownList("MenuId", (IEnumerable<SelectListItem>)ViewBag.Menu, null, new { @class = "dropdown " })
-                    </div>*@
-
-                @*<div class="form-group">
-                        @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Category)
-                    </div>*@
             </div>
         </div>
         <div class="mt-4  d-md-flex  form-group align-items-center justify-content-center ">

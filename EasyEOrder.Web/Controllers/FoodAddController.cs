@@ -20,13 +20,21 @@ namespace EasyEOrder.Web.Controllers
             _foodService = foodService;
         }
         // GET: FoodAdd
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string id)
         {
-             var FoodCreateSelectItem = await _foodService.GetFoodCreateSelectItems();
+            var FoodCreateSelectItem = await _foodService.GetFoodCreateSelectItems();
             ViewBag.Menu = FoodCreateSelectItem.Menu;
             ViewBag.Category = FoodCreateSelectItem.Category;
             ViewBag.Allergen = FoodCreateSelectItem.Allergen;
-            return View(new FoodCreateDto());
+            if (id == null)
+            {
+                return View(new FoodCreateDto());
+            }
+            else
+            {
+                return View(await _foodService.GetFoodForEdit(new Guid(id)));               
+            }
+
         }
 
 

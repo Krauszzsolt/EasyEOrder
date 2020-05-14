@@ -152,11 +152,10 @@ namespace EasyEOrder.Dal.Services
                 }
                 ));
 
-
             var entity = new Food()
             {
                 Name = foodCreateDto.Name,
-                MenuId = foodCreateDto.MenuId,
+                MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 BaseInfo = foodCreateDto.BaseInfo,
                 Category = foodCreateDto.Category,
                 FoodAllergens = allergens,
@@ -167,5 +166,24 @@ namespace EasyEOrder.Dal.Services
             _context.SaveChanges();
         }
 
+        public async Task<FoodCreateDto> GetFoodForEdit(Guid Id)
+        {
+            var entity = await _context.Foods
+              .Include(x => x.FoodAllergens)
+              .Include(x => x.Comments)
+              .FirstOrDefaultAsync(x => x.Id == Id);
+
+
+            var Allergens = entity.FoodAllergens.Select(x => x.Allergen).ToList();
+            return  new FoodCreateDto()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price,
+                Category = entity.Category,
+                BaseInfo = entity.BaseInfo,
+                FoodAllergens = Allergens
+            };
+        }
     }
 }

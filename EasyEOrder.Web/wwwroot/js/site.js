@@ -3,4 +3,12 @@
 
 // Write your JavaScript code
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+function initialize() {
+    var latlng = new google.maps.LatLng(47.28, 19.03);
+    var myOptions = {
+        zoom: 12,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+}
