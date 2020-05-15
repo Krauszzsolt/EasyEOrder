@@ -2,15 +2,24 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace EasyEOrder.Dal.DBContext
 {
     public class EasyEOrderDbContext : IdentityDbContext<MyUser>
     {
+
+        static UserManager<MyUser> _userManager;
+        static RoleManager<IdentityRole> _roleManager;
+
         public EasyEOrderDbContext(DbContextOptions options) : base(options)
         {
+            
+        }
+
+        public static void SeedData(UserManager<MyUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
@@ -31,6 +40,7 @@ namespace EasyEOrder.Dal.DBContext
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+          
 
             base.OnModelCreating(builder);
 
@@ -75,20 +85,48 @@ namespace EasyEOrder.Dal.DBContext
                   .HasForeignKey<Reservation>(b => b.UserId);
 
 
-            var user = new MyUser
+            var role = new IdentityRole("Admin");
+           
+            builder.Entity<IdentityRole>().HasData(role);
+
+
+            //UserManager
+
+            var Admin = new MyUser
             {
                 Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
+                Email = "admin@admin.admin",
+                NormalizedEmail = "ADMIN@ADMIN.ADMIN",
+                UserName = "Üzletvezető",
+                NormalizedUserName = "UZLETVEZETO",
+                SecurityStamp = "string",
+                EmailConfirmed = true,
+
+            };
+
+
+
+            var user = new MyUser
+            {
+                Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e80db",
                 Email = "test@test.test",
                 NormalizedEmail = "TEST@TEST.TEST",
-                UserName = "test@test.test",
-                NormalizedUserName = "TEST@TEST.TEST",
+                UserName = "Vásárló",
+                NormalizedUserName = "VASARLO",
                 SecurityStamp = "string",
-                EmailConfirmed = true
+                EmailConfirmed = true,
             };
+
+            //new AspNetRoleManager();
+            //builder.Entity<AspNetUserRoles>().HasData();
+         
+
             var password = new PasswordHasher<MyUser>();
-            var hashed = password.HashPassword(user, "123456");
+            var hashed = password.HashPassword(Admin, "123456");
+            Admin.PasswordHash = hashed;
             user.PasswordHash = hashed;
 
+            builder.Entity<MyUser>().HasData(Admin);
             builder.Entity<MyUser>().HasData(user);
 
             builder.Entity<Restaurant>().HasData(new Restaurant
@@ -128,7 +166,8 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
                 Name = "FoodTest",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo =
+                Description
+                =
                 "At vero eos et accusamus et iusto odio " +
                 "dignissimos ducimus qui blanditiis praesentium " +
                 "voluptatum deleniti atque corrupti quos dolores et qu" +
@@ -139,14 +178,14 @@ namespace EasyEOrder.Dal.DBContext
                 IsAvailable = true,
                 Rating = 4,
                 Category = Entities.Enums.FoodCategories.soup,
-               
+
             });
             builder.Entity<Food>().HasData(new Food
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe124"),
                 Name = "Soup1",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                Description = "Description",
                 Price = 1010,
                 IsAvailable = true,
                 Rating = 3,
@@ -157,7 +196,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe125"),
                 Name = "Soup2",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                Description = "Description",
                 Price = 12312,
                 IsAvailable = true,
                 Rating = 1,
@@ -168,7 +207,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe126"),
                 Name = "Meal1",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfoasd",
+                Description = "Description",
                 Price = 21312,
                 IsAvailable = true,
                 Rating = 4,
@@ -179,7 +218,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe127"),
                 Name = "Meal2",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                Description = "Description",
                 Price = 1230,
                 IsAvailable = true,
                 Rating = 3,
@@ -190,7 +229,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe128"),
                 Name = "Meal3",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                Description = "Description",
                 Price = 3210,
                 IsAvailable = true,
                 Rating = 2,
@@ -201,7 +240,7 @@ namespace EasyEOrder.Dal.DBContext
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe129"),
                 Name = "Meal4",
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = "BaseInfo",
+                Description = "Description",
                 Price = 4320,
                 IsAvailable = true,
                 Rating = 10,
@@ -269,7 +308,7 @@ namespace EasyEOrder.Dal.DBContext
                 FoodId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
                 MyUserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db"
             });
-
+            //_userManager.AddToRoleAsync(Admin, "Admin");
         }
     }
 }

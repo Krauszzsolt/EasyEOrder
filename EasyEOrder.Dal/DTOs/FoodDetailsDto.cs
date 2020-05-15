@@ -19,7 +19,7 @@ namespace EasyEOrder.Dal.DTOs
 
         public int Rating { get; set; }
 
-        public string BaseInfo { get; set; }
+        public string Description { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 

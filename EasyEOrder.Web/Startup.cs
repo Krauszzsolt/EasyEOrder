@@ -53,7 +53,10 @@ namespace EasyEOrder
             services.AddDbContext<EasyEOrderDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<MyUser>(options =>
+                options.SignIn.RequireConfirmedAccount = true
+            )
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
 
             services.AddMvc();
@@ -95,7 +98,8 @@ namespace EasyEOrder
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<MyUser> userManager,
+                RoleManager<IdentityRole> roleManager)
         {
 
             if (env.IsDevelopment())
@@ -121,6 +125,8 @@ namespace EasyEOrder
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCookiePolicy();
+
+            EasyEOrderDbContext.SeedData(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

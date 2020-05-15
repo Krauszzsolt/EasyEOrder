@@ -37,7 +37,7 @@ namespace EasyEOrder.Dal.Services
                 Foods = x.Select(f => new FoodDto()
                 {
                     Id = f.Id,
-                    BaseInfo = f.BaseInfo,
+                    Description = f.Description,
                     FoodAllergens = f.FoodAllergens,
                     IsAvailable = f.IsAvailable,
                     Name = f.Name,
@@ -63,7 +63,7 @@ namespace EasyEOrder.Dal.Services
                 Price = entity.Price,
                 Category = entity.Category,
                 Rating = entity.Rating,
-                BaseInfo = entity.BaseInfo,
+                Description = entity.Description,
                 Comments = entity.Comments,
                 FoodAllergens = entity.FoodAllergens
             };
@@ -85,15 +85,15 @@ namespace EasyEOrder.Dal.Services
                 .ToListAsync())
                  .SelectMany(p => Enumerable.Range(0, IdQuantityList[p.Id])
                 .Select(f => new FoodDto()
-                    {
-                        Id = p.Id,
-                        BaseInfo = p.BaseInfo,
-                        FoodAllergens = p.FoodAllergens,
-                        IsAvailable = p.IsAvailable,
-                        Name = p.Name,
-                        Price = p.Price,
-                        Rating = p.Rating
-                    }))
+                {
+                    Id = p.Id,
+                    Description = p.Description,
+                    FoodAllergens = p.FoodAllergens,
+                    IsAvailable = p.IsAvailable,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Rating = p.Rating
+                }))
                 .ToList();
         }
 
@@ -131,7 +131,7 @@ namespace EasyEOrder.Dal.Services
                 .Select(x => new FoodDto()
                 {
                     Id = x.Id,
-                    BaseInfo = x.BaseInfo,
+                    Description = x.Description,
                     FoodAllergens = x.FoodAllergens,
                     IsAvailable = x.IsAvailable,
                     Name = x.Name,
@@ -156,7 +156,7 @@ namespace EasyEOrder.Dal.Services
             {
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = foodCreateDto.BaseInfo,
+                Description = foodCreateDto.Description,
                 Category = foodCreateDto.Category,
                 FoodAllergens = allergens,
                 Price = foodCreateDto.Price
@@ -165,6 +165,7 @@ namespace EasyEOrder.Dal.Services
             await _context.Foods.AddAsync(entity);
             _context.SaveChanges();
         }
+
 
         public async Task<FoodCreateDto> GetFoodForEdit(Guid Id)
         {
@@ -181,7 +182,7 @@ namespace EasyEOrder.Dal.Services
                 Name = entity.Name,
                 Price = entity.Price,
                 Category = entity.Category,
-                BaseInfo = entity.BaseInfo,
+                Description = entity.Description,
                 FoodAllergens = Allergens
             };
         }

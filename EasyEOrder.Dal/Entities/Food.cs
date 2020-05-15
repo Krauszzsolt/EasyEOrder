@@ -20,7 +20,7 @@ namespace EasyEOrder.Dal.Entities
 
         public bool IsAvailable { get; set; }
 
-        public string BaseInfo { get; set; }
+        public string Description { get; set; }
 
         public Menu Menu { get; set; }
 

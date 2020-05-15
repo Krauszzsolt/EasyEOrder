@@ -17,7 +17,7 @@ namespace EasyEOrder.Dal.DTOs
 
         public FoodCategories Category { get; set; }
 
-        public string BaseInfo { get; set; }
+        public string Description { get; set; }
 
         public Guid MenuId { get; set; }
 

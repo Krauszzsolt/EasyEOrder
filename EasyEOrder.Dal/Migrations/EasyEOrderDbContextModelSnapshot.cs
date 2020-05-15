@@ -114,14 +114,14 @@ namespace EasyEOrder.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BaseInfo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -159,9 +159,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"),
-                            BaseInfo = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. ",
                             Category = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. ",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -173,9 +173,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"),
-                            BaseInfo = "BaseInfo",
                             Category = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -187,9 +187,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"),
-                            BaseInfo = "BaseInfo",
                             Category = 1,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -201,9 +201,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"),
-                            BaseInfo = "BaseInfoasd",
                             Category = 2,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -215,9 +215,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"),
-                            BaseInfo = "BaseInfo",
                             Category = 2,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -229,9 +229,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"),
-                            BaseInfo = "BaseInfo",
                             Category = 2,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -243,9 +243,9 @@ namespace EasyEOrder.Dal.Migrations
                         new
                         {
                             Id = new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"),
-                            BaseInfo = "BaseInfo",
                             Category = 2,
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Description",
                             IsAvailable = true,
                             IsDelete = false,
                             MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
@@ -433,17 +433,33 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "78aeb2d4-810b-4057-b248-3ee20dbd4320",
+                            ConcurrencyStamp = "be32f7b2-9ce6-4a35-8001-951d99e14c82",
+                            Email = "admin@admin.admin",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.ADMIN",
+                            NormalizedUserName = "UZLETVEZETO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA6zJ/ujY/paZFGq9qmrDv/zB4Z2DqE0ESZotaJoVtnlwfQ0Iq7Rf1AAtVXHEdHR/Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "string",
+                            TwoFactorEnabled = false,
+                            UserName = "Üzletvezető"
+                        },
+                        new
+                        {
+                            Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e80db",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9665f485-6ceb-4af8-b68b-7d44017be364",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
-                            NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAIwakddWhpZTDxOiunnQcrO7lu+upqdoq2xlecHHu0aXp8kNjpvep+oB/29q+E/Ug==",
+                            NormalizedUserName = "VASARLO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA6zJ/ujY/paZFGq9qmrDv/zB4Z2DqE0ESZotaJoVtnlwfQ0Iq7Rf1AAtVXHEdHR/Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             TwoFactorEnabled = false,
-                            UserName = "test@test.test"
+                            UserName = "Vásárló"
                         });
                 });
 
@@ -716,6 +732,14 @@ namespace EasyEOrder.Dal.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b94d2fbb-12a4-423f-908b-33ce7633f0f1",
+                            ConcurrencyStamp = "ade32ed7-8d90-4e7b-8014-f6827dd18576",
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

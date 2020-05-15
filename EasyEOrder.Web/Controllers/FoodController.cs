@@ -35,6 +35,7 @@ namespace EasyEOrder.Web.Controllers
         }
 
         // GET: Food/Create
+        [Authorize(Roles = "Admin")]
         [HttpGet("Food/Create/{id?}")]
         public async Task<ActionResult> Create(string id)
         {
