@@ -74,7 +74,7 @@ namespace EasyEOrder.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/FoodList");
+            returnUrl = returnUrl ?? Url.Content("~/Food");
 
             if (ModelState.IsValid)
             {

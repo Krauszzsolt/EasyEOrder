@@ -45,15 +45,16 @@
     width: 15.5em;
     position: fixed;
     background-color: #2e2d2b;
+    z-index: 999;
 }
 
 .side-bar-item {
     background-color: #2e2d2b;
-    color: c49c5f;
+    color: #c49c5f !important;
 }
 
-.side-bar-item :hover {
-    background-color: #2e2d2b;
+:hover .list-group-item {
+    background-color: #2e2d2b !important;
 }
 
 .sidebar-wrapper {

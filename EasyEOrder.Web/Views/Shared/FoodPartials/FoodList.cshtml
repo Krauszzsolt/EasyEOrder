@@ -49,9 +49,9 @@
                             <div class="d-flex justify-content-between">
                                 <h6 class="card-subtitle mb-2">Ár: </h6>  <h6 class="card-subtitle mb-2">  @food.Price Ft</h6>
                             </div>
-                            <a asp-area="" asp-controller="FoodDetails" asp-action="Index" asp-route-id="@food.Id" class="btn btn-primary">Részletek</a>
+                            <a asp-area="" asp-controller="Food" asp-action="Details" asp-route-id="@food.Id" class="btn btn-primary">Részletek</a>
 
-                            <a asp-area="" asp-controller="FoodCreate" asp-action="Index"  class="btn btn-primary">Szerkesztés</a>
+                            <a asp-area="" asp-controller="Food" asp-action="Create"  class="btn btn-primary">Szerkesztés</a>
                         </div>
                     </div>
                 }

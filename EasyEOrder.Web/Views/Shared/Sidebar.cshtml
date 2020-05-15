@@ -8,24 +8,24 @@
 
 <div class="sidebar-wrapper">
     <!-- Sidebar -->
-    <div class=" border-right sidebar" id="sidebar-wrapper">
-        <div class="sidebar-heading">EasyEOrder </div>
+    <div class="  sidebar" id="sidebar-wrapper">
+        <div class="sidebar-heading side-bar-item">EasyEOrder </div>
         @if (SignInManager.IsSignedIn(User))
         {
-            <div class="ml-4 mb-3"> @User.Identity.Name </div>
+            <div class="ml-4 mb-3 side-bar-item"> @User.Identity.Name </div>
         }
     <div class="nav-list list-group list-group-flush">
         @if (SignInManager.IsSignedIn(User))
         {
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodList" asp-action="Index">Ajánlataink</a>
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodCart" asp-action="Index">Rendeléseim</a>
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="FoodAdd" asp-action="Index">Étel hozzáadása</a>
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Contact" asp-action="Index">Elérhetőség</a>
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="About" asp-action="Index">Rólunk</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Food" asp-action="Index">Ajánlataink</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Cart" asp-action="Index">Rendeléseim</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Food" asp-action="Create">Étel hozzáadása</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Home" asp-action="Contact">Elérhetőség</a>
+            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Home" asp-action="About">Rólunk</a>
             @*<a class="list-group-item list-group-item-action bg-light">Profilom</a>*@
 
             <form class="list-group-item list-group-item-action side-bar-item" type="submit" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Kijelentkezés</button>
+                <button type="submit" class="list-group-item list-group-item-action side-bar-item">Kijelentkezés</button>
             </form>
 
         }

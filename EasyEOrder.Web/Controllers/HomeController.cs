@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using EasyEOrder.Models;
 using EasyEOrder.Dal.Interfaces;
 using EasyEOrder.Dal.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EasyEOrder.Controllers
 {
@@ -21,27 +22,22 @@ namespace EasyEOrder.Controllers
             _foodService = foodService;
         }
 
-        public async Task<IActionResult> IndexAsync()
-        {
-            ViewData["GetFood"] = (await _foodService.GetFoodsGroupByType()).ToList();
-            return View((await _foodService.GetFoodsGroupByType()).ToList());
+        public  IActionResult Index()
+        {        
+            return Redirect("/Identity/Account/Login");
         }
 
-        public IActionResult FoodDetailsaPageAsync()
-        {
-            return View();
-        }
 
+        [Authorize]
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return View("About");
         }
 
-        public IActionResult Privacy()
+        [Authorize]
+        public IActionResult Contact()
         {
-            return View();
+            return View("Contact");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

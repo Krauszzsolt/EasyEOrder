@@ -85,3 +85,28 @@ body {
     background-color: aqua;
 }
 
+.btn {
+    background-color: #2e2d2b !important;
+    color: #c49c5f !important;
+    border-color: #c49c5f !important;
+}
+
+.restarurant-img-wrapper {
+
+   
+}
+.restarurant-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.restaurant-img-wrapper {
+
+    left: 15rem;
+    height: 12rem;
+}

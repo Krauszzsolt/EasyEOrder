@@ -67,7 +67,7 @@
         $('#addCart').click(function ()
     {
         $.ajax({
-        url: '@Url.Action("AddCart", "FoodDetails")',
+        url: '@Url.Action("AddCart", "Food")',
         type: 'POST',
         data: { id: '@Model.Id' },
         //contentType: 'application/json; charset=utf-8',
