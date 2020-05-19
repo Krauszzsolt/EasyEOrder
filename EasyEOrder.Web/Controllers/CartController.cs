@@ -46,5 +46,17 @@ namespace EasyEOrder.Web.Controllers
 
             return RedirectToAction(nameof(CartController.Index), "Cart");
         }
+
+
+
+        [HttpPost]
+        public ActionResult AddCart(string id)
+        {
+            List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
+            Ids.Add(new Guid(id));
+            HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
+            return Json(new { success = true });
+        }
+
     }
 }

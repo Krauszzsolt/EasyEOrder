@@ -344,7 +344,7 @@ namespace EasyEOrder.Dal.Migrations
                     Category = table.Column<int>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
                     IsAvailable = table.Column<bool>(nullable: false),
-                    BaseInfo = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     MenuId = table.Column<Guid>(nullable: false),
                     OrderId = table.Column<Guid>(nullable: true)
                 },
@@ -456,16 +456,16 @@ namespace EasyEOrder.Dal.Migrations
 
             migrationBuilder.InsertData(
                 table: "Foods",
-                columns: new[] { "Id", "BaseInfo", "Category", "CreateTime", "IsAvailable", "IsDelete", "MenuId", "ModifyTime", "Name", "OrderId", "Price", "Rating" },
+                columns: new[] { "Id", "Description", "Category", "CreateTime", "IsAvailable", "IsDelete", "MenuId", "ModifyTime", "Name", "OrderId", "Price", "Rating" },
                 values: new object[,]
                 {
                     { new Guid("fe1ee058-9e79-4544-bf93-026f477fe123"), "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. ", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "FoodTest", null, 0, 4 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"), "BaseInfo", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup1", null, 1010, 3 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"), "BaseInfo", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup2", null, 12312, 1 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"), "BaseInfoasd", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal1", null, 21312, 4 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal2", null, 1230, 3 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal3", null, 3210, 2 },
-                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"), "BaseInfo", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal4", null, 4320, 10 }
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe124"), "Description", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup1", null, 1010, 3 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe125"), "Description", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soup2", null, 12312, 1 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe126"), "Descriptionasd", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal1", null, 21312, 4 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe127"), "Description", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal2", null, 1230, 3 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe128"), "Description", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal3", null, 3210, 2 },
+                    { new Guid("fe1ee058-9e79-4544-bf93-026f477fe129"), "Description", 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Meal4", null, 4320, 10 }
                 });
 
             migrationBuilder.InsertData(

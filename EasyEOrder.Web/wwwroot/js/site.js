@@ -12,3 +12,25 @@ function initialize() {
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 }
+
+//$(document).ready(function () {
+//    toastr.options = {
+//        positionClass: 'toast-bottom-center'
+//    };
+//    $('#addCart').click(function () {
+//        $.ajax({
+//            url: '@Url.Action("AddCart", "Food")',
+//            type: 'POST',
+//            data: { id: '@Model.Id' },
+//            success: function (data) {
+
+//                toastr.success('Sikeres megrendelés').position;
+
+//            },
+//            error: function () {
+//                alert("error");
+//            }
+//        })
+//    }
+//    );
+//});

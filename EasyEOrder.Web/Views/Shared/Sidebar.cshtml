@@ -12,7 +12,7 @@
         <div class="sidebar-heading side-bar-item">EasyEOrder </div>
         @if (SignInManager.IsSignedIn(User))
         {
-            <div class="ml-4 mb-3 side-bar-item"> @User.Identity.Name </div>
+            <div class="ml-4 mb-3 side-bar-item"> @UserManager.GetUserAsync(User).Result.Title </div>
         }
     <div class="nav-list list-group list-group-flush">
         @if (SignInManager.IsSignedIn(User))

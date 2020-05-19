@@ -68,15 +68,6 @@ namespace EasyEOrder.Web.Controllers
             }
         }
 
-        [HttpPost("Food/AddCart")]
-        public ActionResult AddCart(string id)
-        {
-            List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
-            Ids.Add(new Guid(id));
-            HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
-            return Json(new { success = true });
-        }
-
 
 
         //// GET: Food/Edit/5
@@ -103,27 +94,21 @@ namespace EasyEOrder.Web.Controllers
         //    }
         //}
 
-        //// GET: Food/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
 
-        //// POST: Food/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        // POST: Food/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Guid id)
+        {
+            try
+            {
+                _foodService.DeleteFood(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

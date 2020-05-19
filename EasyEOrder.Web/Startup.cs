@@ -67,14 +67,13 @@ namespace EasyEOrder
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 //options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
-
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
                 options.Password.RequiredUniqueChars = 0;
-
+                options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });

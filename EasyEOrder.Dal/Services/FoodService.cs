@@ -37,7 +37,7 @@ namespace EasyEOrder.Dal.Services
                 Foods = x.Select(f => new FoodDto()
                 {
                     Id = f.Id,
-                    BaseInfo = f.BaseInfo,
+                    Description = f.Description,
                     FoodAllergens = f.FoodAllergens,
                     IsAvailable = f.IsAvailable,
                     Name = f.Name,
@@ -63,7 +63,7 @@ namespace EasyEOrder.Dal.Services
                 Price = entity.Price,
                 Category = entity.Category,
                 Rating = entity.Rating,
-                BaseInfo = entity.BaseInfo,
+                Description = entity.Description,
                 Comments = entity.Comments,
                 FoodAllergens = entity.FoodAllergens
             };
@@ -85,15 +85,15 @@ namespace EasyEOrder.Dal.Services
                 .ToListAsync())
                  .SelectMany(p => Enumerable.Range(0, IdQuantityList[p.Id])
                 .Select(f => new FoodDto()
-                    {
-                        Id = p.Id,
-                        BaseInfo = p.BaseInfo,
-                        FoodAllergens = p.FoodAllergens,
-                        IsAvailable = p.IsAvailable,
-                        Name = p.Name,
-                        Price = p.Price,
-                        Rating = p.Rating
-                    }))
+                {
+                    Id = p.Id,
+                    Description = p.Description,
+                    FoodAllergens = p.FoodAllergens,
+                    IsAvailable = p.IsAvailable,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Rating = p.Rating
+                }))
                 .ToList();
         }
 
@@ -108,21 +108,30 @@ namespace EasyEOrder.Dal.Services
                 })
                 .ToListAsync();
 
+            var CategoriesmMap = new Dictionary<string, string>();
+
+            CategoriesmMap.Add("soup", "Leves");
+            CategoriesmMap.Add("meat", "Főétel");
+
+            var AllergensMap = new Dictionary<string, string>();
+
+            AllergensMap.Add("Gluten", "Glutén");
+            AllergensMap.Add("Laktoz", "Laktóz");
+
+
             List<SelectListItem> Categories = Enum.GetValues(typeof(FoodCategories)).Cast<FoodCategories>().Select(v => new SelectListItem
             {
-                Text = v.ToString(),
+                Text = CategoriesmMap.GetValueOrDefault(v.ToString()),
                 Value = ((int)v).ToString()
             }).ToList();
 
             List<SelectListItem> Allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().Select(v => new SelectListItem
             {
-                Text = v.ToString(),
+                Text = AllergensMap.GetValueOrDefault(v.ToString()),
                 Value = ((int)v).ToString()
             }).ToList();
 
             return new FoodCreateSelectItemsDto { Menu = MenuIds, Category = Categories, Allergen = Allergens };
-
-
         }
 
         public async Task<List<FoodDto>> GetFoods()
@@ -131,7 +140,7 @@ namespace EasyEOrder.Dal.Services
                 .Select(x => new FoodDto()
                 {
                     Id = x.Id,
-                    BaseInfo = x.BaseInfo,
+                    Description = x.Description,
                     FoodAllergens = x.FoodAllergens,
                     IsAvailable = x.IsAvailable,
                     Name = x.Name,
@@ -156,7 +165,7 @@ namespace EasyEOrder.Dal.Services
             {
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
-                BaseInfo = foodCreateDto.BaseInfo,
+                Description = foodCreateDto.Description,
                 Category = foodCreateDto.Category,
                 FoodAllergens = allergens,
                 Price = foodCreateDto.Price
@@ -175,15 +184,23 @@ namespace EasyEOrder.Dal.Services
 
 
             var Allergens = entity.FoodAllergens.Select(x => x.Allergen).ToList();
-            return  new FoodCreateDto()
+            return new FoodCreateDto()
             {
                 Id = entity.Id,
                 Name = entity.Name,
                 Price = entity.Price,
                 Category = entity.Category,
-                BaseInfo = entity.BaseInfo,
+                Description = entity.Description,
                 FoodAllergens = Allergens
             };
+        }
+
+        public async Task DeleteFood(Guid Id)
+        {
+            var food = _context.Foods.FirstOrDefault(x => x.Id == Id);
+            _context.Foods.Remove(food);
+            _context.SaveChanges();
+
         }
     }
 }

@@ -422,9 +422,6 @@ C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcor
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodAdd.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodDetails.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\FoodPartials\FoodList.cshtml.g.cs
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -876,12 +873,13 @@ C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreap
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Krausz Zsolt\source\repos\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\EntityFramework.dll
-C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\System.Web.Providers.dll
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Food\FoodList.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Food\FoodCreate.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Food\FoodDetails.cshtml.g.cs
 C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Cart.cshtml.g.cs
+C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.csproj.CoreCompileInputs.cache
+C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\obj\Debug\netcoreapp3.1\EasyEOrder.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\krausz.zsolt\Desktop\onlabor\EasyEOrder\EasyEOrder.Web\bin\Debug\netcoreapp3.1\libman.json

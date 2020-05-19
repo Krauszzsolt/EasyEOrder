@@ -9,6 +9,8 @@ namespace EasyEOrder.Dal.Entities
     {
         public string Picture { get; set; }
 
+        public string Title { get; set; }
+
         public Restaurant Restaurant { get; set; }
 
         public Guid? RestaurantId { get; set; }

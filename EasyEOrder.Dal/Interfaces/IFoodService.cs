@@ -15,5 +15,6 @@ namespace EasyEOrder.Dal.Interfaces
         public Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems();
         public Task<List<FoodDto>> GetFoodListByIdList(List<Guid> Ids);
         public Task<FoodCreateDto> GetFoodForEdit(Guid Id);
+        public Task DeleteFood(Guid Id);
     }
 }

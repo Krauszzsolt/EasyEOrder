@@ -35,50 +35,40 @@
         </div>
         <div class="card-bottom">
             <p class="card-detail-text">
-                @Model.BaseInfo
+                @Model.Description
                 @Model.Id
             </p>
             <a id="addCart" class="btn buy-button">Megveszem</a>
-        
+            <form class=" d-flex mt-1 justify-content-center" accept-charset="" method="post" asp-action="Delete">
+                <button class="btn  buy-button mt-auto" value="@Model.Id" name="Id">
+                    Étel törlése az étlapról
+                </button>
+            </form>
         </div>
     </div>
 </div>
-
-
-@*//$(document).ready(function () {
-    $('#UseShipAddr').click(function () {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("AddCart", "FoodDetails")',
-            data: { id: 'asd' },
-            success: function (e) {
-                console.log('Succes')
-            },
-            error: function (e) {
-                console.log('NemSucces')
-            }
-        });
-    }
-    //};*@
-@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>*@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript">
+<script>
+
     $(document).ready(function () {
-        $('#addCart').click(function ()
-    {
-        $.ajax({
-        url: '@Url.Action("AddCart", "Food")',
-        type: 'POST',
-        data: { id: '@Model.Id' },
-        //contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        alert(data.success);
-        },
-        error: function () {
-        alert("error");
+        toastr.options = {
+            positionClass: 'toast-bottom-center'
+        };
+        $('#addCart').click(function () {
+            $.ajax({
+                url: '@Url.Action("AddCart", "Cart")',
+                type: 'POST',
+                data: { id: '@Model.Id' },
+                success: function (data) {
+
+                    toastr.success('Sikeres megrendelés').position;
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
         }
-    })}
         );
     });
 </script>
-   
