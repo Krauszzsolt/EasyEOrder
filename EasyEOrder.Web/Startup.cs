@@ -29,20 +29,6 @@ namespace EasyEOrder
         {
             services.AddDistributedMemoryCache();
 
-            //services.AddSession(options =>
-            //{
-            //    //options.IdleTimeout = TimeSpan.FromSeconds(10);
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.IsEssential = true;
-            //});
-
-            //services.AddSession(options =>
-            //{
-            //    options.Cookie.Name = ".AdventureWorks.Session";
-            //    //options.IdleTimeout = TimeSpan.FromSeconds(10);
-            //    options.Cookie.IsEssential = true;
-            //});
-
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
@@ -54,6 +40,7 @@ namespace EasyEOrder
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<MyUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
 
             services.AddMvc();
@@ -63,9 +50,7 @@ namespace EasyEOrder
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Default Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                //options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -105,7 +90,6 @@ namespace EasyEOrder
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -113,8 +97,6 @@ namespace EasyEOrder
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-
-            //app.UseHttpContextItemsMiddleware();
 
             app.UseRouting();
             app.UseAuthentication();
@@ -130,7 +112,6 @@ namespace EasyEOrder
                     pattern: "{controller=Food}/{action=Index}/{id?}");
             });
 
-            //app.UseMvc();
         }
     }
 }

@@ -19,10 +19,14 @@
         {
             <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Food" asp-action="Index">Ajánlataink</a>
             <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Cart" asp-action="Index">Rendeléseim</a>
-            <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Food" asp-action="Create">Étel hozzáadása</a>
+            @if (@UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Admin").Result)
+            {
+                <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Food" asp-action="Create">Étel hozzáadása</a>
+            }
             <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Home" asp-action="Contact">Elérhetőség</a>
             <a class="list-group-item list-group-item-action side-bar-item" asp-area="" asp-controller="Home" asp-action="About">Rólunk</a>
             @*<a class="list-group-item list-group-item-action bg-light">Profilom</a>*@
+
 
             <form class="list-group-item list-group-item-action side-bar-item" type="submit" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="list-group-item list-group-item-action side-bar-item">Kijelentkezés</button>

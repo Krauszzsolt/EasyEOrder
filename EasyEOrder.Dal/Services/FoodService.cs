@@ -61,7 +61,7 @@ namespace EasyEOrder.Dal.Services
                 Id = entity.Id,
                 Name = entity.Name,
                 Price = entity.Price,
-                Category = entity.Category,
+                Category = (int)entity.Category,
                 Rating = entity.Rating,
                 Description = entity.Description,
                 Comments = entity.Comments,
@@ -89,6 +89,7 @@ namespace EasyEOrder.Dal.Services
                     Id = p.Id,
                     Description = p.Description,
                     FoodAllergens = p.FoodAllergens,
+                    FoodCategories = (int)p.Category,
                     IsAvailable = p.IsAvailable,
                     Name = p.Name,
                     Price = p.Price,
@@ -172,6 +173,38 @@ namespace EasyEOrder.Dal.Services
             };
             await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
             await _context.Foods.AddAsync(entity);
+            _context.SaveChanges();
+        }
+
+        public async Task EditFood(FoodCreateDto foodCreateDto)
+        {
+            List<FoodAllergen> allergens = new List<FoodAllergen>();
+            if (foodCreateDto.FoodAllergens != null)
+            {
+                foodCreateDto.FoodAllergens.ToList()
+                    .ForEach
+                    (x => allergens.Add(new FoodAllergen()
+                    {
+                        Allergen = x
+                    }
+                    ));
+                await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
+            }
+
+
+            var entity = new Food()
+            {
+                Id = foodCreateDto.Id.Value,
+                Name = foodCreateDto.Name,
+                MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                Description = foodCreateDto.Description,
+                Category = foodCreateDto.Category,
+                FoodAllergens = allergens,
+                Price = foodCreateDto.Price
+            };
+
+            _context.Foods.Update(entity);
+
             _context.SaveChanges();
         }
 

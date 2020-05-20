@@ -22,5 +22,8 @@ namespace EasyEOrder.Dal.DTOs
 
         public ICollection<FoodAllergen> FoodAllergens { get; set; }
 
+
+        public int? FoodCategories { get; set; }
+
     }
 }

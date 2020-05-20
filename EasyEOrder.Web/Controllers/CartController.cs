@@ -40,7 +40,7 @@ namespace EasyEOrder.Web.Controllers
         public ActionResult DeleteCartItem(String id)
         {
             List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
-            //Array.IndexOf(Ids, id);
+
             Ids.Remove(new Guid(id));
             HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
 
@@ -48,6 +48,17 @@ namespace EasyEOrder.Web.Controllers
         }
 
 
+
+        [HttpPost]
+        public ActionResult DeleteCartAllItem(String id)
+        {
+            List<Guid> Ids = HttpContext.Session.GetString(SessionKeyName) == null ? new List<Guid>() : JsonConvert.DeserializeObject<List<Guid>>(HttpContext.Session.GetString(SessionKeyName));
+         
+            Ids = new List<Guid>();
+            HttpContext.Session.SetString(SessionKeyName, JsonConvert.SerializeObject(Ids));
+
+            return RedirectToAction(nameof(CartController.Index), "Cart");
+        }
 
         [HttpPost]
         public ActionResult AddCart(string id)

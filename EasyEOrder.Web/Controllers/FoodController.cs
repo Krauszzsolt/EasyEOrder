@@ -35,6 +35,7 @@ namespace EasyEOrder.Web.Controllers
         }
 
         // GET: Food/Create
+        [Authorize(Roles = "Admin")]
         [HttpGet("Food/Create/{id?}")]
         public async Task<ActionResult> Create(string id)
         {
@@ -48,55 +49,39 @@ namespace EasyEOrder.Web.Controllers
             }
             else
             {
+                var food = await _foodService.GetFoodForEdit(new Guid(id));
                 return View("FoodCreate", await _foodService.GetFoodForEdit(new Guid(id)));
             }
         }
 
         // POST: Food/Create
-        [HttpPost("Food/Create")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("Food/Create/{id?}")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FoodCreateDto newFood)
         {
-            try
+            if (newFood.Id == null)
             {
                 _foodService.AddFood(newFood);
-                return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                _foodService.EditFood(newFood);
             }
+                
+                return RedirectToAction(nameof(Index));
+         
+
+
         }
 
 
 
-        //// GET: Food/Edit/5
-        //public async Task<IActionResult> Edit(Guid id)
-        //{
-        //    return View();
-        //}
-
-
-        //// POST: Food/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
 
         // POST: Food/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid id)
         {

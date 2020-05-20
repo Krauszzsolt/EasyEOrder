@@ -15,7 +15,7 @@ namespace EasyEOrder.Dal.DTOs
 
         public int Price { get; set; }
 
-        public FoodCategories Category { get; set; }
+        public int Category { get; set; }
 
         public int Rating { get; set; }
 
