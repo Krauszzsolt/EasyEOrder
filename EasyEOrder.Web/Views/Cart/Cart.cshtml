@@ -8,6 +8,7 @@
 }
 else
 {
+    <h4>Rendelt ételek:</h4>
     foreach (var food in Model)
     {
         <div class="cart-card m-4">
@@ -31,11 +32,11 @@ else
             </form>
         </div>
     }
-<div>
-    <h4>Összesen: </h4>
-    <h5>@ViewBag.SumPrice Ft</h5>
-    <form class=" d-flex" id="new-comment-form" method="post" asp-action="DeleteCartAllItem">
-        <button class="btn">Megveszem</button>
-    </form>
-</div>
+    <div>
+        <h4>Összesen: </h4>
+        <h5>@ViewBag.SumPrice Ft</h5>
+        <form class=" d-flex" id="new-comment-form" method="post" asp-action="DeleteCartAllItem">
+            <button class="btn">Megveszem</button>
+        </form>
+    </div>
 }

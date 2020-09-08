@@ -29,24 +29,25 @@ namespace EasyEOrder.Dal.Services
 
         public async Task<List<FoodGroupByTypeDto>> GetFoodsGroupByType()
         {
-            var result = new List<FoodGroupByTypeDto>();
-            var foodgroups = (await _context.Foods.Include(x => x.FoodAllergens).ToListAsync()).GroupBy(f => f.Category);
-            result = foodgroups.Select(x => new FoodGroupByTypeDto()
-            {
-                Category = (int)x.Key,
-                Foods = x.Select(f => new FoodDto()
+            return (await _context.Foods
+                .Include(x => x.FoodAllergens)
+                .ToListAsync())
+                .GroupBy(f => f.Category)
+                .Select(x => new FoodGroupByTypeDto()
                 {
-                    Id = f.Id,
-                    Description = f.Description,
-                    FoodAllergens = f.FoodAllergens,
-                    IsAvailable = f.IsAvailable,
-                    Name = f.Name,
-                    Price = f.Price,
-                    Rating = f.Rating
-                }).ToList()
-            })
+                    Category = (int)x.Key,
+                    Foods = x.Select(f => new FoodDto()
+                    {
+                        Id = f.Id,
+                        Description = f.Description,
+                        FoodAllergens = f.FoodAllergens,
+                        IsAvailable = f.IsAvailable,
+                        Name = f.Name,
+                        Price = f.Price,
+                        Rating = f.Rating
+                    }).ToList()
+                })
             .ToList();
-            return result;
         }
 
         public async Task<FoodDetailsDto> GetFooDetails(Guid Id)

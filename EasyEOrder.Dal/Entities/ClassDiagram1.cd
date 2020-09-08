@@ -3,7 +3,7 @@
   <Class Name="EasyEOrder.Dal.Entities.Comment">
     <Position X="6.75" Y="11.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAgAQAAgAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Comment.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -18,9 +18,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Food">
-    <Position X="11" Y="8.5" Width="1.5" />
+    <Position X="11" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABCAAAAAQAAAAAAAAAAAAQAAAAABAEAAAAAAIAALAA=</HashCode>
+      <HashCode>EAFCAAAAAQAgAAAAAAAAAAQAAAAIBAEAAAAAAIAAKAA=</HashCode>
       <FileName>Entities\Food.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -31,14 +31,14 @@
   <Class Name="EasyEOrder.Dal.Entities.FoodAllergen">
     <Position X="4.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAACAA=</HashCode>
       <FileName>Entities\FoodAllergen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EasyEOrder.Dal.Entities.Menu">
     <Position X="1.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>IAACEAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Entities\Menu.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -48,7 +48,7 @@
   <Class Name="EasyEOrder.Dal.Entities.MyUser">
     <Position X="5.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAABAAAAEAAAQAAAAAAAAAAAAAAEAAAAIAA=</HashCode>
+      <HashCode>IAAAgAAAAAABAEAAEAAAQAAAAAAAAAAAAAAEAAAAIAA=</HashCode>
       <FileName>Entities\MyUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -66,7 +66,7 @@
   <Class Name="EasyEOrder.Dal.Entities.Order">
     <Position X="0.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACEAAEAAABAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACEAAEAAABAAAAEEAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Order.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -76,7 +76,7 @@
   <Class Name="EasyEOrder.Dal.Entities.Reservation">
     <Position X="4" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgECAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgEDAAAAAAAAAAAAAAAAQAwAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -101,7 +101,7 @@
   <Class Name="EasyEOrder.Dal.Entities.Table">
     <Position X="10" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAABAAAAEAAAAAgAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>IAACAAAAAAABAAAAEEAAAAgAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Entities\Table.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
