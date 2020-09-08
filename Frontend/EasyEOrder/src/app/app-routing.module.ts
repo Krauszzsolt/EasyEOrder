@@ -5,7 +5,7 @@ import { LoginComponent } from './core/login/login.component';
 
 const routes: Routes = [
   {
-    path: '',   
+    path: '',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   }
 ];

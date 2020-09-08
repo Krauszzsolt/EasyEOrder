@@ -9,7 +9,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'food',
-      loadChildren: './../feature/food/food.module#FoodModule'
+      loadChildren: () => import('./../feature/food/food.module').then(m => m.FoodModule)
     }, {
       path: 'cart',
       loadChildren: () => import('./../feature/cart/cart.module').then(m => m.CartModule)
@@ -18,7 +18,11 @@ const routes: Routes = [{
 {
   path: 'login',
   component: LoginComponent
-},];
+},
+{
+  path: '',
+  redirectTo: 'home'
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
