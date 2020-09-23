@@ -17,9 +17,9 @@ import * as moment from 'moment';
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IFoodClient {
-    food_GetFoodsByGroups(): Observable<FoodGroupByTypeDto[]>;
+    food_GetAll(): Observable<FoodGroupByTypeDto[]>;
     food_Post(newFood: FoodCreateDto): Observable<void>;
-    food_GetFood(id: string): Observable<FoodDetailsDto>;
+    food_Get(id: string): Observable<FoodDetailsDto>;
     food_Put(id: string, newFood: FoodCreateDto): Observable<void>;
     food_Delete(id: string): Observable<void>;
 }
@@ -35,11 +35,11 @@ export class FoodClient implements IFoodClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    food_GetFoodsByGroups(): Observable<FoodGroupByTypeDto[]> {
+    food_GetAll(): Observable<FoodGroupByTypeDto[]> {
         let url_ = this.baseUrl + "/api/Food";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_: any = {
+        let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -47,12 +47,12 @@ export class FoodClient implements IFoodClient {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-            return this.processFood_GetFoodsByGroups(response_);
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFood_GetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processFood_GetFoodsByGroups(<any>response_);
+                    return this.processFood_GetAll(<any>response_);
                 } catch (e) {
                     return <Observable<FoodGroupByTypeDto[]>><any>_observableThrow(e);
                 }
@@ -61,28 +61,28 @@ export class FoodClient implements IFoodClient {
         }));
     }
 
-    protected processFood_GetFoodsByGroups(response: HttpResponseBase): Observable<FoodGroupByTypeDto[]> {
+    protected processFood_GetAll(response: HttpResponseBase): Observable<FoodGroupByTypeDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                let result200: any = null;
-                let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-                if (Array.isArray(resultData200)) {
-                    result200 = [] as any;
-                    for (let item of resultData200)
-                        result200!.push(FoodGroupByTypeDto.fromJS(item, _mappings));
-                }
-                return _observableOf(result200);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(FoodGroupByTypeDto.fromJS(item, _mappings));
+            }
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<FoodGroupByTypeDto[]>(<any>null);
@@ -94,7 +94,7 @@ export class FoodClient implements IFoodClient {
 
         const content_ = JSON.stringify(newFood);
 
-        let options_: any = {
+        let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
@@ -103,7 +103,7 @@ export class FoodClient implements IFoodClient {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processFood_Post(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -121,29 +121,29 @@ export class FoodClient implements IFoodClient {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return _observableOf<void>(<any>null);
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
     }
 
-    food_GetFood(id: string): Observable<FoodDetailsDto> {
+    food_Get(id: string): Observable<FoodDetailsDto> {
         let url_ = this.baseUrl + "/api/Food/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_: any = {
+        let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -151,12 +151,12 @@ export class FoodClient implements IFoodClient {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-            return this.processFood_GetFood(response_);
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFood_Get(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processFood_GetFood(<any>response_);
+                    return this.processFood_Get(<any>response_);
                 } catch (e) {
                     return <Observable<FoodDetailsDto>><any>_observableThrow(e);
                 }
@@ -165,24 +165,24 @@ export class FoodClient implements IFoodClient {
         }));
     }
 
-    protected processFood_GetFood(response: HttpResponseBase): Observable<FoodDetailsDto> {
+    protected processFood_Get(response: HttpResponseBase): Observable<FoodDetailsDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                let result200: any = null;
-                let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-                result200 = FoodDetailsDto.fromJS(resultData200, _mappings);
-                return _observableOf(result200);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = FoodDetailsDto.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<FoodDetailsDto>(<any>null);
@@ -197,7 +197,7 @@ export class FoodClient implements IFoodClient {
 
         const content_ = JSON.stringify(newFood);
 
-        let options_: any = {
+        let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
@@ -206,7 +206,7 @@ export class FoodClient implements IFoodClient {
             })
         };
 
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processFood_Put(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -224,16 +224,16 @@ export class FoodClient implements IFoodClient {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return _observableOf<void>(<any>null);
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
@@ -246,14 +246,14 @@ export class FoodClient implements IFoodClient {
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_: any = {
+        let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
             })
         };
 
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processFood_Delete(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -271,16 +271,16 @@ export class FoodClient implements IFoodClient {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return _observableOf<void>(<any>null);
+            return _observableOf<void>(<any>null);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<void>(<any>null);
@@ -309,7 +309,7 @@ export class UserClient implements IUserClient {
 
         const content_ = JSON.stringify(model);
 
-        let options_: any = {
+        let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
@@ -319,7 +319,7 @@ export class UserClient implements IUserClient {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processUser_Authenticate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -337,9 +337,9 @@ export class UserClient implements IUserClient {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200 || status === 206) {
             const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
             const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
@@ -347,7 +347,7 @@ export class UserClient implements IUserClient {
             return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<FileResponse>(<any>null);
@@ -357,7 +357,7 @@ export class UserClient implements IUserClient {
         let url_ = this.baseUrl + "/User";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_: any = {
+        let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -365,7 +365,7 @@ export class UserClient implements IUserClient {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processUser_GetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -383,9 +383,9 @@ export class UserClient implements IUserClient {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
-                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200 || status === 206) {
             const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
             const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
@@ -393,7 +393,7 @@ export class UserClient implements IUserClient {
             return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
         return _observableOf<FileResponse>(<any>null);
@@ -437,7 +437,7 @@ export class FoodGroupByTypeDto implements IFoodGroupByTypeDto {
             for (let item of this.foods)
                 data["foods"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -501,7 +501,7 @@ export class FoodDto implements IFoodDto {
                 data["foodAllergens"].push(item.toJSON());
         }
         data["foodCategories"] = this.foodCategories;
-        return data;
+        return data; 
     }
 }
 
@@ -548,7 +548,7 @@ export class Base implements IBase {
         data["createTime"] = this.createTime ? this.createTime.toISOString(true) : <any>undefined;
         data["modifyTime"] = this.modifyTime ? this.modifyTime.toISOString(true) : <any>undefined;
         data["isDelete"] = this.isDelete;
-        return data;
+        return data; 
     }
 }
 
@@ -590,7 +590,7 @@ export class FoodAllergen extends Base implements IFoodAllergen {
         data["foodId"] = this.foodId;
         data["allergen"] = this.allergen;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -676,7 +676,7 @@ export class Food extends Base implements IFood {
         data["order"] = this.order ? this.order.toJSON() : <any>undefined;
         data["orderId"] = this.orderId;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -744,7 +744,7 @@ export class Menu extends Base implements IMenu {
         data["restaurant"] = this.restaurant ? this.restaurant.toJSON() : <any>undefined;
         data["restaurantId"] = this.restaurantId;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -827,7 +827,7 @@ export class Restaurant extends Base implements IRestaurant {
                 data["dayOfWeekOpenTimes"].push(item.toJSON());
         }
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -884,7 +884,7 @@ export class Table extends Base implements ITable {
         data["userId"] = this.userId;
         data["restaurant"] = this.restaurant ? this.restaurant.toJSON() : <any>undefined;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -950,7 +950,7 @@ export class Reservation extends Base implements IReservation {
                 data["orders"].push(item.toJSON());
         }
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1033,7 +1033,7 @@ export class IdentityUserOfString implements IIdentityUserOfString {
         data["lockoutEnd"] = this.lockoutEnd ? this.lockoutEnd.toISOString(true) : <any>undefined;
         data["lockoutEnabled"] = this.lockoutEnabled;
         data["accessFailedCount"] = this.accessFailedCount;
-        return data;
+        return data; 
     }
 }
 
@@ -1073,7 +1073,7 @@ export class IdentityUser extends IdentityUserOfString implements IIdentityUser 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1140,7 +1140,7 @@ export class MyUser extends IdentityUser implements IMyUser {
                 data["comments"].push(item.toJSON());
         }
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1187,7 +1187,7 @@ export class Comment extends Base implements IComment {
         data["myUserId"] = this.myUserId;
         data["commentContent"] = this.commentContent;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1247,7 +1247,7 @@ export class Order extends Base implements IOrder {
         data["reservation"] = this.reservation ? this.reservation.toJSON() : <any>undefined;
         data["reservationId"] = this.reservationId;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1293,7 +1293,7 @@ export class DayOfWeekOpenTimes extends Base implements IDayOfWeekOpenTimes {
         data["dayOfWeek"] = this.dayOfWeek;
         data["openTimes"] = this.openTimes ? this.openTimes.toJSON() : <any>undefined;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1343,7 +1343,7 @@ export class OpenTime extends Base implements IOpenTime {
         data["from"] = this.from ? this.from.toISOString(true) : <any>undefined;
         data["to"] = this.to ? this.to.toISOString(true) : <any>undefined;
         super.toJSON(data);
-        return data;
+        return data; 
     }
 }
 
@@ -1421,7 +1421,7 @@ export class FoodDetailsDto implements IFoodDetailsDto {
             for (let item of this.foodAllergens)
                 data["foodAllergens"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -1488,7 +1488,7 @@ export class FoodCreateDto implements IFoodCreateDto {
             for (let item of this.foodAllergens)
                 data["foodAllergens"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -1531,7 +1531,7 @@ export class AuthenticateRequestDto implements IAuthenticateRequestDto {
         data = typeof data === 'object' ? data : {};
         data["username"] = this.username;
         data["password"] = this.password;
-        return data;
+        return data; 
     }
 }
 
@@ -1548,7 +1548,7 @@ function jsonParse(json: any, reviver?: any) {
     json = (function recurse(obj: any, prop?: any, parent?: any) {
         if (typeof obj !== 'object' || !obj)
             return obj;
-
+        
         if ("$ref" in obj) {
             let ref = obj.$ref;
             if (ref in byid)
@@ -1562,7 +1562,7 @@ function jsonParse(json: any, reviver?: any) {
                 obj = obj.$values;
             byid[id] = obj;
         }
-
+        
         if (Array.isArray(obj)) {
             obj = obj.map((v, i) => recurse(v, i, obj));
         } else {

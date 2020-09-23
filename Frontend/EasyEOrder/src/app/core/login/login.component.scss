@@ -1,0 +1,14 @@
+.thumbnail {
+    height: 50vh;
+    width: 50vw;
+    z-index: -9999;
+}
+
+.login-card {
+    position: absolute;
+    top: calc(50% - 20vh);
+    left: calc(50% - 12.5vw);
+    width: 25vw;
+    height: 40vh;
+    background-color: rgba($color: white, $alpha: 0.6);
+}
