@@ -22,6 +22,14 @@ namespace EasyEOrder.Api.Controllers
             _userService = userService;
         }
 
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetAll();
+            return Ok(users);
+        }
+
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate(AuthenticateRequestDto model)
         {
@@ -32,13 +40,6 @@ namespace EasyEOrder.Api.Controllers
 
             return Ok(response);
         }
-
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
+      
     }
 }
