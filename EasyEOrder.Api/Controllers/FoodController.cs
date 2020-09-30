@@ -1,4 +1,6 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Food;
+using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,9 +23,10 @@ namespace EasyEOrder.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<List<FoodGroupByTypeDto>> GetAll()
+        public async Task<PageableList<FoodGroupByTypeDto>> GetAll([FromQuery] FoodRequestQuery query)
         {
-            return await _foodService.GetFoodsGroupByType();
+            return null; 
+                //await _foodService.GetFoodsGroupByType();
         }
 
         // GET api/<controller>/5

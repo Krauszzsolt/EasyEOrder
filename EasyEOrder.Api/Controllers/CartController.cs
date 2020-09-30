@@ -1,4 +1,5 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Cart;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace EasyEOrder.Api.Controllers
     {
         // GET: api/<controller>
         [HttpGet]
-        public Task<List<FoodDto>> Get()
+        public Task<CartDto> Get()
         {
+            //[FromQuery]String userId
             return null;
         }
 
@@ -27,16 +29,16 @@ namespace EasyEOrder.Api.Controllers
 
         // POST api/<controller>
         [HttpPost("AddToCart")]
-        public Task AddToCart([FromQuery] Guid Id)
+        public Task AddToCart([FromBody] Guid FoodId)
         {
-            // Is this post or get?
+            //, [FromQuery] string UserId
             //Todo Add to list by Id
             return null;
         }
 
         // POST api/<controller>
         [HttpPost("Buy")]
-        public Task BuyCartContent([FromBody] Guid SomeBuyDto)
+        public Task BuyCartContent()
         {
             // Is this post or get?
             //Todo Add to list by Id
@@ -50,10 +52,10 @@ namespace EasyEOrder.Api.Controllers
         //}
 
         // DELETE api/<controller>/5
-        [HttpDelete("RemoveFromCart")]
-        public Task RemoveFromCart([FromQuery] Guid Id)
+        [HttpPost("RemoveFromCart")]
+        public Task RemoveFromCart([FromBody] Guid Id)
         {
-            //Is this get or Delete?
+            //Is this post or Delete?
             return null;
         }
     }

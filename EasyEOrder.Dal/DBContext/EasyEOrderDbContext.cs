@@ -20,7 +20,7 @@ namespace EasyEOrder.Dal.DBContext
         public DbSet<Food> Foods { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Menu> Menus { get; set; }
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Tables { get; set; }
@@ -49,9 +49,9 @@ namespace EasyEOrder.Dal.DBContext
                 .WithOne(b => b.Food)
                 .HasForeignKey(b => b.FoodId);
 
-            builder.Entity<Order>()
+            builder.Entity<Cart>()
                  .HasMany(a => a.Foods)
-                 .WithOne(b => b.Order)
+                 .WithOne(b => b.Cart)
                  .HasForeignKey(b => b.OrderId);
 
             builder.Entity<Restaurant>()
@@ -246,7 +246,7 @@ namespace EasyEOrder.Dal.DBContext
                 UserId = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
             });
 
-            builder.Entity<Order>().HasData(new Order
+            builder.Entity<Cart>().HasData(new Cart
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe851"),
                 ReservationId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe849"),

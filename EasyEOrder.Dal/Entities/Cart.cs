@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyEOrder.Dal.Entities
 {
-    public class Order : Base
+    public class Cart : Base
     {
         public Guid Id { get; set; }
               
@@ -19,5 +19,7 @@ namespace EasyEOrder.Dal.Entities
         public Reservation Reservation { get; set; }
 
         public Guid ReservationId { get; set; }
+
+        public string UserId { get; set; }
     }
 }

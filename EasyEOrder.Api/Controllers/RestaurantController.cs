@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Restaurant;
+using EasyEOrder.Bll.DTOs.Wrapper;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,34 +17,37 @@ namespace EasyEOrder.Api.Controllers
     {
         // GET: api/<RestaurantController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Task<PageableList<RestaruantDTO>> GetAllRestaurant()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET api/<RestaurantController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<RestaruantDetailDto> GetRestaurant(Guid id)
         {
-            return "value";
+            return null;
         }
 
         // POST api/<RestaurantController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Task AddRestaurant([FromBody] RestaruantDTO restaurant)
         {
+            return null;
         }
 
         // PUT api/<RestaurantController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Task EditRestaurant(Guid id, [FromBody] RestaruantDTO restaurant)
         {
+            return null;
         }
 
         // DELETE api/<RestaurantController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public Task Delete(Guid id)
         {
+            return null;
         }
     }
 }

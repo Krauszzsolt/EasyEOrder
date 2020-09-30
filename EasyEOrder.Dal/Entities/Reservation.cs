@@ -20,7 +20,7 @@ namespace EasyEOrder.Dal.Entities
 
         public Table Table { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Cart> Carts { get; set; }
 
     }
 }

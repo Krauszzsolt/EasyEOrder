@@ -2,13 +2,10 @@
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Dal.DBContext;
 using EasyEOrder.Dal.Entities;
-using EasyEOrder.Dal.Entities.Enums;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyEOrder.Bll.Services
@@ -38,7 +35,7 @@ namespace EasyEOrder.Bll.Services
                     {
                         Id = f.Id,
                         Description = f.Description,
-                        FoodAllergens = f.FoodAllergens,
+                        //FoodAllergens = f.FoodAllergens,
                         IsAvailable = f.IsAvailable,
                         Name = f.Name,
                         Price = f.Price,
@@ -64,7 +61,7 @@ namespace EasyEOrder.Bll.Services
                 Rating = entity.Rating,
                 Description = entity.Description,
                 Comments = entity.Comments,
-                FoodAllergens = entity.FoodAllergens
+                //FoodAllergens = entity.FoodAllergens
             };
         }
 
@@ -87,7 +84,7 @@ namespace EasyEOrder.Bll.Services
                 {
                     Id = p.Id,
                     Description = p.Description,
-                    FoodAllergens = p.FoodAllergens,
+                    //FoodAllergens = p.FoodAllergens,
                     FoodCategories = (int)p.Category,
                     IsAvailable = p.IsAvailable,
                     Name = p.Name,
@@ -97,42 +94,42 @@ namespace EasyEOrder.Bll.Services
                 .ToList();
         }
 
-        public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()
-        {
-            List<SelectListItem> MenuIds = await _context.Menus
-                .Select(x =>
-                new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.Name
-                })
-                .ToListAsync();
+        //public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()
+        //{
+        //    List<SelectListItem> MenuIds = await _context.Menus
+        //        .Select(x =>
+        //        new SelectListItem
+        //        {
+        //            Value = x.Id.ToString(),
+        //            Text = x.Name
+        //        })
+        //        .ToListAsync();
 
-            var CategoriesmMap = new Dictionary<string, string>();
+        //    var CategoriesmMap = new Dictionary<string, string>();
 
-            CategoriesmMap.Add("soup", "Leves");
-            CategoriesmMap.Add("meat", "Főétel");
+        //    CategoriesmMap.Add("soup", "Leves");
+        //    CategoriesmMap.Add("meat", "Főétel");
 
-            var AllergensMap = new Dictionary<string, string>();
+        //    var AllergensMap = new Dictionary<string, string>();
 
-            AllergensMap.Add("Gluten", "Glutén");
-            AllergensMap.Add("Laktoz", "Laktóz");
+        //    AllergensMap.Add("Gluten", "Glutén");
+        //    AllergensMap.Add("Laktoz", "Laktóz");
 
 
-            List<SelectListItem> Categories = Enum.GetValues(typeof(FoodCategories)).Cast<FoodCategories>().Select(v => new SelectListItem
-            {
-                Text = CategoriesmMap.GetValueOrDefault(v.ToString()),
-                Value = ((int)v).ToString()
-            }).ToList();
+        //    List<SelectListItem> Categories = Enum.GetValues(typeof(FoodCategories)).Cast<FoodCategories>().Select(v => new SelectListItem
+        //    {
+        //        Text = CategoriesmMap.GetValueOrDefault(v.ToString()),
+        //        Value = ((int)v).ToString()
+        //    }).ToList();
 
-            List<SelectListItem> Allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().Select(v => new SelectListItem
-            {
-                Text = AllergensMap.GetValueOrDefault(v.ToString()),
-                Value = ((int)v).ToString()
-            }).ToList();
+        //    List<SelectListItem> Allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().Select(v => new SelectListItem
+        //    {
+        //        Text = AllergensMap.GetValueOrDefault(v.ToString()),
+        //        Value = ((int)v).ToString()
+        //    }).ToList();
 
-            return new FoodCreateSelectItemsDto { Menu = MenuIds, Category = Categories, Allergen = Allergens };
-        }
+        //    return new FoodCreateSelectItemsDto { Menu = MenuIds, Category = Categories, Allergen = Allergens };
+        //}
 
         public async Task<List<FoodDto>> GetFoods()
         {
@@ -141,7 +138,7 @@ namespace EasyEOrder.Bll.Services
                 {
                     Id = x.Id,
                     Description = x.Description,
-                    FoodAllergens = x.FoodAllergens,
+                    //FoodAllergens = x.FoodAllergens,
                     IsAvailable = x.IsAvailable,
                     Name = x.Name,
                     Price = x.Price,
@@ -153,13 +150,13 @@ namespace EasyEOrder.Bll.Services
         {
 
             List<FoodAllergen> allergens = new List<FoodAllergen>();
-            foodCreateDto.FoodAllergens.ToList()
-                .ForEach
-                (x => allergens.Add(new FoodAllergen()
-                {
-                    Allergen = x
-                }
-                ));
+            //foodCreateDto.FoodAllergens.ToList()
+            //    .ForEach
+            //    (x => allergens.Add(new FoodAllergen()
+            //    {
+            //        Allergen = x
+            //    }
+            //    ));
 
             var entity = new Food()
             {
@@ -167,8 +164,9 @@ namespace EasyEOrder.Bll.Services
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 Description = foodCreateDto.Description,
                 Category = foodCreateDto.Category,
-                FoodAllergens = allergens,
-                Price = foodCreateDto.Price
+                //FoodAllergens = allergens,
+                Price = foodCreateDto.Price,
+                
             };
             await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
             await _context.Foods.AddAsync(entity);
@@ -178,22 +176,22 @@ namespace EasyEOrder.Bll.Services
         public async Task EditFood(FoodCreateDto foodCreateDto)
         {
             List<FoodAllergen> allergens = new List<FoodAllergen>();
-            if (foodCreateDto.FoodAllergens != null)
-            {
-                foodCreateDto.FoodAllergens.ToList()
-                    .ForEach
-                    (x => allergens.Add(new FoodAllergen()
-                    {
-                        Allergen = x
-                    }
-                    ));
-                await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
-            }
+            //if (foodCreateDto.FoodAllergens != null)
+            //{
+            //    foodCreateDto.FoodAllergens.ToList()
+            //        .ForEach
+            //        (x => allergens.Add(new FoodAllergen()
+            //        {
+            //            Allergen = x
+            //        }
+            //        ));
+            //    await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
+            //}
 
 
             var entity = new Food()
             {
-                Id = foodCreateDto.Id.Value,
+                Id = foodCreateDto.Id,
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 Description = foodCreateDto.Description,
@@ -223,7 +221,7 @@ namespace EasyEOrder.Bll.Services
                 Price = entity.Price,
                 Category = entity.Category,
                 Description = entity.Description,
-                FoodAllergens = Allergens
+                //FoodAllergens = Allergens
             };
         }
 

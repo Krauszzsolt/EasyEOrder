@@ -1,8 +1,6 @@
-﻿using EasyEOrder.Dal.Entities;
-using EasyEOrder.Dal.Entities.Enums;
+﻿using EasyEOrder.Bll.DTOs.FoodDTO.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EasyEOrder.Bll.DTOs
 {
@@ -20,8 +18,7 @@ namespace EasyEOrder.Bll.DTOs
 
         public string Description { get; set; }
 
-        public ICollection<FoodAllergen> FoodAllergens { get; set; }
-
+        public List<Allergen> Allergens { get; set; }
 
         public int? FoodCategories { get; set; }
 

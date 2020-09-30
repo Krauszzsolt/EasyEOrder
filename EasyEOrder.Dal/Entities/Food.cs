@@ -30,7 +30,7 @@ namespace EasyEOrder.Dal.Entities
 
         public ICollection<FoodAllergen> FoodAllergens { get; set; }
 
-        public Order Order { get; set; }
+        public Cart Cart { get; set; }
 
         public Guid? OrderId{ get; set; }
     }
