@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EasyEOrder.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : BaseController
     {
         private IUserService _userService;

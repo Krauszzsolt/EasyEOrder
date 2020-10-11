@@ -17,9 +17,9 @@ import * as moment from 'moment';
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ICartClient {
-    cart_Get(): Observable<FoodDto[]>;
-    cart_AddToCart(id: string): Observable<void>;
-    cart_BuyCartContent(someBuyDto: string): Observable<void>;
+    cart_Get(): Observable<CartDto>;
+    cart_AddToCart(foodId: string): Observable<void>;
+    cart_BuyCartContent(): Observable<void>;
     cart_RemoveFromCart(id: string): Observable<void>;
 }
 
@@ -34,7 +34,7 @@ export class CartClient implements ICartClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    cart_Get(): Observable<FoodDto[]> {
+    cart_Get(): Observable<CartDto> {
         let url_ = this.baseUrl + "/api/Cart";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -53,14 +53,14 @@ export class CartClient implements ICartClient {
                 try {
                     return this.processCart_Get(<any>response_);
                 } catch (e) {
-                    return <Observable<FoodDto[]>><any>_observableThrow(e);
+                    return <Observable<CartDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FoodDto[]>><any>_observableThrow(response_);
+                return <Observable<CartDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCart_Get(response: HttpResponseBase): Observable<FoodDto[]> {
+    protected processCart_Get(response: HttpResponseBase): Observable<CartDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -72,11 +72,7 @@ export class CartClient implements ICartClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(FoodDto.fromJS(item, _mappings));
-            }
+            result200 = CartDto.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -84,21 +80,21 @@ export class CartClient implements ICartClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FoodDto[]>(<any>null);
+        return _observableOf<CartDto>(<any>null);
     }
 
-    cart_AddToCart(id: string): Observable<void> {
-        let url_ = this.baseUrl + "/api/Cart/AddToCart?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined and cannot be null.");
-        else
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+    cart_AddToCart(foodId: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/Cart/AddToCart";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(foodId);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
             })
         };
 
@@ -135,18 +131,14 @@ export class CartClient implements ICartClient {
         return _observableOf<void>(<any>null);
     }
 
-    cart_BuyCartContent(someBuyDto: string): Observable<void> {
+    cart_BuyCartContent(): Observable<void> {
         let url_ = this.baseUrl + "/api/Cart/Buy";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(someBuyDto);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
             })
         };
 
@@ -184,21 +176,21 @@ export class CartClient implements ICartClient {
     }
 
     cart_RemoveFromCart(id: string): Observable<void> {
-        let url_ = this.baseUrl + "/api/Cart/RemoveFromCart?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined and cannot be null.");
-        else
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        let url_ = this.baseUrl + "/api/Cart/RemoveFromCart";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(id);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
             })
         };
 
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processCart_RemoveFromCart(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -233,7 +225,7 @@ export class CartClient implements ICartClient {
 }
 
 export interface IFoodClient {
-    food_GetAll(): Observable<FoodGroupByTypeDto[]>;
+    food_GetAll(restaruanId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto>;
     food_Post(newFood: FoodCreateDto): Observable<void>;
     food_Get(id: string): Observable<FoodDetailsDto>;
     food_Put(id: string, newFood: FoodCreateDto): Observable<void>;
@@ -251,8 +243,24 @@ export class FoodClient implements IFoodClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    food_GetAll(): Observable<FoodGroupByTypeDto[]> {
-        let url_ = this.baseUrl + "/api/Food";
+    food_GetAll(restaruanId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto> {
+        let url_ = this.baseUrl + "/api/Food?";
+        if (restaruanId === undefined || restaruanId === null)
+            throw new Error("The parameter 'restaruanId' must be defined and cannot be null.");
+        else
+            url_ += "RestaruanId=" + encodeURIComponent("" + restaruanId) + "&";
+        if (searchTerm === undefined)
+            throw new Error("The parameter 'searchTerm' must be defined.");
+        else if(searchTerm !== null)
+            url_ += "SearchTerm=" + encodeURIComponent("" + searchTerm) + "&";
+        if (index === undefined || index === null)
+            throw new Error("The parameter 'index' must be defined and cannot be null.");
+        else
+            url_ += "Index=" + encodeURIComponent("" + index) + "&";
+        if (pageSize === undefined || pageSize === null)
+            throw new Error("The parameter 'pageSize' must be defined and cannot be null.");
+        else
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -270,14 +278,14 @@ export class FoodClient implements IFoodClient {
                 try {
                     return this.processFood_GetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<FoodGroupByTypeDto[]>><any>_observableThrow(e);
+                    return <Observable<PageableListOfFoodGroupByTypeDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FoodGroupByTypeDto[]>><any>_observableThrow(response_);
+                return <Observable<PageableListOfFoodGroupByTypeDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processFood_GetAll(response: HttpResponseBase): Observable<FoodGroupByTypeDto[]> {
+    protected processFood_GetAll(response: HttpResponseBase): Observable<PageableListOfFoodGroupByTypeDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -289,11 +297,7 @@ export class FoodClient implements IFoodClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(FoodGroupByTypeDto.fromJS(item, _mappings));
-            }
+            result200 = PageableListOfFoodGroupByTypeDto.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -301,7 +305,7 @@ export class FoodClient implements IFoodClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FoodGroupByTypeDto[]>(<any>null);
+        return _observableOf<PageableListOfFoodGroupByTypeDto>(<any>null);
     }
 
     food_Post(newFood: FoodCreateDto): Observable<void> {
@@ -504,11 +508,11 @@ export class FoodClient implements IFoodClient {
 }
 
 export interface IRestaurantClient {
-    restaurant_GetAll(): Observable<string[]>;
-    restaurant_Post(value: string): Observable<void>;
-    restaurant_Get(id: number): Observable<string>;
-    restaurant_Put(id: number, value: string): Observable<void>;
-    restaurant_Delete(id: number): Observable<void>;
+    restaurant_GetAllRestaurant(): Observable<PageableListOfRestaruantDTO>;
+    restaurant_AddRestaurant(restaurant: RestaruantDTO): Observable<void>;
+    restaurant_GetRestaurant(id: string): Observable<RestaruantDetailDto>;
+    restaurant_EditRestaurant(id: string, restaurant: RestaruantDTO): Observable<void>;
+    restaurant_Delete(id: string): Observable<void>;
 }
 
 @Injectable()
@@ -522,7 +526,7 @@ export class RestaurantClient implements IRestaurantClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    restaurant_GetAll(): Observable<string[]> {
+    restaurant_GetAllRestaurant(): Observable<PageableListOfRestaruantDTO> {
         let url_ = this.baseUrl + "/api/Restaurant";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -535,35 +539,32 @@ export class RestaurantClient implements IRestaurantClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRestaurant_GetAll(response_);
+            return this.processRestaurant_GetAllRestaurant(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRestaurant_GetAll(<any>response_);
+                    return this.processRestaurant_GetAllRestaurant(<any>response_);
                 } catch (e) {
-                    return <Observable<string[]>><any>_observableThrow(e);
+                    return <Observable<PageableListOfRestaruantDTO>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string[]>><any>_observableThrow(response_);
+                return <Observable<PageableListOfRestaruantDTO>><any>_observableThrow(response_);
         }));
     }
 
-    protected processRestaurant_GetAll(response: HttpResponseBase): Observable<string[]> {
+    protected processRestaurant_GetAllRestaurant(response: HttpResponseBase): Observable<PageableListOfRestaruantDTO> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(item);
-            }
+            result200 = PageableListOfRestaruantDTO.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -571,14 +572,14 @@ export class RestaurantClient implements IRestaurantClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string[]>(<any>null);
+        return _observableOf<PageableListOfRestaruantDTO>(<any>null);
     }
 
-    restaurant_Post(value: string): Observable<void> {
+    restaurant_AddRestaurant(restaurant: RestaruantDTO): Observable<void> {
         let url_ = this.baseUrl + "/api/Restaurant";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(value);
+        const content_ = JSON.stringify(restaurant);
 
         let options_ : any = {
             body: content_,
@@ -590,11 +591,11 @@ export class RestaurantClient implements IRestaurantClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRestaurant_Post(response_);
+            return this.processRestaurant_AddRestaurant(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRestaurant_Post(<any>response_);
+                    return this.processRestaurant_AddRestaurant(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -603,7 +604,7 @@ export class RestaurantClient implements IRestaurantClient {
         }));
     }
 
-    protected processRestaurant_Post(response: HttpResponseBase): Observable<void> {
+    protected processRestaurant_AddRestaurant(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -622,7 +623,7 @@ export class RestaurantClient implements IRestaurantClient {
         return _observableOf<void>(<any>null);
     }
 
-    restaurant_Get(id: number): Observable<string> {
+    restaurant_GetRestaurant(id: string): Observable<RestaruantDetailDto> {
         let url_ = this.baseUrl + "/api/Restaurant/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -638,31 +639,32 @@ export class RestaurantClient implements IRestaurantClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRestaurant_Get(response_);
+            return this.processRestaurant_GetRestaurant(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRestaurant_Get(<any>response_);
+                    return this.processRestaurant_GetRestaurant(<any>response_);
                 } catch (e) {
-                    return <Observable<string>><any>_observableThrow(e);
+                    return <Observable<RestaruantDetailDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string>><any>_observableThrow(response_);
+                return <Observable<RestaruantDetailDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processRestaurant_Get(response: HttpResponseBase): Observable<string> {
+    protected processRestaurant_GetRestaurant(response: HttpResponseBase): Observable<RestaruantDetailDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            result200 = RestaruantDetailDto.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -670,17 +672,17 @@ export class RestaurantClient implements IRestaurantClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string>(<any>null);
+        return _observableOf<RestaruantDetailDto>(<any>null);
     }
 
-    restaurant_Put(id: number, value: string): Observable<void> {
+    restaurant_EditRestaurant(id: string, restaurant: RestaruantDTO): Observable<void> {
         let url_ = this.baseUrl + "/api/Restaurant/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(value);
+        const content_ = JSON.stringify(restaurant);
 
         let options_ : any = {
             body: content_,
@@ -692,11 +694,11 @@ export class RestaurantClient implements IRestaurantClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRestaurant_Put(response_);
+            return this.processRestaurant_EditRestaurant(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRestaurant_Put(<any>response_);
+                    return this.processRestaurant_EditRestaurant(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -705,7 +707,7 @@ export class RestaurantClient implements IRestaurantClient {
         }));
     }
 
-    protected processRestaurant_Put(response: HttpResponseBase): Observable<void> {
+    protected processRestaurant_EditRestaurant(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -724,7 +726,7 @@ export class RestaurantClient implements IRestaurantClient {
         return _observableOf<void>(<any>null);
     }
 
-    restaurant_Delete(id: number): Observable<void> {
+    restaurant_Delete(id: string): Observable<void> {
         let url_ = this.baseUrl + "/api/Restaurant/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -789,7 +791,7 @@ export class UserClient implements IUserClient {
     }
 
     user_GetAll(): Observable<FileResponse> {
-        let url_ = this.baseUrl + "/User";
+        let url_ = this.baseUrl + "/api/User";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -835,7 +837,7 @@ export class UserClient implements IUserClient {
     }
 
     user_Authenticate(model: AuthenticateRequestDto): Observable<FileResponse> {
-        let url_ = this.baseUrl + "/User/authenticate";
+        let url_ = this.baseUrl + "/api/User/authenticate";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(model);
@@ -885,6 +887,68 @@ export class UserClient implements IUserClient {
     }
 }
 
+export class CartDto implements ICartDto {
+    id!: string;
+    foods!: FoodDto[] | undefined;
+    totalPrice!: number;
+    comment!: string | undefined;
+    orderTime!: moment.Moment;
+    userId!: string | undefined;
+
+    constructor(data?: ICartDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            if (Array.isArray(_data["foods"])) {
+                this.foods = [] as any;
+                for (let item of _data["foods"])
+                    this.foods!.push(FoodDto.fromJS(item, _mappings));
+            }
+            this.totalPrice = _data["totalPrice"];
+            this.comment = _data["comment"];
+            this.orderTime = _data["orderTime"] ? moment.parseZone(_data["orderTime"].toString()) : <any>undefined;
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): CartDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<CartDto>(data, _mappings, CartDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        if (Array.isArray(this.foods)) {
+            data["foods"] = [];
+            for (let item of this.foods)
+                data["foods"].push(item.toJSON());
+        }
+        data["totalPrice"] = this.totalPrice;
+        data["comment"] = this.comment;
+        data["orderTime"] = this.orderTime ? this.orderTime.toISOString(true) : <any>undefined;
+        data["userId"] = this.userId;
+        return data; 
+    }
+}
+
+export interface ICartDto {
+    id: string;
+    foods: FoodDto[] | undefined;
+    totalPrice: number;
+    comment: string | undefined;
+    orderTime: moment.Moment;
+    userId: string | undefined;
+}
+
 export class FoodDto implements IFoodDto {
     id!: string;
     name!: string | undefined;
@@ -892,7 +956,7 @@ export class FoodDto implements IFoodDto {
     rating!: number;
     isAvailable!: boolean;
     description!: string | undefined;
-    foodAllergens!: FoodAllergen[] | undefined;
+    allergens!: Allergen[] | undefined;
     foodCategories!: number | undefined;
 
     constructor(data?: IFoodDto) {
@@ -912,10 +976,10 @@ export class FoodDto implements IFoodDto {
             this.rating = _data["rating"];
             this.isAvailable = _data["isAvailable"];
             this.description = _data["description"];
-            if (Array.isArray(_data["foodAllergens"])) {
-                this.foodAllergens = [] as any;
-                for (let item of _data["foodAllergens"])
-                    this.foodAllergens!.push(FoodAllergen.fromJS(item, _mappings));
+            if (Array.isArray(_data["allergens"])) {
+                this.allergens = [] as any;
+                for (let item of _data["allergens"])
+                    this.allergens!.push(item);
             }
             this.foodCategories = _data["foodCategories"];
         }
@@ -934,10 +998,10 @@ export class FoodDto implements IFoodDto {
         data["rating"] = this.rating;
         data["isAvailable"] = this.isAvailable;
         data["description"] = this.description;
-        if (Array.isArray(this.foodAllergens)) {
-            data["foodAllergens"] = [];
-            for (let item of this.foodAllergens)
-                data["foodAllergens"].push(item.toJSON());
+        if (Array.isArray(this.allergens)) {
+            data["allergens"] = [];
+            for (let item of this.allergens)
+                data["allergens"].push(item);
         }
         data["foodCategories"] = this.foodCategories;
         return data; 
@@ -951,850 +1015,67 @@ export interface IFoodDto {
     rating: number;
     isAvailable: boolean;
     description: string | undefined;
-    foodAllergens: FoodAllergen[] | undefined;
+    allergens: Allergen[] | undefined;
     foodCategories: number | undefined;
-}
-
-export class Base implements IBase {
-    createTime!: moment.Moment;
-    modifyTime!: moment.Moment;
-    isDelete!: boolean;
-
-    constructor(data?: IBase) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any, _mappings?: any) {
-        if (_data) {
-            this.createTime = _data["createTime"] ? moment.parseZone(_data["createTime"].toString()) : <any>undefined;
-            this.modifyTime = _data["modifyTime"] ? moment.parseZone(_data["modifyTime"].toString()) : <any>undefined;
-            this.isDelete = _data["isDelete"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Base {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Base>(data, _mappings, Base);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["createTime"] = this.createTime ? this.createTime.toISOString(true) : <any>undefined;
-        data["modifyTime"] = this.modifyTime ? this.modifyTime.toISOString(true) : <any>undefined;
-        data["isDelete"] = this.isDelete;
-        return data; 
-    }
-}
-
-export interface IBase {
-    createTime: moment.Moment;
-    modifyTime: moment.Moment;
-    isDelete: boolean;
-}
-
-export class FoodAllergen extends Base implements IFoodAllergen {
-    id!: string;
-    food!: Food | undefined;
-    foodId!: string;
-    allergen!: Allergen;
-
-    constructor(data?: IFoodAllergen) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.food = _data["food"] ? Food.fromJS(_data["food"], _mappings) : <any>undefined;
-            this.foodId = _data["foodId"];
-            this.allergen = _data["allergen"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): FoodAllergen {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<FoodAllergen>(data, _mappings, FoodAllergen);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["food"] = this.food ? this.food.toJSON() : <any>undefined;
-        data["foodId"] = this.foodId;
-        data["allergen"] = this.allergen;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IFoodAllergen extends IBase {
-    id: string;
-    food: Food | undefined;
-    foodId: string;
-    allergen: Allergen;
-}
-
-export class Food extends Base implements IFood {
-    id!: string;
-    name!: string | undefined;
-    price!: number;
-    category!: FoodCategories;
-    rating!: number;
-    isAvailable!: boolean;
-    description!: string | undefined;
-    menu!: Menu | undefined;
-    menuId!: string;
-    comments!: Comment[] | undefined;
-    foodAllergens!: FoodAllergen[] | undefined;
-    order!: Order | undefined;
-    orderId!: string | undefined;
-
-    constructor(data?: IFood) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.price = _data["price"];
-            this.category = _data["category"];
-            this.rating = _data["rating"];
-            this.isAvailable = _data["isAvailable"];
-            this.description = _data["description"];
-            this.menu = _data["menu"] ? Menu.fromJS(_data["menu"], _mappings) : <any>undefined;
-            this.menuId = _data["menuId"];
-            if (Array.isArray(_data["comments"])) {
-                this.comments = [] as any;
-                for (let item of _data["comments"])
-                    this.comments!.push(Comment.fromJS(item, _mappings));
-            }
-            if (Array.isArray(_data["foodAllergens"])) {
-                this.foodAllergens = [] as any;
-                for (let item of _data["foodAllergens"])
-                    this.foodAllergens!.push(FoodAllergen.fromJS(item, _mappings));
-            }
-            this.order = _data["order"] ? Order.fromJS(_data["order"], _mappings) : <any>undefined;
-            this.orderId = _data["orderId"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Food {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Food>(data, _mappings, Food);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["price"] = this.price;
-        data["category"] = this.category;
-        data["rating"] = this.rating;
-        data["isAvailable"] = this.isAvailable;
-        data["description"] = this.description;
-        data["menu"] = this.menu ? this.menu.toJSON() : <any>undefined;
-        data["menuId"] = this.menuId;
-        if (Array.isArray(this.comments)) {
-            data["comments"] = [];
-            for (let item of this.comments)
-                data["comments"].push(item.toJSON());
-        }
-        if (Array.isArray(this.foodAllergens)) {
-            data["foodAllergens"] = [];
-            for (let item of this.foodAllergens)
-                data["foodAllergens"].push(item.toJSON());
-        }
-        data["order"] = this.order ? this.order.toJSON() : <any>undefined;
-        data["orderId"] = this.orderId;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IFood extends IBase {
-    id: string;
-    name: string | undefined;
-    price: number;
-    category: FoodCategories;
-    rating: number;
-    isAvailable: boolean;
-    description: string | undefined;
-    menu: Menu | undefined;
-    menuId: string;
-    comments: Comment[] | undefined;
-    foodAllergens: FoodAllergen[] | undefined;
-    order: Order | undefined;
-    orderId: string | undefined;
-}
-
-export enum FoodCategories {
-    Soup = 1,
-    Meat = 2,
-}
-
-export class Menu extends Base implements IMenu {
-    id!: string;
-    name!: string | undefined;
-    foods!: Food[] | undefined;
-    restaurant!: Restaurant | undefined;
-    restaurantId!: string;
-
-    constructor(data?: IMenu) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            if (Array.isArray(_data["foods"])) {
-                this.foods = [] as any;
-                for (let item of _data["foods"])
-                    this.foods!.push(Food.fromJS(item, _mappings));
-            }
-            this.restaurant = _data["restaurant"] ? Restaurant.fromJS(_data["restaurant"], _mappings) : <any>undefined;
-            this.restaurantId = _data["restaurantId"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Menu {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Menu>(data, _mappings, Menu);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        if (Array.isArray(this.foods)) {
-            data["foods"] = [];
-            for (let item of this.foods)
-                data["foods"].push(item.toJSON());
-        }
-        data["restaurant"] = this.restaurant ? this.restaurant.toJSON() : <any>undefined;
-        data["restaurantId"] = this.restaurantId;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IMenu extends IBase {
-    id: string;
-    name: string | undefined;
-    foods: Food[] | undefined;
-    restaurant: Restaurant | undefined;
-    restaurantId: string;
-}
-
-export class Restaurant extends Base implements IRestaurant {
-    id!: string;
-    name!: string | undefined;
-    tables!: Table[] | undefined;
-    employees!: MyUser[] | undefined;
-    address!: string | undefined;
-    email!: string | undefined;
-    menu!: Menu | undefined;
-    menuId!: string | undefined;
-    dayOfWeekOpenTimes!: DayOfWeekOpenTimes[] | undefined;
-
-    constructor(data?: IRestaurant) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            if (Array.isArray(_data["tables"])) {
-                this.tables = [] as any;
-                for (let item of _data["tables"])
-                    this.tables!.push(Table.fromJS(item, _mappings));
-            }
-            if (Array.isArray(_data["employees"])) {
-                this.employees = [] as any;
-                for (let item of _data["employees"])
-                    this.employees!.push(MyUser.fromJS(item, _mappings));
-            }
-            this.address = _data["address"];
-            this.email = _data["email"];
-            this.menu = _data["menu"] ? Menu.fromJS(_data["menu"], _mappings) : <any>undefined;
-            this.menuId = _data["menuId"];
-            if (Array.isArray(_data["dayOfWeekOpenTimes"])) {
-                this.dayOfWeekOpenTimes = [] as any;
-                for (let item of _data["dayOfWeekOpenTimes"])
-                    this.dayOfWeekOpenTimes!.push(DayOfWeekOpenTimes.fromJS(item, _mappings));
-            }
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Restaurant {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Restaurant>(data, _mappings, Restaurant);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        if (Array.isArray(this.tables)) {
-            data["tables"] = [];
-            for (let item of this.tables)
-                data["tables"].push(item.toJSON());
-        }
-        if (Array.isArray(this.employees)) {
-            data["employees"] = [];
-            for (let item of this.employees)
-                data["employees"].push(item.toJSON());
-        }
-        data["address"] = this.address;
-        data["email"] = this.email;
-        data["menu"] = this.menu ? this.menu.toJSON() : <any>undefined;
-        data["menuId"] = this.menuId;
-        if (Array.isArray(this.dayOfWeekOpenTimes)) {
-            data["dayOfWeekOpenTimes"] = [];
-            for (let item of this.dayOfWeekOpenTimes)
-                data["dayOfWeekOpenTimes"].push(item.toJSON());
-        }
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IRestaurant extends IBase {
-    id: string;
-    name: string | undefined;
-    tables: Table[] | undefined;
-    employees: MyUser[] | undefined;
-    address: string | undefined;
-    email: string | undefined;
-    menu: Menu | undefined;
-    menuId: string | undefined;
-    dayOfWeekOpenTimes: DayOfWeekOpenTimes[] | undefined;
-}
-
-export class Table extends Base implements ITable {
-    id!: string;
-    number!: number;
-    restaurantId!: string;
-    reservationId!: string;
-    reservation!: Reservation | undefined;
-    userId!: string | undefined;
-    restaurant!: Restaurant | undefined;
-
-    constructor(data?: ITable) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.number = _data["number"];
-            this.restaurantId = _data["restaurantId"];
-            this.reservationId = _data["reservationId"];
-            this.reservation = _data["reservation"] ? Reservation.fromJS(_data["reservation"], _mappings) : <any>undefined;
-            this.userId = _data["userId"];
-            this.restaurant = _data["restaurant"] ? Restaurant.fromJS(_data["restaurant"], _mappings) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Table {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Table>(data, _mappings, Table);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["number"] = this.number;
-        data["restaurantId"] = this.restaurantId;
-        data["reservationId"] = this.reservationId;
-        data["reservation"] = this.reservation ? this.reservation.toJSON() : <any>undefined;
-        data["userId"] = this.userId;
-        data["restaurant"] = this.restaurant ? this.restaurant.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface ITable extends IBase {
-    id: string;
-    number: number;
-    restaurantId: string;
-    reservationId: string;
-    reservation: Reservation | undefined;
-    userId: string | undefined;
-    restaurant: Restaurant | undefined;
-}
-
-export class Reservation extends Base implements IReservation {
-    id!: string;
-    from!: moment.Moment;
-    to!: moment.Moment;
-    tableId!: string;
-    user!: MyUser | undefined;
-    userId!: string | undefined;
-    table!: Table | undefined;
-    orders!: Order[] | undefined;
-
-    constructor(data?: IReservation) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.from = _data["from"] ? moment.parseZone(_data["from"].toString()) : <any>undefined;
-            this.to = _data["to"] ? moment.parseZone(_data["to"].toString()) : <any>undefined;
-            this.tableId = _data["tableId"];
-            this.user = _data["user"] ? MyUser.fromJS(_data["user"], _mappings) : <any>undefined;
-            this.userId = _data["userId"];
-            this.table = _data["table"] ? Table.fromJS(_data["table"], _mappings) : <any>undefined;
-            if (Array.isArray(_data["orders"])) {
-                this.orders = [] as any;
-                for (let item of _data["orders"])
-                    this.orders!.push(Order.fromJS(item, _mappings));
-            }
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Reservation {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Reservation>(data, _mappings, Reservation);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["from"] = this.from ? this.from.toISOString(true) : <any>undefined;
-        data["to"] = this.to ? this.to.toISOString(true) : <any>undefined;
-        data["tableId"] = this.tableId;
-        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
-        data["userId"] = this.userId;
-        data["table"] = this.table ? this.table.toJSON() : <any>undefined;
-        if (Array.isArray(this.orders)) {
-            data["orders"] = [];
-            for (let item of this.orders)
-                data["orders"].push(item.toJSON());
-        }
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IReservation extends IBase {
-    id: string;
-    from: moment.Moment;
-    to: moment.Moment;
-    tableId: string;
-    user: MyUser | undefined;
-    userId: string | undefined;
-    table: Table | undefined;
-    orders: Order[] | undefined;
-}
-
-export class IdentityUserOfString implements IIdentityUserOfString {
-    id!: string | undefined;
-    userName!: string | undefined;
-    normalizedUserName!: string | undefined;
-    email!: string | undefined;
-    normalizedEmail!: string | undefined;
-    emailConfirmed!: boolean;
-    passwordHash!: string | undefined;
-    securityStamp!: string | undefined;
-    concurrencyStamp!: string | undefined;
-    phoneNumber!: string | undefined;
-    phoneNumberConfirmed!: boolean;
-    twoFactorEnabled!: boolean;
-    lockoutEnd!: moment.Moment | undefined;
-    lockoutEnabled!: boolean;
-    accessFailedCount!: number;
-
-    constructor(data?: IIdentityUserOfString) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any, _mappings?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.userName = _data["userName"];
-            this.normalizedUserName = _data["normalizedUserName"];
-            this.email = _data["email"];
-            this.normalizedEmail = _data["normalizedEmail"];
-            this.emailConfirmed = _data["emailConfirmed"];
-            this.passwordHash = _data["passwordHash"];
-            this.securityStamp = _data["securityStamp"];
-            this.concurrencyStamp = _data["concurrencyStamp"];
-            this.phoneNumber = _data["phoneNumber"];
-            this.phoneNumberConfirmed = _data["phoneNumberConfirmed"];
-            this.twoFactorEnabled = _data["twoFactorEnabled"];
-            this.lockoutEnd = _data["lockoutEnd"] ? moment.parseZone(_data["lockoutEnd"].toString()) : <any>undefined;
-            this.lockoutEnabled = _data["lockoutEnabled"];
-            this.accessFailedCount = _data["accessFailedCount"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): IdentityUserOfString {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<IdentityUserOfString>(data, _mappings, IdentityUserOfString);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["userName"] = this.userName;
-        data["normalizedUserName"] = this.normalizedUserName;
-        data["email"] = this.email;
-        data["normalizedEmail"] = this.normalizedEmail;
-        data["emailConfirmed"] = this.emailConfirmed;
-        data["passwordHash"] = this.passwordHash;
-        data["securityStamp"] = this.securityStamp;
-        data["concurrencyStamp"] = this.concurrencyStamp;
-        data["phoneNumber"] = this.phoneNumber;
-        data["phoneNumberConfirmed"] = this.phoneNumberConfirmed;
-        data["twoFactorEnabled"] = this.twoFactorEnabled;
-        data["lockoutEnd"] = this.lockoutEnd ? this.lockoutEnd.toISOString(true) : <any>undefined;
-        data["lockoutEnabled"] = this.lockoutEnabled;
-        data["accessFailedCount"] = this.accessFailedCount;
-        return data; 
-    }
-}
-
-export interface IIdentityUserOfString {
-    id: string | undefined;
-    userName: string | undefined;
-    normalizedUserName: string | undefined;
-    email: string | undefined;
-    normalizedEmail: string | undefined;
-    emailConfirmed: boolean;
-    passwordHash: string | undefined;
-    securityStamp: string | undefined;
-    concurrencyStamp: string | undefined;
-    phoneNumber: string | undefined;
-    phoneNumberConfirmed: boolean;
-    twoFactorEnabled: boolean;
-    lockoutEnd: moment.Moment | undefined;
-    lockoutEnabled: boolean;
-    accessFailedCount: number;
-}
-
-export class IdentityUser extends IdentityUserOfString implements IIdentityUser {
-
-    constructor(data?: IIdentityUser) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-    }
-
-    static fromJS(data: any, _mappings?: any): IdentityUser {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<IdentityUser>(data, _mappings, IdentityUser);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IIdentityUser extends IIdentityUserOfString {
-}
-
-export class MyUser extends IdentityUser implements IMyUser {
-    picture!: string | undefined;
-    title!: string | undefined;
-    restaurant!: Restaurant | undefined;
-    restaurantId!: string | undefined;
-    reservationId!: string | undefined;
-    reservation!: Reservation | undefined;
-    tables!: Table[] | undefined;
-    comments!: Comment[] | undefined;
-
-    constructor(data?: IMyUser) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.picture = _data["picture"];
-            this.title = _data["title"];
-            this.restaurant = _data["restaurant"] ? Restaurant.fromJS(_data["restaurant"], _mappings) : <any>undefined;
-            this.restaurantId = _data["restaurantId"];
-            this.reservationId = _data["reservationId"];
-            this.reservation = _data["reservation"] ? Reservation.fromJS(_data["reservation"], _mappings) : <any>undefined;
-            if (Array.isArray(_data["tables"])) {
-                this.tables = [] as any;
-                for (let item of _data["tables"])
-                    this.tables!.push(Table.fromJS(item, _mappings));
-            }
-            if (Array.isArray(_data["comments"])) {
-                this.comments = [] as any;
-                for (let item of _data["comments"])
-                    this.comments!.push(Comment.fromJS(item, _mappings));
-            }
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): MyUser {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<MyUser>(data, _mappings, MyUser);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["picture"] = this.picture;
-        data["title"] = this.title;
-        data["restaurant"] = this.restaurant ? this.restaurant.toJSON() : <any>undefined;
-        data["restaurantId"] = this.restaurantId;
-        data["reservationId"] = this.reservationId;
-        data["reservation"] = this.reservation ? this.reservation.toJSON() : <any>undefined;
-        if (Array.isArray(this.tables)) {
-            data["tables"] = [];
-            for (let item of this.tables)
-                data["tables"].push(item.toJSON());
-        }
-        if (Array.isArray(this.comments)) {
-            data["comments"] = [];
-            for (let item of this.comments)
-                data["comments"].push(item.toJSON());
-        }
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IMyUser extends IIdentityUser {
-    picture: string | undefined;
-    title: string | undefined;
-    restaurant: Restaurant | undefined;
-    restaurantId: string | undefined;
-    reservationId: string | undefined;
-    reservation: Reservation | undefined;
-    tables: Table[] | undefined;
-    comments: Comment[] | undefined;
-}
-
-export class Comment extends Base implements IComment {
-    id!: string;
-    foodId!: string;
-    myUserId!: string | undefined;
-    commentContent!: string | undefined;
-
-    constructor(data?: IComment) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.foodId = _data["foodId"];
-            this.myUserId = _data["myUserId"];
-            this.commentContent = _data["commentContent"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Comment {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Comment>(data, _mappings, Comment);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["foodId"] = this.foodId;
-        data["myUserId"] = this.myUserId;
-        data["commentContent"] = this.commentContent;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IComment extends IBase {
-    id: string;
-    foodId: string;
-    myUserId: string | undefined;
-    commentContent: string | undefined;
-}
-
-export class Order extends Base implements IOrder {
-    id!: string;
-    totalPrice!: number;
-    comment!: string | undefined;
-    orderTime!: moment.Moment;
-    foods!: Food[] | undefined;
-    reservation!: Reservation | undefined;
-    reservationId!: string;
-
-    constructor(data?: IOrder) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.totalPrice = _data["totalPrice"];
-            this.comment = _data["comment"];
-            this.orderTime = _data["orderTime"] ? moment.parseZone(_data["orderTime"].toString()) : <any>undefined;
-            if (Array.isArray(_data["foods"])) {
-                this.foods = [] as any;
-                for (let item of _data["foods"])
-                    this.foods!.push(Food.fromJS(item, _mappings));
-            }
-            this.reservation = _data["reservation"] ? Reservation.fromJS(_data["reservation"], _mappings) : <any>undefined;
-            this.reservationId = _data["reservationId"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): Order {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<Order>(data, _mappings, Order);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["totalPrice"] = this.totalPrice;
-        data["comment"] = this.comment;
-        data["orderTime"] = this.orderTime ? this.orderTime.toISOString(true) : <any>undefined;
-        if (Array.isArray(this.foods)) {
-            data["foods"] = [];
-            for (let item of this.foods)
-                data["foods"].push(item.toJSON());
-        }
-        data["reservation"] = this.reservation ? this.reservation.toJSON() : <any>undefined;
-        data["reservationId"] = this.reservationId;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IOrder extends IBase {
-    id: string;
-    totalPrice: number;
-    comment: string | undefined;
-    orderTime: moment.Moment;
-    foods: Food[] | undefined;
-    reservation: Reservation | undefined;
-    reservationId: string;
-}
-
-export class DayOfWeekOpenTimes extends Base implements IDayOfWeekOpenTimes {
-    id!: string;
-    restaurantId!: string;
-    dayOfWeek!: DayOfWeek;
-    openTimes!: OpenTime | undefined;
-
-    constructor(data?: IDayOfWeekOpenTimes) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.restaurantId = _data["restaurantId"];
-            this.dayOfWeek = _data["dayOfWeek"];
-            this.openTimes = _data["openTimes"] ? OpenTime.fromJS(_data["openTimes"], _mappings) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): DayOfWeekOpenTimes {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<DayOfWeekOpenTimes>(data, _mappings, DayOfWeekOpenTimes);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["restaurantId"] = this.restaurantId;
-        data["dayOfWeek"] = this.dayOfWeek;
-        data["openTimes"] = this.openTimes ? this.openTimes.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IDayOfWeekOpenTimes extends IBase {
-    id: string;
-    restaurantId: string;
-    dayOfWeek: DayOfWeek;
-    openTimes: OpenTime | undefined;
-}
-
-export enum DayOfWeek {
-    Sunday = 0,
-    Monday = 1,
-    Tuesday = 2,
-    Wednesday = 3,
-    Thursday = 4,
-    Friday = 5,
-    Saturday = 6,
-}
-
-export class OpenTime extends Base implements IOpenTime {
-    id!: string;
-    from!: moment.Moment;
-    to!: moment.Moment;
-
-    constructor(data?: IOpenTime) {
-        super(data);
-    }
-
-    init(_data?: any, _mappings?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-            this.from = _data["from"] ? moment.parseZone(_data["from"].toString()) : <any>undefined;
-            this.to = _data["to"] ? moment.parseZone(_data["to"].toString()) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): OpenTime {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<OpenTime>(data, _mappings, OpenTime);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["from"] = this.from ? this.from.toISOString(true) : <any>undefined;
-        data["to"] = this.to ? this.to.toISOString(true) : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IOpenTime extends IBase {
-    id: string;
-    from: moment.Moment;
-    to: moment.Moment;
 }
 
 export enum Allergen {
     Gluten = 0,
     Laktoz = 1,
+}
+
+export class PageableListOfFoodGroupByTypeDto implements IPageableListOfFoodGroupByTypeDto {
+    data!: FoodGroupByTypeDto[] | undefined;
+    index!: number;
+    pageSize!: number;
+    count!: number;
+
+    constructor(data?: IPageableListOfFoodGroupByTypeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["data"])) {
+                this.data = [] as any;
+                for (let item of _data["data"])
+                    this.data!.push(FoodGroupByTypeDto.fromJS(item, _mappings));
+            }
+            this.index = _data["index"];
+            this.pageSize = _data["pageSize"];
+            this.count = _data["count"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PageableListOfFoodGroupByTypeDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PageableListOfFoodGroupByTypeDto>(data, _mappings, PageableListOfFoodGroupByTypeDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        data["index"] = this.index;
+        data["pageSize"] = this.pageSize;
+        data["count"] = this.count;
+        return data; 
+    }
+}
+
+export interface IPageableListOfFoodGroupByTypeDto {
+    data: FoodGroupByTypeDto[] | undefined;
+    index: number;
+    pageSize: number;
+    count: number;
 }
 
 export class FoodGroupByTypeDto implements IFoodGroupByTypeDto {
@@ -1843,43 +1124,23 @@ export interface IFoodGroupByTypeDto {
     foods: FoodDto[] | undefined;
 }
 
-export class FoodDetailsDto implements IFoodDetailsDto {
-    id!: string;
-    name!: string | undefined;
-    price!: number;
-    category!: number;
-    rating!: number;
-    description!: string | undefined;
+export class FoodDetailsDto extends FoodDto implements IFoodDetailsDto {
     comments!: Comment[] | undefined;
-    foodAllergens!: FoodAllergen[] | undefined;
+    category!: number;
 
     constructor(data?: IFoodDetailsDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
     init(_data?: any, _mappings?: any) {
+        super.init(_data);
         if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.price = _data["price"];
-            this.category = _data["category"];
-            this.rating = _data["rating"];
-            this.description = _data["description"];
             if (Array.isArray(_data["comments"])) {
                 this.comments = [] as any;
                 for (let item of _data["comments"])
                     this.comments!.push(Comment.fromJS(item, _mappings));
             }
-            if (Array.isArray(_data["foodAllergens"])) {
-                this.foodAllergens = [] as any;
-                for (let item of _data["foodAllergens"])
-                    this.foodAllergens!.push(FoodAllergen.fromJS(item, _mappings));
-            }
+            this.category = _data["category"];
         }
     }
 
@@ -1890,47 +1151,208 @@ export class FoodDetailsDto implements IFoodDetailsDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["price"] = this.price;
-        data["category"] = this.category;
-        data["rating"] = this.rating;
-        data["description"] = this.description;
         if (Array.isArray(this.comments)) {
             data["comments"] = [];
             for (let item of this.comments)
                 data["comments"].push(item.toJSON());
         }
-        if (Array.isArray(this.foodAllergens)) {
-            data["foodAllergens"] = [];
-            for (let item of this.foodAllergens)
-                data["foodAllergens"].push(item.toJSON());
-        }
+        data["category"] = this.category;
+        super.toJSON(data);
         return data; 
     }
 }
 
-export interface IFoodDetailsDto {
-    id: string;
-    name: string | undefined;
-    price: number;
-    category: number;
-    rating: number;
-    description: string | undefined;
+export interface IFoodDetailsDto extends IFoodDto {
     comments: Comment[] | undefined;
-    foodAllergens: FoodAllergen[] | undefined;
+    category: number;
 }
 
-export class FoodCreateDto implements IFoodCreateDto {
-    id!: string | undefined;
-    name!: string | undefined;
-    price!: number;
+export class Base implements IBase {
+    createTime!: moment.Moment;
+    modifyTime!: moment.Moment;
+    isDelete!: boolean;
+
+    constructor(data?: IBase) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.createTime = _data["createTime"] ? moment.parseZone(_data["createTime"].toString()) : <any>undefined;
+            this.modifyTime = _data["modifyTime"] ? moment.parseZone(_data["modifyTime"].toString()) : <any>undefined;
+            this.isDelete = _data["isDelete"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): Base {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<Base>(data, _mappings, Base);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["createTime"] = this.createTime ? this.createTime.toISOString(true) : <any>undefined;
+        data["modifyTime"] = this.modifyTime ? this.modifyTime.toISOString(true) : <any>undefined;
+        data["isDelete"] = this.isDelete;
+        return data; 
+    }
+}
+
+export interface IBase {
+    createTime: moment.Moment;
+    modifyTime: moment.Moment;
+    isDelete: boolean;
+}
+
+export class Comment extends Base implements IComment {
+    id!: string;
+    foodId!: string;
+    myUserId!: string | undefined;
+    commentContent!: string | undefined;
+
+    constructor(data?: IComment) {
+        super(data);
+    }
+
+    init(_data?: any, _mappings?: any) {
+        super.init(_data);
+        if (_data) {
+            this.id = _data["id"];
+            this.foodId = _data["foodId"];
+            this.myUserId = _data["myUserId"];
+            this.commentContent = _data["commentContent"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): Comment {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<Comment>(data, _mappings, Comment);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["foodId"] = this.foodId;
+        data["myUserId"] = this.myUserId;
+        data["commentContent"] = this.commentContent;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IComment extends IBase {
+    id: string;
+    foodId: string;
+    myUserId: string | undefined;
+    commentContent: string | undefined;
+}
+
+export class FoodCreateDto extends FoodDto implements IFoodCreateDto {
     category!: FoodCategories;
-    description!: string | undefined;
-    menuId!: string;
-    foodAllergens!: Allergen[] | undefined;
+    restaurantId!: string;
 
     constructor(data?: IFoodCreateDto) {
+        super(data);
+    }
+
+    init(_data?: any, _mappings?: any) {
+        super.init(_data);
+        if (_data) {
+            this.category = _data["category"];
+            this.restaurantId = _data["restaurantId"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): FoodCreateDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<FoodCreateDto>(data, _mappings, FoodCreateDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["category"] = this.category;
+        data["restaurantId"] = this.restaurantId;
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IFoodCreateDto extends IFoodDto {
+    category: FoodCategories;
+    restaurantId: string;
+}
+
+export enum FoodCategories {
+    Soup = 1,
+    Meat = 2,
+}
+
+export class PageableListOfRestaruantDTO implements IPageableListOfRestaruantDTO {
+    data!: RestaruantDTO[] | undefined;
+    index!: number;
+    pageSize!: number;
+    count!: number;
+
+    constructor(data?: IPageableListOfRestaruantDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            if (Array.isArray(_data["data"])) {
+                this.data = [] as any;
+                for (let item of _data["data"])
+                    this.data!.push(RestaruantDTO.fromJS(item, _mappings));
+            }
+            this.index = _data["index"];
+            this.pageSize = _data["pageSize"];
+            this.count = _data["count"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): PageableListOfRestaruantDTO {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<PageableListOfRestaruantDTO>(data, _mappings, PageableListOfRestaruantDTO);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        data["index"] = this.index;
+        data["pageSize"] = this.pageSize;
+        data["count"] = this.count;
+        return data; 
+    }
+}
+
+export interface IPageableListOfRestaruantDTO {
+    data: RestaruantDTO[] | undefined;
+    index: number;
+    pageSize: number;
+    count: number;
+}
+
+export class RestaruantDTO implements IRestaruantDTO {
+    id!: string;
+    name!: string | undefined;
+    address!: string | undefined;
+    email!: string | undefined;
+
+    constructor(data?: IRestaruantDTO) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1943,48 +1365,156 @@ export class FoodCreateDto implements IFoodCreateDto {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"];
-            this.price = _data["price"];
-            this.category = _data["category"];
-            this.description = _data["description"];
-            this.menuId = _data["menuId"];
-            if (Array.isArray(_data["foodAllergens"])) {
-                this.foodAllergens = [] as any;
-                for (let item of _data["foodAllergens"])
-                    this.foodAllergens!.push(item);
-            }
+            this.address = _data["address"];
+            this.email = _data["email"];
         }
     }
 
-    static fromJS(data: any, _mappings?: any): FoodCreateDto {
+    static fromJS(data: any, _mappings?: any): RestaruantDTO {
         data = typeof data === 'object' ? data : {};
-        return createInstance<FoodCreateDto>(data, _mappings, FoodCreateDto);
+        return createInstance<RestaruantDTO>(data, _mappings, RestaruantDTO);
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["price"] = this.price;
-        data["category"] = this.category;
-        data["description"] = this.description;
-        data["menuId"] = this.menuId;
-        if (Array.isArray(this.foodAllergens)) {
-            data["foodAllergens"] = [];
-            for (let item of this.foodAllergens)
-                data["foodAllergens"].push(item);
-        }
+        data["address"] = this.address;
+        data["email"] = this.email;
         return data; 
     }
 }
 
-export interface IFoodCreateDto {
-    id: string | undefined;
+export interface IRestaruantDTO {
+    id: string;
     name: string | undefined;
-    price: number;
-    category: FoodCategories;
-    description: string | undefined;
-    menuId: string;
-    foodAllergens: Allergen[] | undefined;
+    address: string | undefined;
+    email: string | undefined;
+}
+
+export class RestaruantDetailDto extends RestaruantDTO implements IRestaruantDetailDto {
+    dayOfWeekOpenTimes!: DayOfWeekOpenTimesDto[] | undefined;
+
+    constructor(data?: IRestaruantDetailDto) {
+        super(data);
+    }
+
+    init(_data?: any, _mappings?: any) {
+        super.init(_data);
+        if (_data) {
+            if (Array.isArray(_data["dayOfWeekOpenTimes"])) {
+                this.dayOfWeekOpenTimes = [] as any;
+                for (let item of _data["dayOfWeekOpenTimes"])
+                    this.dayOfWeekOpenTimes!.push(DayOfWeekOpenTimesDto.fromJS(item, _mappings));
+            }
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): RestaruantDetailDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<RestaruantDetailDto>(data, _mappings, RestaruantDetailDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.dayOfWeekOpenTimes)) {
+            data["dayOfWeekOpenTimes"] = [];
+            for (let item of this.dayOfWeekOpenTimes)
+                data["dayOfWeekOpenTimes"].push(item.toJSON());
+        }
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface IRestaruantDetailDto extends IRestaruantDTO {
+    dayOfWeekOpenTimes: DayOfWeekOpenTimesDto[] | undefined;
+}
+
+export class DayOfWeekOpenTimesDto implements IDayOfWeekOpenTimesDto {
+    dayOfWeek!: DayOfWeek;
+    openTimes!: OpenTimeDTO | undefined;
+
+    constructor(data?: IDayOfWeekOpenTimesDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.dayOfWeek = _data["dayOfWeek"];
+            this.openTimes = _data["openTimes"] ? OpenTimeDTO.fromJS(_data["openTimes"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): DayOfWeekOpenTimesDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<DayOfWeekOpenTimesDto>(data, _mappings, DayOfWeekOpenTimesDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dayOfWeek"] = this.dayOfWeek;
+        data["openTimes"] = this.openTimes ? this.openTimes.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IDayOfWeekOpenTimesDto {
+    dayOfWeek: DayOfWeek;
+    openTimes: OpenTimeDTO | undefined;
+}
+
+export enum DayOfWeek {
+    Sunday = 0,
+    Monday = 1,
+    Tuesday = 2,
+    Wednesday = 3,
+    Thursday = 4,
+    Friday = 5,
+    Saturday = 6,
+}
+
+export class OpenTimeDTO implements IOpenTimeDTO {
+    from!: moment.Moment;
+    to!: moment.Moment;
+
+    constructor(data?: IOpenTimeDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.from = _data["from"] ? moment.parseZone(_data["from"].toString()) : <any>undefined;
+            this.to = _data["to"] ? moment.parseZone(_data["to"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): OpenTimeDTO {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<OpenTimeDTO>(data, _mappings, OpenTimeDTO);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["from"] = this.from ? this.from.toISOString(true) : <any>undefined;
+        data["to"] = this.to ? this.to.toISOString(true) : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IOpenTimeDTO {
+    from: moment.Moment;
+    to: moment.Moment;
 }
 
 export class AuthenticateRequestDto implements IAuthenticateRequestDto {

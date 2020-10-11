@@ -163,7 +163,7 @@ namespace EasyEOrder.Bll.Services
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 Description = foodCreateDto.Description,
-                Category = foodCreateDto.Category,
+                //Category = foodCreateDto.Category,
                 //FoodAllergens = allergens,
                 Price = foodCreateDto.Price,
                 
@@ -195,7 +195,7 @@ namespace EasyEOrder.Bll.Services
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 Description = foodCreateDto.Description,
-                Category = foodCreateDto.Category,
+                //Category = foodCreateDto.Category,
                 FoodAllergens = allergens,
                 Price = foodCreateDto.Price
             };
@@ -219,7 +219,7 @@ namespace EasyEOrder.Bll.Services
                 Id = entity.Id,
                 Name = entity.Name,
                 Price = entity.Price,
-                Category = entity.Category,
+                //Category = entity.Category,
                 Description = entity.Description,
                 //FoodAllergens = Allergens
             };

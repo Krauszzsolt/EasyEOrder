@@ -1,9 +1,6 @@
-﻿using EasyEOrder.Dal.Entities;
-using EasyEOrder.Dal.Entities.Enums;
-using Microsoft.AspNetCore.Mvc;
+﻿
+using EasyEOrder.Bll.DTOs.FoodDTO.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyEOrder.Bll.DTOs
 {
