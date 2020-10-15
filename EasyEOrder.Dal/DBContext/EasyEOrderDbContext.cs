@@ -111,6 +111,8 @@ namespace EasyEOrder.Dal.DBContext
             builder.Entity<MyUser>().HasData(Admin);
             builder.Entity<MyUser>().HasData(user);
 
+            // First reastaurant
+
             builder.Entity<Restaurant>().HasData(new Restaurant
             {
                 Id = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe843"),
@@ -120,6 +122,112 @@ namespace EasyEOrder.Dal.DBContext
                 MenuId = new System.Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
 
             });
+
+            builder.Entity<Restaurant>().HasData(new Restaurant
+            {
+                Id = new System.Guid("7b21b274-71fe-492a-8fed-f9a21c5a2c0d"),
+                Name = "Da Giovanni",
+                Address = "Bp., 1117 Karinthy F. út 22",
+                Email = "Da-Giovanni@pizza.hu",
+                MenuId = new System.Guid("7b21b274-71fe-492a-8fed-f9a21c5a2c01"),
+
+            });
+
+            builder.Entity<Menu>().HasData(new Menu
+            {
+                Id = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Name = "Olasz Pizzak",
+                RestaurantId = new System.Guid("7b21b274-71fe-492a-8fed-f9a21c5a2c0d"),
+            });
+
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b451"),
+                Name = "Húsos pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description =
+            "At vero eos et accusamus et iusto odio " +
+            "dignissimos ducimus qui blanditiis praesentium " +
+            "voluptatum deleniti atque corrupti quos dolores et qu" +
+            "as molestias excepturi sint occaecati cupiditate non provident," +
+            " similique sunt in culpa qui officia deserunt mollitia animi," +
+            " id est laborum et dolorum fuga. ",
+                Price = 1650,
+                IsAvailable = true,
+                Rating = 4,
+                Category = Entities.Enums.FoodCategories.soup,
+
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b452"),
+                Name = "Mozzarellás pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Finom mozzarella darabokkal a sajt kedvelőknek.",
+                Price = 1510,
+                IsAvailable = true,
+                Rating = 3,
+                Category = Entities.Enums.FoodCategories.soup,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b453"),
+                Name = "Halas pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Friss és ízletes alapanyagokból készítve",
+                Price = 1800,
+                IsAvailable = true,
+                Rating = 1,
+                Category = Entities.Enums.FoodCategories.soup,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b454"),
+                Name = "Vegetáriánus pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Elkészítéséhez hozzáértő szakácsunk saját receptjeit használja, hogy eredeti olasz pizza kerüljön ki a keze alól.",
+                Price = 2000,
+                IsAvailable = true,
+                Rating = 4,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b455"),
+                Name = "Tejszínes pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Nálunk a tejszínes pizzák is magas színvonalon készülnek.",
+                Price = 1680,
+                IsAvailable = true,
+                Rating = 3,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b456"),
+                Name = "Capriciosa pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Tányérunkra varázsolja az eredeti olasz ízeket.",
+                Price = 2100,
+                IsAvailable = true,
+                Rating = 2,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+            builder.Entity<Food>().HasData(new Food
+            {
+                Id = new System.Guid("63c299af-c574-42d7-9b74-a0904a96b457"),
+                Name = "Hawaii pizza",
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
+                Description = "Mindegyikhez minőségi alapanyagokat használunk, mivel mi a minőségi ételek elkötelezettjei vagyunk.",
+                Price = 1400,
+                IsAvailable = true,
+                Rating = 10,
+                Category = Entities.Enums.FoodCategories.meat,
+            });
+
+
+
+            // Second reastaurant --------------------------------------------------------------------
 
             builder.Entity<Restaurant>().HasData(new Restaurant
             {

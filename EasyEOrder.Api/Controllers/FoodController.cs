@@ -25,8 +25,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpGet]
         public async Task<PageableList<FoodGroupByTypeDto>> GetAll([FromQuery] FoodRequestQuery query)
         {
-            return null; 
-                //await _foodService.GetFoodsGroupByType();
+            return await _foodService.GetFoodsGroupByType(query);
         }
 
         // GET api/<controller>/5

@@ -35,7 +35,8 @@ namespace EasyEOrder
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
 
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IFoodService, FoodService>();
+            services.AddTransient<IFoodService, FoodService>(); 
+            services.AddTransient<IRestaurantService, RestaurantService>(); 
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 

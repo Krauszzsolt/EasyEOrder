@@ -1,7 +1,10 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Food;
+using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Dal.DBContext;
 using EasyEOrder.Dal.Entities;
+using EasyEOrder.Dal.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,8 +14,6 @@ using System.Threading.Tasks;
 namespace EasyEOrder.Bll.Services
 {
     public class FoodService : IFoodService
-
-
     {
 
         private readonly EasyEOrderDbContext _context;
@@ -22,27 +23,37 @@ namespace EasyEOrder.Bll.Services
             _context = context;
         }
 
-        public async Task<List<FoodGroupByTypeDto>> GetFoodsGroupByType()
+        public async Task<PageableList<FoodGroupByTypeDto>> GetFoodsGroupByType(FoodRequestQuery query)
         {
-            return (await _context.Foods
-                .Include(x => x.FoodAllergens)
-                .ToListAsync())
-                .GroupBy(f => f.Category)
-                .Select(x => new FoodGroupByTypeDto()
-                {
-                    Category = (int)x.Key,
-                    Foods = x.Select(f => new FoodDto()
-                    {
-                        Id = f.Id,
-                        Description = f.Description,
-                        //FoodAllergens = f.FoodAllergens,
-                        IsAvailable = f.IsAvailable,
-                        Name = f.Name,
-                        Price = f.Price,
-                        Rating = f.Rating
-                    }).ToList()
-                })
-            .ToList();
+            var foodGroupByTypeDtoList = (await _context.Foods
+                   .Include(x => x.FoodAllergens)
+                   .Where(x => x.MenuId == new Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7")) // query.menuId
+                   .ToListAsync())
+                   .GroupBy(f => f.Category)
+                   .Select(x => new FoodGroupByTypeDto()
+                   {
+                       Category = (int)x.Key,
+                       Foods = x.Select(f => new FoodDto()
+                       {
+                           Id = f.Id,
+                           Description = f.Description,
+                           //FoodAllergens = f.FoodAllergens,
+                           IsAvailable = f.IsAvailable,
+                           Name = f.Name,
+                           Price = f.Price,
+                           Rating = f.Rating
+                       }).ToList()
+                   })
+               .ToList();
+
+
+            return new PageableList<FoodGroupByTypeDto>
+            {
+                Data = foodGroupByTypeDtoList,
+                Count = foodGroupByTypeDtoList.Count(),
+                Index = 0,
+                PageSize = 10
+            };
         }
 
         public async Task<FoodDetailsDto> GetFooDetails(Guid Id)
@@ -85,7 +96,7 @@ namespace EasyEOrder.Bll.Services
                     Id = p.Id,
                     Description = p.Description,
                     //FoodAllergens = p.FoodAllergens,
-                    FoodCategories = (int)p.Category,
+                    //FoodCategories = (int)p.Category,
                     IsAvailable = p.IsAvailable,
                     Name = p.Name,
                     Price = p.Price,
@@ -150,25 +161,26 @@ namespace EasyEOrder.Bll.Services
         {
 
             List<FoodAllergen> allergens = new List<FoodAllergen>();
-            //foodCreateDto.FoodAllergens.ToList()
-            //    .ForEach
-            //    (x => allergens.Add(new FoodAllergen()
-            //    {
-            //        Allergen = x
-            //    }
-            //    ));
+            foodCreateDto.Allergens.ToList()
+                .ForEach
+                (x => allergens.Add(new FoodAllergen()
+                {
+                    Allergen = (Allergen)x,
+                    //FoodId = foodCreateDto.Id
+                }
+                ));
 
             var entity = new Food()
             {
                 Name = foodCreateDto.Name,
-                MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                MenuId = new Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
                 Description = foodCreateDto.Description,
-                //Category = foodCreateDto.Category,
-                //FoodAllergens = allergens,
+                Category = (FoodCategories)foodCreateDto.Category,
+                FoodAllergens = allergens,
                 Price = foodCreateDto.Price,
-                
+
             };
-            await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
+            //await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
             await _context.Foods.AddAsync(entity);
             _context.SaveChanges();
         }

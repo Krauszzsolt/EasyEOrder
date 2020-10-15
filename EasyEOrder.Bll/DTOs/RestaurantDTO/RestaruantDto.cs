@@ -14,5 +14,7 @@ namespace EasyEOrder.Bll.DTOs
 
         public string Email { get; set; }
 
+        public Guid MenuId { get; set; }
+
     }
 }

@@ -20,7 +20,7 @@ namespace EasyEOrder.Bll.DTOs
 
         public List<Allergen> Allergens { get; set; }
 
-        public int? FoodCategories { get; set; }
+        //public int? FoodCategories { get; set; }
 
     }
 }

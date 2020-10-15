@@ -11,4 +11,6 @@ namespace EasyEOrder.Bll.DTOs.Wrapper
         public int PageSize { get; set; }
         public int Count { get; set; }
     }
+
+ 
 }

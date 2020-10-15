@@ -8,6 +8,6 @@ namespace EasyEOrder.Bll.DTOs
     {
         public FoodCategories Category { get; set; }
 
-        public Guid RestaurantId { get; set; }
+        public Guid MenuId { get; set; }
     }
 }

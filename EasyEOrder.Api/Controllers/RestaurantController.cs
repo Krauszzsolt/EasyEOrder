@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.DTOs.Restaurant;
 using EasyEOrder.Bll.DTOs.Wrapper;
+using EasyEOrder.Bll.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,11 +16,17 @@ namespace EasyEOrder.Api.Controllers
     [ApiController]
     public class RestaurantController : BaseController
     {
+
+        private readonly IRestaurantService _restaurantService;
+        public RestaurantController(IRestaurantService restaurantService)
+        {
+            _restaurantService = restaurantService;
+        }
         // GET: api/<RestaurantController>
         [HttpGet]
-        public Task<PageableList<RestaruantDTO>> GetAllRestaurant()
+        public Task<PageableList<RestaruantDTO>> GetAllRestaurant([FromQuery]PageableRequestQuery requestQuery)
         {
-            return null;
+            return _restaurantService.GetAllRestaurant(requestQuery);
         }
 
         // GET api/<RestaurantController>/5
