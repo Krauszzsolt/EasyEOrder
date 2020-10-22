@@ -6,7 +6,6 @@ import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
 import { environment } from "src/environments/environment";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AuthService } from "./core/service/auth.service";
 import { API_BASE_URL, UserClient } from "./shared/client/clients";
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtInerceptorService } from './core/interceptor/jwt-inerceptor.service';

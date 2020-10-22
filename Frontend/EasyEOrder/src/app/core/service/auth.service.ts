@@ -1,7 +1,6 @@
 import { HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { tokenNotExpired } from "angular2-jwt";
-import decode from "jwt-decode";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import {
@@ -39,17 +38,17 @@ export class AuthService {
     return tokenNotExpired(null, token);
   }
 
-  public login(
-    model: AuthenticateRequestDto
-  ): Observable<AuthenticateResponseDto> {
-    return this.ClienService.user_Authenticate(model).pipe(
-      tap((x) => {
-        console.log(x), localStorage.setItem("token", x.token);
-      })
-    );
-  }
+  // public login(
+  //   model: AuthenticateRequestDto
+  // ): Observable<AuthenticateResponseDto> {
+  //   return this.ClienService.user_Authenticate(model).pipe(
+  //     tap((x) => {
+  //       console.log(x), localStorage.setItem("token", x.token);
+  //     })
+  //   );
+  // }
 
-  public test(): Observable<UserDto[]> {
-    return this.ClienService.user_GetAll();
-  }
+  // public test(): Observable<UserDto[]> {
+  //   return this.ClienService.user_GetAll();
+  // }
 }
