@@ -38,17 +38,17 @@ export class AuthService {
     return tokenNotExpired(null, token);
   }
 
-  // public login(
-  //   model: AuthenticateRequestDto
-  // ): Observable<AuthenticateResponseDto> {
-  //   return this.ClienService.user_Authenticate(model).pipe(
-  //     tap((x) => {
-  //       console.log(x), localStorage.setItem("token", x.token);
-  //     })
-  //   );
-  // }
+  public login(
+    model: AuthenticateRequestDto
+  ): Observable<AuthenticateResponseDto> {
+    return this.ClienService.user_Authenticate(model).pipe(
+      tap((x) => {
+        console.log(x), localStorage.setItem("token", x.token);
+      })
+    );
+  }
 
-  // public test(): Observable<UserDto[]> {
-  //   return this.ClienService.user_GetAll();
-  // }
+  public test(): Observable<UserDto[]> {
+    return this.ClienService.user_GetAll();
+  }
 }
