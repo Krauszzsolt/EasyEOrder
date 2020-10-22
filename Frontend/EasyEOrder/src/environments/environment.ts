@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  basePath: "./../../../../EasyEOrder.Api"
+  basePath: "./../../../../EasyEOrder.Api",
+  API_BASE_URL:'https://localhost:5001'
 };
 
 /*

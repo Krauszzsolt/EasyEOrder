@@ -225,7 +225,7 @@ export class CartClient implements ICartClient {
 }
 
 export interface IFoodClient {
-    food_GetAll(restaruanId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto>;
+    food_GetAll(menuId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto>;
     food_Post(newFood: FoodCreateDto): Observable<void>;
     food_Get(id: string): Observable<FoodDetailsDto>;
     food_Put(id: string, newFood: FoodCreateDto): Observable<void>;
@@ -243,12 +243,12 @@ export class FoodClient implements IFoodClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    food_GetAll(restaruanId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto> {
+    food_GetAll(menuId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto> {
         let url_ = this.baseUrl + "/api/Food?";
-        if (restaruanId === undefined || restaruanId === null)
-            throw new Error("The parameter 'restaruanId' must be defined and cannot be null.");
+        if (menuId === undefined || menuId === null)
+            throw new Error("The parameter 'menuId' must be defined and cannot be null.");
         else
-            url_ += "RestaruanId=" + encodeURIComponent("" + restaruanId) + "&";
+            url_ += "MenuId=" + encodeURIComponent("" + menuId) + "&";
         if (searchTerm === undefined)
             throw new Error("The parameter 'searchTerm' must be defined.");
         else if(searchTerm !== null)
@@ -508,7 +508,7 @@ export class FoodClient implements IFoodClient {
 }
 
 export interface IRestaurantClient {
-    restaurant_GetAllRestaurant(): Observable<PageableListOfRestaruantDTO>;
+    restaurant_GetAllRestaurant(index: number, pageSize: number): Observable<PageableListOfRestaruantDTO>;
     restaurant_AddRestaurant(restaurant: RestaruantDTO): Observable<void>;
     restaurant_GetRestaurant(id: string): Observable<RestaruantDetailDto>;
     restaurant_EditRestaurant(id: string, restaurant: RestaruantDTO): Observable<void>;
@@ -526,8 +526,16 @@ export class RestaurantClient implements IRestaurantClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    restaurant_GetAllRestaurant(): Observable<PageableListOfRestaruantDTO> {
-        let url_ = this.baseUrl + "/api/Restaurant";
+    restaurant_GetAllRestaurant(index: number, pageSize: number): Observable<PageableListOfRestaruantDTO> {
+        let url_ = this.baseUrl + "/api/Restaurant?";
+        if (index === undefined || index === null)
+            throw new Error("The parameter 'index' must be defined and cannot be null.");
+        else
+            url_ += "Index=" + encodeURIComponent("" + index) + "&";
+        if (pageSize === undefined || pageSize === null)
+            throw new Error("The parameter 'pageSize' must be defined and cannot be null.");
+        else
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -775,8 +783,8 @@ export class RestaurantClient implements IRestaurantClient {
 }
 
 export interface IUserClient {
-    user_GetAll(): Observable<FileResponse>;
-    user_Authenticate(model: AuthenticateRequestDto): Observable<FileResponse>;
+    user_GetAll(): Observable<UserDto[]>;
+    user_Authenticate(model: AuthenticateRequestDto): Observable<AuthenticateResponseDto>;
 }
 
 @Injectable()
@@ -790,7 +798,7 @@ export class UserClient implements IUserClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    user_GetAll(): Observable<FileResponse> {
+    user_GetAll(): Observable<UserDto[]> {
         let url_ = this.baseUrl + "/api/User";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -798,7 +806,7 @@ export class UserClient implements IUserClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
@@ -809,34 +817,41 @@ export class UserClient implements IUserClient {
                 try {
                     return this.processUser_GetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<FileResponse>><any>_observableThrow(e);
+                    return <Observable<UserDto[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FileResponse>><any>_observableThrow(response_);
+                return <Observable<UserDto[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUser_GetAll(response: HttpResponseBase): Observable<FileResponse> {
+    protected processUser_GetAll(response: HttpResponseBase): Observable<UserDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(UserDto.fromJS(item, _mappings));
+            }
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FileResponse>(<any>null);
+        return _observableOf<UserDto[]>(<any>null);
     }
 
-    user_Authenticate(model: AuthenticateRequestDto): Observable<FileResponse> {
+    user_Authenticate(model: AuthenticateRequestDto): Observable<AuthenticateResponseDto> {
         let url_ = this.baseUrl + "/api/User/authenticate";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -848,7 +863,7 @@ export class UserClient implements IUserClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
@@ -859,31 +874,34 @@ export class UserClient implements IUserClient {
                 try {
                     return this.processUser_Authenticate(<any>response_);
                 } catch (e) {
-                    return <Observable<FileResponse>><any>_observableThrow(e);
+                    return <Observable<AuthenticateResponseDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<FileResponse>><any>_observableThrow(response_);
+                return <Observable<AuthenticateResponseDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUser_Authenticate(response: HttpResponseBase): Observable<FileResponse> {
+    protected processUser_Authenticate(response: HttpResponseBase): Observable<AuthenticateResponseDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = AuthenticateResponseDto.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<FileResponse>(<any>null);
+        return _observableOf<AuthenticateResponseDto>(<any>null);
     }
 }
 
@@ -957,7 +975,6 @@ export class FoodDto implements IFoodDto {
     isAvailable!: boolean;
     description!: string | undefined;
     allergens!: Allergen[] | undefined;
-    foodCategories!: number | undefined;
 
     constructor(data?: IFoodDto) {
         if (data) {
@@ -981,7 +998,6 @@ export class FoodDto implements IFoodDto {
                 for (let item of _data["allergens"])
                     this.allergens!.push(item);
             }
-            this.foodCategories = _data["foodCategories"];
         }
     }
 
@@ -1003,7 +1019,6 @@ export class FoodDto implements IFoodDto {
             for (let item of this.allergens)
                 data["allergens"].push(item);
         }
-        data["foodCategories"] = this.foodCategories;
         return data; 
     }
 }
@@ -1016,7 +1031,6 @@ export interface IFoodDto {
     isAvailable: boolean;
     description: string | undefined;
     allergens: Allergen[] | undefined;
-    foodCategories: number | undefined;
 }
 
 export enum Allergen {
@@ -1254,7 +1268,7 @@ export interface IComment extends IBase {
 
 export class FoodCreateDto extends FoodDto implements IFoodCreateDto {
     category!: FoodCategories;
-    restaurantId!: string;
+    menuId!: string;
 
     constructor(data?: IFoodCreateDto) {
         super(data);
@@ -1264,7 +1278,7 @@ export class FoodCreateDto extends FoodDto implements IFoodCreateDto {
         super.init(_data);
         if (_data) {
             this.category = _data["category"];
-            this.restaurantId = _data["restaurantId"];
+            this.menuId = _data["menuId"];
         }
     }
 
@@ -1276,7 +1290,7 @@ export class FoodCreateDto extends FoodDto implements IFoodCreateDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["category"] = this.category;
-        data["restaurantId"] = this.restaurantId;
+        data["menuId"] = this.menuId;
         super.toJSON(data);
         return data; 
     }
@@ -1284,7 +1298,7 @@ export class FoodCreateDto extends FoodDto implements IFoodCreateDto {
 
 export interface IFoodCreateDto extends IFoodDto {
     category: FoodCategories;
-    restaurantId: string;
+    menuId: string;
 }
 
 export enum FoodCategories {
@@ -1351,6 +1365,7 @@ export class RestaruantDTO implements IRestaruantDTO {
     name!: string | undefined;
     address!: string | undefined;
     email!: string | undefined;
+    menuId!: string;
 
     constructor(data?: IRestaruantDTO) {
         if (data) {
@@ -1367,6 +1382,7 @@ export class RestaruantDTO implements IRestaruantDTO {
             this.name = _data["name"];
             this.address = _data["address"];
             this.email = _data["email"];
+            this.menuId = _data["menuId"];
         }
     }
 
@@ -1381,6 +1397,7 @@ export class RestaruantDTO implements IRestaruantDTO {
         data["name"] = this.name;
         data["address"] = this.address;
         data["email"] = this.email;
+        data["menuId"] = this.menuId;
         return data; 
     }
 }
@@ -1390,6 +1407,7 @@ export interface IRestaruantDTO {
     name: string | undefined;
     address: string | undefined;
     email: string | undefined;
+    menuId: string;
 }
 
 export class RestaruantDetailDto extends RestaruantDTO implements IRestaruantDetailDto {
@@ -1517,6 +1535,106 @@ export interface IOpenTimeDTO {
     to: moment.Moment;
 }
 
+export class UserDto implements IUserDto {
+    id!: string | undefined;
+    firstName!: string | undefined;
+    lastName!: string | undefined;
+    username!: string | undefined;
+    password!: string | undefined;
+
+    constructor(data?: IUserDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.username = _data["username"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): UserDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<UserDto>(data, _mappings, UserDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["username"] = this.username;
+        data["password"] = this.password;
+        return data; 
+    }
+}
+
+export interface IUserDto {
+    id: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+    username: string | undefined;
+    password: string | undefined;
+}
+
+export class AuthenticateResponseDto implements IAuthenticateResponseDto {
+    id!: string | undefined;
+    firstName!: string | undefined;
+    lastName!: string | undefined;
+    username!: string | undefined;
+    token!: string | undefined;
+
+    constructor(data?: IAuthenticateResponseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.username = _data["username"];
+            this.token = _data["token"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): AuthenticateResponseDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<AuthenticateResponseDto>(data, _mappings, AuthenticateResponseDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["username"] = this.username;
+        data["token"] = this.token;
+        return data; 
+    }
+}
+
+export interface IAuthenticateResponseDto {
+    id: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
+    username: string | undefined;
+    token: string | undefined;
+}
+
 export class AuthenticateRequestDto implements IAuthenticateRequestDto {
     username!: string;
     password!: string;
@@ -1611,13 +1729,6 @@ function createInstance<T>(data: any, mappings: any, type: any): T {
     mappings.push({ source: data, target: result });
     result.init(data, mappings);
     return result;
-}
-
-export interface FileResponse {
-    data: Blob;
-    status: number;
-    fileName?: string;
-    headers?: { [name: string]: any };
 }
 
 export class ApiException extends Error {

@@ -1,8 +1,14 @@
+using EasyEOrder.Api.Helpers;
+using EasyEOrder.Api.Helpers;
 using EasyEOrder.Bll.Helpers;
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Bll.Services;
 using EasyEOrder.Dal.DBContext;
 using EasyEOrder.Dal.Entities;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +16,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EasyEOrder
 {
@@ -35,11 +45,10 @@ namespace EasyEOrder
                 .AddEntityFrameworkStores<EasyEOrderDbContext>();
 
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IFoodService, FoodService>(); 
-            services.AddTransient<IRestaurantService, RestaurantService>(); 
+            services.AddTransient<IFoodService, FoodService>();
+            services.AddTransient<IRestaurantService, RestaurantService>();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
             services.Configure<IdentityOptions>(options =>
             {
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -63,6 +72,102 @@ namespace EasyEOrder
                     document.Info.Description = "REST API for example.";
                 };
             });
+
+            //services.AddCors(options => {
+            //    options.AddPolicy("mypolicy", builder => builder
+            //     .WithOrigins("http://localhost:4200/")
+            //     .SetIsOriginAllowed((host) => true)
+            //     .AllowAnyMethod()
+            //     .AllowAnyHeader());
+            //});
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.Events = new CookieAuthenticationEvents()
+                {
+                    OnRedirectToLogin = (ctx) =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                        {
+                            ctx.Response.StatusCode = 401;
+                        }
+
+                        return Task.CompletedTask;
+                    },
+                    OnRedirectToAccessDenied = (ctx) =>
+                    {
+                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                        {
+                            ctx.Response.StatusCode = 403;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+            });
+
+
+
+            //IdentityModelEventSource.ShowPII = true; //Add this line
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(x =>
+            //    {
+            //        //x.Authority = "http://localhost:5001";
+            //        //x.RequireHttpsMetadata = false;
+            //        //x.ApiName = "api"; //api name
+            //    });
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                //.AddIdentityServerAuthentication(x =>
+                //{
+                //    x.Authority = "http://localhost:5001"; //idp address
+                //    x.RequireHttpsMetadata = false;
+                //    x.ApiName = "api"; //api name
+                //})
+
+             .AddJwtBearer(options =>
+              {
+                  options.RequireHttpsMetadata = false;
+                  options.SaveToken = true;
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      
+                  ValidateIssuer = false,
+                      ValidateAudience = false,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      ValidIssuer = "http://localhost:5001",
+                      ValidAudience = "http://localhost:5001",
+                      //TokenDecryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ASEFRFDDWSDRGYHF")),
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING")),
+                      ClockSkew = TimeSpan.Zero
+                  };
+              });
+
+                  //  .AddJwtBearer(o =>
+                  //   {
+                  //       o.Authority = Configuration.GetSection("IdentityServerUrl").Value;
+                  //       o.RequireHttpsMetadata = false;
+                  //       o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                  //       {
+                  //           ValidateAudience = false
+                  //       };
+                  //   });
+
+            services.AddAuthorization(options =>
+            {
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
+                    JwtBearerDefaults.AuthenticationScheme);
+
+                defaultAuthorizationPolicyBuilder =
+                    defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
+            services.AddCors();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -78,13 +183,29 @@ namespace EasyEOrder
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSession();
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //app.UseCors("mypolicy");
+            //app.UseCors(x => x
+            //  .AllowAnyOrigin()
+            //  .AllowAnyMethod()
+            //  .AllowAnyHeader());
 
+            app.UseCors(x => x
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .SetIsOriginAllowed(origin => true) // allow any origin
+             .AllowCredentials()); // allow credentials
+
+
+            app.UseMiddleware<JwtMiddleware>();
+            //app.UseSession();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -49,10 +49,11 @@ namespace EasyEOrder.Api.Helpers
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId.ToString());
+                var user = userService.GetById(userId);
+                context.Items["User"] = user;
             }
             catch
             {

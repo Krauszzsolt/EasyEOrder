@@ -18,10 +18,10 @@ namespace EasyEOrder.Bll.Services
     public class UserService : IUserService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<UserDto> _users = new List<UserDto>
-        {
-            new UserDto { Id = "1", FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
-        };
+        //private List<UserDto> _users = new List<UserDto>
+        //{
+        //    new UserDto { Id = "1", FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
+        //};
 
         private readonly AppSettings _appSettings;
         private readonly SignInManager<MyUser> _signInManager;
@@ -76,12 +76,26 @@ namespace EasyEOrder.Bll.Services
 
         public IEnumerable<UserDto> GetAll()
         {
-            return _users;
+            return _userManager.Users.Select(user => new UserDto
+            {
+                Id = user.Id,
+                FirstName = user.UserName,
+                LastName = user.UserName,
+                Username = user.UserName,
+            });
+
         }
 
         public UserDto GetById(string id)
         {
-            return _users.FirstOrDefault(x => x.Id == id);
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            return new UserDto
+            {
+                Id = user.Id,
+                FirstName = user.UserName,
+                LastName = user.UserName,
+                Username = user.UserName,
+            };
         }
 
         // helper methods

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,16 +23,16 @@ namespace EasyEOrder.Api.Controllers
             _userService = userService;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        public IActionResult GetAll()
+        public ActionResult<List<UserDto>> GetAll()
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().ToList();
             return Ok(users);
         }
 
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate(AuthenticateRequestDto model)
+        public async Task<ActionResult<AuthenticateResponseDto>> Authenticate(AuthenticateRequestDto model)
         {
             var response = await _userService.AuthenticateAsync(model);
 
