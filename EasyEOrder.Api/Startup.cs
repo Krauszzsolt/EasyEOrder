@@ -73,13 +73,7 @@ namespace EasyEOrder
                 };
             });
 
-            //services.AddCors(options => {
-            //    options.AddPolicy("mypolicy", builder => builder
-            //     .WithOrigins("http://localhost:4200/")
-            //     .SetIsOriginAllowed((host) => true)
-            //     .AllowAnyMethod()
-            //     .AllowAnyHeader());
-            //});
+
             services.ConfigureApplicationCookie(o =>
             {
                 o.Events = new CookieAuthenticationEvents()
@@ -110,23 +104,7 @@ namespace EasyEOrder
                 options.IdleTimeout = TimeSpan.FromMinutes(1);
             });
 
-
-
-            //IdentityModelEventSource.ShowPII = true; //Add this line
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(x =>
-            //    {
-            //        //x.Authority = "http://localhost:5001";
-            //        //x.RequireHttpsMetadata = false;
-            //        //x.ApiName = "api"; //api name
-            //    });
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                //.AddIdentityServerAuthentication(x =>
-                //{
-                //    x.Authority = "http://localhost:5001"; //idp address
-                //    x.RequireHttpsMetadata = false;
-                //    x.ApiName = "api"; //api name
-                //})
 
              .AddJwtBearer(options =>
               {
@@ -134,28 +112,18 @@ namespace EasyEOrder
                   options.SaveToken = true;
                   options.TokenValidationParameters = new TokenValidationParameters
                   {
-                      
-                  ValidateIssuer = false,
+                      ValidateIssuer = false,
                       ValidateAudience = false,
                       ValidateLifetime = true,
                       ValidateIssuerSigningKey = true,
                       ValidIssuer = "http://localhost:5001",
                       ValidAudience = "http://localhost:5001",
-                      //TokenDecryptionKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ASEFRFDDWSDRGYHF")),
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING")),
                       ClockSkew = TimeSpan.Zero
                   };
               });
 
-                  //  .AddJwtBearer(o =>
-                  //   {
-                  //       o.Authority = Configuration.GetSection("IdentityServerUrl").Value;
-                  //       o.RequireHttpsMetadata = false;
-                  //       o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                  //       {
-                  //           ValidateAudience = false
-                  //       };
-                  //   });
+
 
             services.AddAuthorization(options =>
             {
@@ -183,6 +151,7 @@ namespace EasyEOrder
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseExceptionHandler("/error"); // Add this
             app.UseSession();
             app.UseOpenApi();
             app.UseSwaggerUi3();
@@ -190,11 +159,6 @@ namespace EasyEOrder
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            //app.UseCors("mypolicy");
-            //app.UseCors(x => x
-            //  .AllowAnyOrigin()
-            //  .AllowAnyMethod()
-            //  .AllowAnyHeader());
 
             app.UseCors(x => x
              .AllowAnyMethod()
@@ -202,9 +166,9 @@ namespace EasyEOrder
              .SetIsOriginAllowed(origin => true) // allow any origin
              .AllowCredentials()); // allow credentials
 
+          
 
             app.UseMiddleware<JwtMiddleware>();
-            //app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

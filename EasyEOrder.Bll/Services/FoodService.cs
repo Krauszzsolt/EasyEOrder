@@ -65,7 +65,7 @@ namespace EasyEOrder.Bll.Services
 
             if (entity == null)
             {
-                throw new KeyNotFoundException("Food not found!", 404);
+                throw new KeyNotFoundException("Food not found!");
             }
             return new FoodDetailsDto()
             {
