@@ -73,68 +73,15 @@ namespace EasyEOrder
                 };
             });
 
-
-            services.ConfigureApplicationCookie(o =>
-            {
-                o.Events = new CookieAuthenticationEvents()
-                {
-                    OnRedirectToLogin = (ctx) =>
-                    {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-                        {
-                            ctx.Response.StatusCode = 401;
-                        }
-
-                        return Task.CompletedTask;
-                    },
-                    OnRedirectToAccessDenied = (ctx) =>
-                    {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-                        {
-                            ctx.Response.StatusCode = 403;
-                        }
-
-                        return Task.CompletedTask;
-                    }
-                };
-            });
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(1);
             });
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-
-             .AddJwtBearer(options =>
-              {
-                  options.RequireHttpsMetadata = false;
-                  options.SaveToken = true;
-                  options.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidateIssuer = false,
-                      ValidateAudience = false,
-                      ValidateLifetime = true,
-                      ValidateIssuerSigningKey = true,
-                      ValidIssuer = "http://localhost:5001",
-                      ValidAudience = "http://localhost:5001",
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING")),
-                      ClockSkew = TimeSpan.Zero
-                  };
-              });
-
-
-
-            services.AddAuthorization(options =>
-            {
-                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
-                    JwtBearerDefaults.AuthenticationScheme);
-
-                defaultAuthorizationPolicyBuilder =
-                    defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-
-                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
-            });
+            services.AddAuthentication()
+             .AddJwtBearer();
+            services.AddAuthorization();
             services.AddCors();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -165,8 +112,6 @@ namespace EasyEOrder
              .AllowAnyHeader()
              .SetIsOriginAllowed(origin => true) // allow any origin
              .AllowCredentials()); // allow credentials
-
-          
 
             app.UseMiddleware<JwtMiddleware>();
             app.UseAuthentication();
