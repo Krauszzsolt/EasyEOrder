@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EasyEOrder.Api.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
+using AuthorizeAttribute = EasyEOrder.Api.Helpers.AuthorizeAttribute;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EasyEOrder.Api.Controllers
 {
+    [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class BaseController : ControllerBase
     {

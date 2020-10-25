@@ -1,4 +1,5 @@
-﻿using EasyEOrder.Dal.Entities;
+﻿
+using EasyEOrder.Bll.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,7 +12,7 @@ namespace EasyEOrder.Api.Helpers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (MyUser)context.HttpContext.Items["User"];
+            var user = (UserDto)context.HttpContext.Items["User"];
             if (user == null)
             {
                 // not logged in

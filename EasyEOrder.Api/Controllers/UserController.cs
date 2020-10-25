@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyEOrder.Api.Helpers;
 using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,7 +13,7 @@ namespace EasyEOrder.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : BaseController
+    public class UserController : ControllerBase
     {
         private IUserService _userService;
 
@@ -23,7 +22,7 @@ namespace EasyEOrder.Api.Controllers
             _userService = userService;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet]
         public ActionResult<List<UserDto>> GetAll()
         {

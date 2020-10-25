@@ -33,7 +33,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpGet("{id}")]
         public Task<RestaruantDetailDto> GetRestaurant(Guid id)
         {
-            return null;
+            return _restaurantService.GetRestaurant(id);
         }
 
         // POST api/<RestaurantController>

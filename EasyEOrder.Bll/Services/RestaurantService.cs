@@ -1,4 +1,5 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Restaurant;
 using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Dal.DBContext;
@@ -40,6 +41,28 @@ namespace EasyEOrder.Bll.Services
                 PageSize = 10
             };
 
-         }
+        }
+
+        public async Task<RestaruantDetailDto> GetRestaurant(Guid id)
+        {
+            var restaurant = await _context.Restaurants.Include(x => x.DayOfWeekOpenTimes).ThenInclude(x => x.OpenTimes).FirstOrDefaultAsync(x => x.Id == id);
+            return new RestaruantDetailDto
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                Address = restaurant.Address,
+                Email = restaurant.Email,
+                MenuId = restaurant.MenuId.GetValueOrDefault(),
+                DayOfWeekOpenTimes = restaurant.DayOfWeekOpenTimes.Select(x => new DayOfWeekOpenTimesDto
+                {
+                    DayOfWeek = x.DayOfWeek,
+                    OpenTimes = new OpenTimeDTO
+                    {
+                        From = x.OpenTimes.From,
+                        To = x.OpenTimes.To
+                    }
+                }).ToList()
+            };
+        }
     }
 }
