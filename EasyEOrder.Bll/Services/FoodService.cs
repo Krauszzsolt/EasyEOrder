@@ -1,5 +1,6 @@
 ﻿using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.DTOs.Food;
+using EasyEOrder.Bll.DTOs.Helper;
 using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Dal.DBContext;
@@ -65,7 +66,7 @@ namespace EasyEOrder.Bll.Services
 
             if (entity == null)
             {
-                throw new KeyNotFoundException("Food not found!");
+                throw new MyNotFoundException("Food not found!");
             }
             return new FoodDetailsDto()
             {
