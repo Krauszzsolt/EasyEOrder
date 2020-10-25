@@ -61,8 +61,12 @@ namespace EasyEOrder.Bll.Services
             var entity = await _context.Foods
                 .Include(x => x.FoodAllergens)
                 .Include(x => x.Comments)
-                .FirstAsync(x => x.Id == Id);
+                .FirstOrDefaultAsync(x => x.Id == Id);
 
+            if (entity == null)
+            {
+                throw new KeyNotFoundException("Food not found!", 404);
+            }
             return new FoodDetailsDto()
             {
                 Id = entity.Id,
@@ -172,6 +176,7 @@ namespace EasyEOrder.Bll.Services
 
             var entity = new Food()
             {
+
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
                 Description = foodCreateDto.Description,
@@ -180,12 +185,17 @@ namespace EasyEOrder.Bll.Services
                 Price = foodCreateDto.Price,
 
             };
+
+            if(foodCreateDto.Id != null)
+            {
+                entity.Id = foodCreateDto.Id;
+            }
             //await _context.FoodAllergens.AddRangeAsync(allergens.ToArray());
             await _context.Foods.AddAsync(entity);
             _context.SaveChanges();
         }
 
-        public async Task EditFood(FoodCreateDto foodCreateDto)
+        public async Task EditFood(FoodCreateDto foodCreateDto, Guid Id)
         {
             List<FoodAllergen> allergens = new List<FoodAllergen>();
             //if (foodCreateDto.FoodAllergens != null)
@@ -203,7 +213,7 @@ namespace EasyEOrder.Bll.Services
 
             var entity = new Food()
             {
-                Id = foodCreateDto.Id,
+                Id = Id,
                 Name = foodCreateDto.Name,
                 MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
                 Description = foodCreateDto.Description,

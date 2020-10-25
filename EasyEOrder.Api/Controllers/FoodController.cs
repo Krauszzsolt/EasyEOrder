@@ -46,7 +46,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpPut("{id}")]
         public async void Put(Guid id, [FromBody]FoodCreateDto newFood)
         {
-            await _foodService.EditFood(newFood);
+            await _foodService.EditFood(newFood, id);
         }
 
         // DELETE api/<controller>/5
