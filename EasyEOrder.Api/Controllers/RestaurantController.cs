@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.DTOs.Restaurant;
+using EasyEOrder.Bll.DTOs.RestaurantDTO;
 using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -38,9 +39,9 @@ namespace EasyEOrder.Api.Controllers
 
         // POST api/<RestaurantController>
         [HttpPost]
-        public Task AddRestaurant([FromBody] RestaruantDTO restaurant)
+        public Task AddRestaurant([FromBody] CreateRestaurantDto restaurant)
         {
-            return null;
+            return _restaurantService.AddRestaurant(restaurant);
         }
 
         // PUT api/<RestaurantController>/5
