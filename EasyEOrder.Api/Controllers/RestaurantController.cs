@@ -55,7 +55,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpDelete("{id}")]
         public Task Delete(Guid id)
         {
-            return null;
+            return _restaurantService.DeleteRestaurant(id);
         }
     }
 }

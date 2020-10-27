@@ -16,6 +16,8 @@ namespace EasyEOrder.Bll.Interfaces
         public Task<RestaruantDetailDto> GetRestaurant(Guid id);
 
         public Task AddRestaurant(CreateRestaurantDto restaurant);
+        public Task DeleteRestaurant(Guid id);
+
 
     }
 }

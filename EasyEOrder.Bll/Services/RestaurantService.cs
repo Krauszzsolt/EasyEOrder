@@ -1,4 +1,5 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.Helper;
 using EasyEOrder.Bll.DTOs.Restaurant;
 using EasyEOrder.Bll.DTOs.RestaurantDTO;
 using EasyEOrder.Bll.DTOs.Wrapper;
@@ -48,6 +49,10 @@ namespace EasyEOrder.Bll.Services
         public async Task<RestaruantDetailDto> GetRestaurant(Guid id)
         {
             var restaurant = await _context.Restaurants.Include(x => x.DayOfWeekOpenTimes).ThenInclude(x => x.OpenTimes).FirstOrDefaultAsync(x => x.Id == id);
+            if (restaurant == null)
+            {
+                throw new MyNotFoundException("Resturant not found!");
+            }
             return new RestaruantDetailDto
             {
                 Id = restaurant.Id,
@@ -95,24 +100,17 @@ namespace EasyEOrder.Bll.Services
 
         }
 
+        public async Task DeleteRestaurant(Guid id)
+        {
+          
+            var entity = _context.Restaurants.FirstOrDefault(x => x.Id == id);
 
-        //return new RestaruantDetailDto
-        //{
-        //    Id = restaurant.Id,
-        //    Name = restaurant.Name,
-        //    Address = restaurant.Address,
-        //    Email = restaurant.Email,
-        //    MenuId = restaurant.MenuId.GetValueOrDefault(),
-        //    DayOfWeekOpenTimes = restaurant.DayOfWeekOpenTimes.Select(x => new DayOfWeekOpenTimesDto
-        //    {
-        //        DayOfWeek = x.DayOfWeek,
-        //        OpenTimes = new OpenTimeDTO
-        //        {
-        //            From = x.OpenTimes.From,
-        //            To = x.OpenTimes.To
-        //        }
-        //    }).ToList()
-        //};
+                _context.Restaurants.Remove(entity);
+            _context.SaveChanges();
+           
+        }
+
+
 
     }
 }
