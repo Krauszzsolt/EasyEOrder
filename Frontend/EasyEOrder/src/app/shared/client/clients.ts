@@ -509,7 +509,7 @@ export class FoodClient implements IFoodClient {
 
 export interface IRestaurantClient {
     restaurant_GetAllRestaurant(index: number, pageSize: number): Observable<PageableListOfRestaruantDTO>;
-    restaurant_AddRestaurant(restaurant: RestaruantDTO): Observable<void>;
+    restaurant_AddRestaurant(restaurant: CreateRestaurantDto): Observable<void>;
     restaurant_GetRestaurant(id: string): Observable<RestaruantDetailDto>;
     restaurant_EditRestaurant(id: string, restaurant: RestaruantDTO): Observable<void>;
     restaurant_Delete(id: string): Observable<void>;
@@ -583,7 +583,7 @@ export class RestaurantClient implements IRestaurantClient {
         return _observableOf<PageableListOfRestaruantDTO>(<any>null);
     }
 
-    restaurant_AddRestaurant(restaurant: RestaruantDTO): Observable<void> {
+    restaurant_AddRestaurant(restaurant: CreateRestaurantDto): Observable<void> {
         let url_ = this.baseUrl + "/api/Restaurant";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1533,6 +1533,45 @@ export class OpenTimeDTO implements IOpenTimeDTO {
 export interface IOpenTimeDTO {
     from: moment.Moment;
     to: moment.Moment;
+}
+
+export class CreateRestaurantDto extends RestaruantDTO implements ICreateRestaurantDto {
+    dayOfWeekOpenTimes!: DayOfWeekOpenTimesDto[] | undefined;
+
+    constructor(data?: ICreateRestaurantDto) {
+        super(data);
+    }
+
+    init(_data?: any, _mappings?: any) {
+        super.init(_data);
+        if (_data) {
+            if (Array.isArray(_data["dayOfWeekOpenTimes"])) {
+                this.dayOfWeekOpenTimes = [] as any;
+                for (let item of _data["dayOfWeekOpenTimes"])
+                    this.dayOfWeekOpenTimes!.push(DayOfWeekOpenTimesDto.fromJS(item, _mappings));
+            }
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): CreateRestaurantDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<CreateRestaurantDto>(data, _mappings, CreateRestaurantDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.dayOfWeekOpenTimes)) {
+            data["dayOfWeekOpenTimes"] = [];
+            for (let item of this.dayOfWeekOpenTimes)
+                data["dayOfWeekOpenTimes"].push(item.toJSON());
+        }
+        super.toJSON(data);
+        return data; 
+    }
+}
+
+export interface ICreateRestaurantDto extends IRestaruantDTO {
+    dayOfWeekOpenTimes: DayOfWeekOpenTimesDto[] | undefined;
 }
 
 export class UserDto implements IUserDto {

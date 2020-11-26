@@ -4,14 +4,16 @@ using EasyEOrder.Dal.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EasyEOrder.Dal.Migrations
 {
     [DbContext(typeof(EasyEOrderDbContext))]
-    partial class EasyEOrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201125201038_TestMigration2")]
+    partial class TestMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,19 +73,16 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.CartFood", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FoodId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("CartId");
+                    b.HasKey("CartId", "FoodId");
 
                     b.HasIndex("FoodId");
 
@@ -617,13 +616,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5b91062-c3fc-4ce5-abfd-3edab22eef5b",
+                            ConcurrencyStamp = "99e7dc11-060e-4fe1-9c62-57d665afe967",
                             Email = "admin@admin.admin",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.ADMIN",
                             NormalizedUserName = "ADMIN@ADMIN.ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPWgwnShC0TfzJqd+DCdLCk879+5zPmPjTHNUX4zeOBeOiQWBBaA0h5wYPraJExBjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIhhw5jAn7Y/awtqo0LGhg3Yu5env+eozKpMzo/gbmP2DCygqt485kfnY+eZxFjT5A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             Title = "Üzletvezető",
@@ -634,13 +633,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e80db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9718d348-4e49-4173-a600-4e356f19468a",
+                            ConcurrencyStamp = "2955d8c7-b86c-4876-897b-02313c78612c",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOsxEYJQuW/lhhtC4odxrKeHfAnQ4rizz4qhHD9zaU50jL9XerAMGZWpBwCTv/2Ndg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO/bMq3tfp3Ku8Xt4V4EwUYzDAutSqHM03vIuOj3UdFuXSnol81oDqOwwxgeyo8dzw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             Title = "Vásárló",
@@ -886,8 +885,8 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8ef29199-5bde-43e5-aa04-facb3103ed4d",
-                            ConcurrencyStamp = "9063e9d3-ca99-462b-ab2c-a9bf8a906d63",
+                            Id = "66d87d82-8d3c-407e-99f5-47330eebe22c",
+                            ConcurrencyStamp = "0014a940-172e-4aef-bd57-cb2dc48aa9b2",
                             Name = "Admin"
                         });
                 });

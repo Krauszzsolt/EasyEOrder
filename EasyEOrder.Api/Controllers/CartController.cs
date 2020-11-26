@@ -1,5 +1,6 @@
 ﻿using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.DTOs.Cart;
+using EasyEOrder.Bll.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,19 @@ namespace EasyEOrder.Api.Controllers
     [Route("api/[controller]")]
     public class CartController : BaseController
     {
+
+        private readonly ICartService _cartService;
+        public CartController(ICartService cartService)
+        {
+            _cartService = cartService;
+        }
+
         // GET: api/<controller>
         [HttpGet]
         public Task<CartDto> Get()
         {
             //[FromQuery]String userId
-            return null;
+            return _cartService.GetCart();
         }
 
         //// GET api/<controller>/5
@@ -29,11 +37,11 @@ namespace EasyEOrder.Api.Controllers
 
         // POST api/<controller>
         [HttpPost("AddToCart")]
-        public Task AddToCart([FromBody] Guid FoodId)
+        public Task AddToCart([FromBody]Guid FoodId)
         {
             //, [FromQuery] string UserId
             //Todo Add to list by Id
-            return null;
+            return _cartService.AddToCart(FoodId);
         }
 
         // POST api/<controller>

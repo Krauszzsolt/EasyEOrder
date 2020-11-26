@@ -47,6 +47,7 @@ namespace EasyEOrder
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IFoodService, FoodService>();
             services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddTransient<ICartService, CartService>();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<IdentityOptions>(options =>

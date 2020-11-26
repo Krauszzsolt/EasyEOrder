@@ -27,6 +27,7 @@ namespace EasyEOrder.Dal.DBContext
         public DbSet<FoodAllergen> FoodAllergens { get; set; }
         public DbSet<DayOfWeekOpenTimes> DayOfWeekOpenTimes { get; set; }
         public DbSet<OpenTime> OpenTimes { get; set; }
+        public DbSet<CartFood> CartFoods { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -49,10 +50,10 @@ namespace EasyEOrder.Dal.DBContext
                 .WithOne(b => b.Food)
                 .HasForeignKey(b => b.FoodId);
 
-            builder.Entity<Cart>()
-                 .HasMany(a => a.Foods)
-                 .WithOne(b => b.Cart)
-                 .HasForeignKey(b => b.OrderId);
+            //builder.Entity<Cart>()
+            //     .HasMany(a => a.Foods)
+            //     .WithOne(b => b.Cart)
+            //     .HasForeignKey(b => b.OrderId);
 
             builder.Entity<Restaurant>()
                    .HasMany(a => a.Tables)
@@ -73,6 +74,23 @@ namespace EasyEOrder.Dal.DBContext
                   .HasOne(a => a.Reservation)
                   .WithOne(b => b.User)
                   .HasForeignKey<Reservation>(b => b.UserId);
+
+            //builder.Entity<CartFood>()
+            //    .HasKey(bc => new { bc.CartId, bc.FoodId });
+            //builder.Entity<CartFood>()
+            //    .HasOne(bc => bc.Food)
+            //    .WithMany(b => b.CartFoods)
+            //    .HasForeignKey(bc => bc.FoodId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<CartFood>()
+            //    .HasOne(bc => bc.Cart)
+            //    .WithMany(c => c.CartFoods)
+            //    .HasForeignKey(bc => bc.CartId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<Cart>()
+            //    .HasMany(a => a.Foods)
+            //    .WithOne(b => b.Cart)
+            //    .HasForeignKey(b => b.food);
 
             var role = new IdentityRole("Admin");
             builder.Entity<IdentityRole>().HasData(role);

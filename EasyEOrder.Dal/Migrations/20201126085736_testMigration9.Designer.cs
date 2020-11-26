@@ -4,14 +4,16 @@ using EasyEOrder.Dal.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EasyEOrder.Dal.Migrations
 {
     [DbContext(typeof(EasyEOrderDbContext))]
-    partial class EasyEOrderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201126085736_testMigration9")]
+    partial class testMigration9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,19 +73,13 @@ namespace EasyEOrder.Dal.Migrations
 
             modelBuilder.Entity("EasyEOrder.Dal.Entities.CartFood", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FoodId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
+                    b.HasKey("CartId", "FoodId");
 
                     b.HasIndex("FoodId");
 
@@ -617,13 +613,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e79db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5b91062-c3fc-4ce5-abfd-3edab22eef5b",
+                            ConcurrencyStamp = "978a7a47-46ed-4f0a-ad9d-50d30358bbdc",
                             Email = "admin@admin.admin",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.ADMIN",
                             NormalizedUserName = "ADMIN@ADMIN.ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPWgwnShC0TfzJqd+DCdLCk879+5zPmPjTHNUX4zeOBeOiQWBBaA0h5wYPraJExBjg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENGjvWUFg/AMAPgUmSk9FnWkMet2pjNamSBMUDJWqy0cXJbJV4zkE8mvdc4WmXzixQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             Title = "Üzletvezető",
@@ -634,13 +630,13 @@ namespace EasyEOrder.Dal.Migrations
                         {
                             Id = "e87a50b7-ce6b-4eb9-b99c-a7a4b01e80db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9718d348-4e49-4173-a600-4e356f19468a",
+                            ConcurrencyStamp = "6fefa941-8365-4c45-ad45-d9ed91494cf6",
                             Email = "test@test.test",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.TEST",
                             NormalizedUserName = "TEST@TEST.TEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOsxEYJQuW/lhhtC4odxrKeHfAnQ4rizz4qhHD9zaU50jL9XerAMGZWpBwCTv/2Ndg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH5gDvewOdvlfhitPXGrsq/Rhq4Fg7GhaXcSDYctshmEfD1smzBN36L2cgY2Q5CDKQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "string",
                             Title = "Vásárló",
@@ -886,8 +882,8 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8ef29199-5bde-43e5-aa04-facb3103ed4d",
-                            ConcurrencyStamp = "9063e9d3-ca99-462b-ab2c-a9bf8a906d63",
+                            Id = "92c0e279-2b9b-41d9-b792-3c0d9712dadf",
+                            ConcurrencyStamp = "b248da63-7416-4e0a-ba50-cf83dd7ca394",
                             Name = "Admin"
                         });
                 });
@@ -1010,13 +1006,13 @@ namespace EasyEOrder.Dal.Migrations
                     b.HasOne("EasyEOrder.Dal.Entities.Cart", "Cart")
                         .WithMany("CartFoods")
                         .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("EasyEOrder.Dal.Entities.Food", "Food")
                         .WithMany("CartFoods")
                         .HasForeignKey("FoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

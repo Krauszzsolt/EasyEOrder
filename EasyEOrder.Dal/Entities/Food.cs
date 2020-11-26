@@ -33,5 +33,7 @@ namespace EasyEOrder.Dal.Entities
         public Cart Cart { get; set; }
 
         public Guid? OrderId{ get; set; }
+
+        public List<CartFood> CartFoods { get; set; }
     }
 }
