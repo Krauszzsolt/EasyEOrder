@@ -20,6 +20,5 @@ namespace EasyEOrder.Dal.Entities
 
         public Restaurant Restaurant{ get; set; }
 
-
     }
 }

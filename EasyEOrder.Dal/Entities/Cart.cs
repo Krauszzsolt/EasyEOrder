@@ -14,7 +14,7 @@ namespace EasyEOrder.Dal.Entities
 
         public DateTime OrderTime { get; set; }
 
-        public List<CartFood>  CartFoods { get; set; }
+        public List<CartFood> CartFoods { get; set; }
 
         public Reservation Reservation { get; set; }
 

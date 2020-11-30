@@ -75,23 +75,17 @@ namespace EasyEOrder.Dal.DBContext
                   .WithOne(b => b.User)
                   .HasForeignKey<Reservation>(b => b.UserId);
 
-            //builder.Entity<CartFood>()
-            //    .HasKey(bc => new { bc.CartId, bc.FoodId });
-            //builder.Entity<CartFood>()
-            //    .HasOne(bc => bc.Food)
-            //    .WithMany(b => b.CartFoods)
-            //    .HasForeignKey(bc => bc.FoodId)
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<CartFood>()
-            //    .HasOne(bc => bc.Cart)
-            //    .WithMany(c => c.CartFoods)
-            //    .HasForeignKey(bc => bc.CartId)
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<Cart>()
-            //    .HasMany(a => a.Foods)
-            //    .WithOne(b => b.Cart)
-            //    .HasForeignKey(b => b.food);
+            builder.Entity<CartFood>()
+                          .HasOne(x => x.Food)
+                          .WithMany(x => x.CartFoods)
+                          .HasForeignKey(x => x.FoodId)
+                          .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<CartFood>()
+                        .HasOne(x => x.Cart)
+                        .WithMany(x => x.CartFoods)
+                        .HasForeignKey(x => x.CartId)
+                        .OnDelete(DeleteBehavior.Restrict);
             var role = new IdentityRole("Admin");
             builder.Entity<IdentityRole>().HasData(role);
 
