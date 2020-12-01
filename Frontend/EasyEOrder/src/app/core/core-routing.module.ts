@@ -11,6 +11,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
+        path: 'restaurant',
+        loadChildren: () => import('./../feature/restaurant/restaurant.module').then((m) => m.RestaurantModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'cart',
         loadChildren: () => import('./../feature/cart/cart.module').then((m) => m.CartModule),
         canActivate: [AuthGuard]

@@ -6,14 +6,14 @@
   
   <!-- Bejelentkezett felhasználó esetén -->
   <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar>  
-  <button *ngIf="(user | async)" mat-button [routerLink]="['/food']">Food</button>
-  <button *ngIf="(user | async)" mat-button [routerLink]="['/cart']">Cart</button>
-  <button *ngIf="(user | async)" mat-button >Restaurant</button>
-  <button *ngIf="(user | async)" mat-button (click)="logout()">Logout</button>
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/food']">Ételek</button>
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/cart']">Rendelések</button>
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/restaurant']">Éttermek</button>
+  <button *ngIf="(user | async)" mat-button (click)="logout()">Kijelentkezés</button>
 
   <!-- Anonim felhasználó esetén -->
-  <button *ngIf="!(user | async)" mat-button [routerLink]="['/login']" > Login </button>
-  <button *ngIf="!(user | async)" mat-button [routerLink]="['/registration']">Registration</button>
+  <button *ngIf="!(user | async)" mat-button [routerLink]="['/login']" > Bejelentkezés </button>
+  <button *ngIf="!(user | async)" mat-button [routerLink]="['/registration']">Regisztráció</button>
 
 </mat-toolbar>
 <router-outlet></router-outlet>
