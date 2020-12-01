@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EasyEOrder.Api.Helpers
 {
@@ -24,6 +25,7 @@ namespace EasyEOrder.Api.Helpers
         {
             Roles = new List<string> { Role };
         }
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user =  (ApplicationUserDto)context.HttpContext.Items["User"];

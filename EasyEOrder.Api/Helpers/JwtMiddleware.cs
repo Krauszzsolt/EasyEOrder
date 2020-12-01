@@ -27,7 +27,7 @@ namespace EasyEOrder.Api.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContextAsync(context, userService, token);
+                await attachUserToContextAsync(context, userService, token);
 
             await _next(context);
         }
@@ -52,8 +52,7 @@ namespace EasyEOrder.Api.Helpers
                 var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
 
                 // attach user to context on successful jwt validation
-                var user = await userService.GetByIdAsync(userId);
-                context.Items["User"] = user;
+                context.Items["User"] = await userService.GetByIdAsync(userId);
             }
             catch
             {
