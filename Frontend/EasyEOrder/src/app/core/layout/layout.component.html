@@ -1,11 +1,14 @@
 <mat-toolbar>
-  <span [routerLink]="['/Food']">EasyEOrder</span>
+  <span [routerLink]="['/food']">EasyEOrder</span>
   <span *ngIf="(user | async)" class="user-name">{{(user | async).userName}}</span>
   <span class="example-spacer"></span>
   
   
   <!-- Bejelentkezett felhasználó esetén -->
-  <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar>
+  <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar>  
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/food']">Food</button>
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/cart']">Cart</button>
+  <button *ngIf="(user | async)" mat-button >Restaurant</button>
   <button *ngIf="(user | async)" mat-button (click)="logout()">Logout</button>
 
   <!-- Anonim felhasználó esetén -->

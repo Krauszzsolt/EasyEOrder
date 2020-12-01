@@ -52,17 +52,11 @@ namespace EasyEOrder
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<IdentityOptions>(options =>
             {
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.AllowedForNewUsers = true;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
-                options.Password.RequiredUniqueChars = 0;
-                options.SignIn.RequireConfirmedAccount = false;
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
             });
             services.AddSwaggerDocument(settings =>
             {
@@ -92,16 +86,19 @@ namespace EasyEOrder
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseExceptionHandler("/error"); // Add this
+            //app.UseExceptionHandler("/error"); // Add this
+
             app.UseSession();
+
             app.UseOpenApi();
+
             app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
@@ -122,6 +119,61 @@ namespace EasyEOrder
             {
                 endpoints.MapControllers();
             });
+
+            CreateRoles(serviceProvider);
         }
+
+        private void CreateRoles(IServiceProvider serviceProvider)
+        {
+            // roles
+            var adminRole = "Administrator";
+            var userRole = "User";
+
+            // managers
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<MyUser>>();
+
+            // check that there is an Administrator role and create if not
+
+            var hasAdminRole = roleManager.RoleExistsAsync(adminRole);
+            hasAdminRole.Wait();
+            if (!hasAdminRole.Result)
+            {
+                var roleResult = roleManager.CreateAsync(new IdentityRole(adminRole));
+                roleResult.Wait();
+            }
+
+            var hasUserRole = roleManager.RoleExistsAsync(userRole);
+            hasUserRole.Wait();
+            if (!hasUserRole.Result)
+            {
+                var roleResult = roleManager.CreateAsync(new IdentityRole(userRole));
+                roleResult.Wait();
+            }
+
+            // add to the Administrator role
+
+            string userName = "admin";
+            var testUser = userManager.FindByNameAsync(userName);
+            testUser.Wait();
+
+            if (testUser.Result == null)
+            {
+                var administrator = new MyUser()
+                {
+                    UserName = userName
+                };
+
+                var newUser = userManager.CreateAsync(administrator, "password123");
+                newUser.Wait();
+
+                if (newUser.Result.Succeeded)
+                {
+                    var newUserRole = userManager.AddToRoleAsync(administrator, adminRole);
+                    newUserRole.Wait();
+                }
+            }
+        }
+
     }
 }

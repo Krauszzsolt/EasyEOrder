@@ -11,7 +11,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'Cart',
+        path: 'cart',
         loadChildren: () => import('./../feature/cart/cart.module').then((m) => m.CartModule),
         canActivate: [AuthGuard]
       },
