@@ -28,7 +28,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpGet]
         public ActionResult<List<ApplicationUserDto>> GetAll()
         {
-            var users = _userService.GetAll().ToList();
+            var users = _userService.GetAllAsync().ToList();
             return Ok(users);
         }
 

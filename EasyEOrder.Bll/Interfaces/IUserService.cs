@@ -10,8 +10,8 @@ namespace EasyEOrder.Bll.Interfaces
     public interface  IUserService
     {
         Task<ApplicationUserDto> AuthenticateAsync(LoginDto model);
-        IEnumerable<ApplicationUserDto> GetAll();
-        ApplicationUserDto GetById(string id);
+        IEnumerable<ApplicationUserDto> GetAllAsync();
+        Task<ApplicationUserDto> GetByIdAsync(string id);
         Task<ApplicationUserDto> RegisterAsync(RegisterDto model);
     }
 }

@@ -96,25 +96,27 @@ namespace EasyEOrder.Bll.Services
             }
         }
 
-        public IEnumerable<ApplicationUserDto> GetAll()
+        public IEnumerable<ApplicationUserDto> GetAllAsync()
         {
+
             return _userManager.Users.Select(user => new ApplicationUserDto
             {
                 Id = user.Id,
                 UserName = user.UserName
-
-            });
+            }); ;
 
         }
 
-        public ApplicationUserDto GetById(string id)
+        public async Task<ApplicationUserDto> GetByIdAsync(string id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var role = await GetRoleAsync(user);
             return new ApplicationUserDto
             {
                 Id = user.Id,
                 UserName = user.UserName,
-            };
+                Role = role
+        };
         }
 
         // helper methods
@@ -149,6 +151,8 @@ namespace EasyEOrder.Bll.Services
             }
 
         }
+
+ 
 
 
     }

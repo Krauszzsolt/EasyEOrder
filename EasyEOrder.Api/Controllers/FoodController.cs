@@ -1,4 +1,6 @@
-﻿using EasyEOrder.Bll.DTOs;
+﻿
+using EasyEOrder.Api.Helpers;
+using EasyEOrder.Bll.DTOs;
 using EasyEOrder.Bll.DTOs.Food;
 using EasyEOrder.Bll.DTOs.Wrapper;
 using EasyEOrder.Bll.Interfaces;
@@ -6,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EasyEOrder.Api.Controllers
@@ -23,6 +24,7 @@ namespace EasyEOrder.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
+        [Authorize(Role: "Administrator")]
         public async Task<PageableList<FoodGroupByTypeDto>> GetAll([FromQuery] FoodRequestQuery query)
         {
             return await _foodService.GetFoodsGroupByType(query);
