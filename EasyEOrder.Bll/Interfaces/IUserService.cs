@@ -1,4 +1,5 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.UserDTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +9,9 @@ namespace EasyEOrder.Bll.Interfaces
 {
     public interface  IUserService
     {
-        Task<AuthenticateResponseDto> AuthenticateAsync(AuthenticateRequestDto model);
-        IEnumerable<UserDto> GetAll();
-        UserDto GetById(string id);
+        Task<ApplicationUserDto> AuthenticateAsync(LoginDto model);
+        IEnumerable<ApplicationUserDto> GetAll();
+        ApplicationUserDto GetById(string id);
+        Task<ApplicationUserDto> RegisterAsync(RegisterDto model);
     }
 }

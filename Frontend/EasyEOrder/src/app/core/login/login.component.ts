@@ -1,18 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticateRequestDto } from 'src/app/shared/client/clients';
+import { Router } from '@angular/router';
+import { LoginDto } from 'src/app/shared/client/clients';
 import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService) { }
+  loginDto: LoginDto = new LoginDto({ username: '', password: '' });
 
-  ngOnInit() {
-    this.authService.login(new AuthenticateRequestDto({username: 'test@test.test', password:'123456'})).subscribe()
+  errorMessage: string = undefined;
+
+  ngOnInit() {}
+
+  login() {
+    this.authService.login(this.loginDto).subscribe(
+      (resp) => {
+        this.router.navigateByUrl('/food');
+      },
+      (error) => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+      }
+    );
   }
-
 }

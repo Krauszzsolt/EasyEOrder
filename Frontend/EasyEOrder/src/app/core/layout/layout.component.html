@@ -1,32 +1,17 @@
-<mat-drawer-container class="container" autosize>
-
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <div class="sidenav-wrapper">
-      <div class="header">
-        <div class="sidenav-title">
-          <h3>Title</h3>
-        </div>
-        <div class="sidenav-sub-title">
-          <h4>SubTitle</h4>
-        </div>
-      </div>
-      <div class="sidenav-content">
-        <ul class="menu-list">
-          <li [routerLink]="['/home']">Home</li>
-          <li [routerLink]="['/home/cart']">Cart</li>
-          <li [routerLink]="['/home/food']">Food</li>
-        </ul>
-      </div>
-    </div>
-  </mat-drawer>
-
-  <div class="example-sidenav-content">
-
-    <img class="header-thumbnail" src="./../../../assets/img/test.jpg" />
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-    <router-outlet></router-outlet>
-  </div>
+<mat-toolbar>
+  <span [routerLink]="['/Food']">EasyEOrder</span>
+  <span *ngIf="(user | async)" class="user-name">{{(user | async).userName}}</span>
+  <span class="example-spacer"></span>
   
-</mat-drawer-container>
+  
+  <!-- Bejelentkezett felhasználó esetén -->
+  <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar>
+  <button *ngIf="(user | async)" mat-button (click)="logout()">Logout</button>
+
+  <!-- Anonim felhasználó esetén -->
+  <button *ngIf="!(user | async)" mat-button [routerLink]="['/login']" > Login </button>
+  <button *ngIf="!(user | async)" mat-button [routerLink]="['/registration']">Registration</button>
+
+</mat-toolbar>
+<router-outlet></router-outlet>
+<app-spinner></app-spinner>

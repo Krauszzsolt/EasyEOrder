@@ -783,8 +783,9 @@ export class RestaurantClient implements IRestaurantClient {
 }
 
 export interface IUserClient {
-    user_GetAll(): Observable<UserDto[]>;
-    user_Authenticate(model: AuthenticateRequestDto): Observable<AuthenticateResponseDto>;
+    user_GetAll(): Observable<ApplicationUserDto[]>;
+    user_Authenticate(model: LoginDto): Observable<ApplicationUserDto>;
+    user_Register(model: RegisterDto): Observable<ApplicationUserDto>;
 }
 
 @Injectable()
@@ -798,7 +799,7 @@ export class UserClient implements IUserClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    user_GetAll(): Observable<UserDto[]> {
+    user_GetAll(): Observable<ApplicationUserDto[]> {
         let url_ = this.baseUrl + "/api/User";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -817,14 +818,14 @@ export class UserClient implements IUserClient {
                 try {
                     return this.processUser_GetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<UserDto[]>><any>_observableThrow(e);
+                    return <Observable<ApplicationUserDto[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<UserDto[]>><any>_observableThrow(response_);
+                return <Observable<ApplicationUserDto[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUser_GetAll(response: HttpResponseBase): Observable<UserDto[]> {
+    protected processUser_GetAll(response: HttpResponseBase): Observable<ApplicationUserDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -839,7 +840,7 @@ export class UserClient implements IUserClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(UserDto.fromJS(item, _mappings));
+                    result200!.push(ApplicationUserDto.fromJS(item, _mappings));
             }
             return _observableOf(result200);
             }));
@@ -848,10 +849,10 @@ export class UserClient implements IUserClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<UserDto[]>(<any>null);
+        return _observableOf<ApplicationUserDto[]>(<any>null);
     }
 
-    user_Authenticate(model: AuthenticateRequestDto): Observable<AuthenticateResponseDto> {
+    user_Authenticate(model: LoginDto): Observable<ApplicationUserDto> {
         let url_ = this.baseUrl + "/api/User/authenticate";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -874,14 +875,14 @@ export class UserClient implements IUserClient {
                 try {
                     return this.processUser_Authenticate(<any>response_);
                 } catch (e) {
-                    return <Observable<AuthenticateResponseDto>><any>_observableThrow(e);
+                    return <Observable<ApplicationUserDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<AuthenticateResponseDto>><any>_observableThrow(response_);
+                return <Observable<ApplicationUserDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processUser_Authenticate(response: HttpResponseBase): Observable<AuthenticateResponseDto> {
+    protected processUser_Authenticate(response: HttpResponseBase): Observable<ApplicationUserDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -893,7 +894,7 @@ export class UserClient implements IUserClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            result200 = AuthenticateResponseDto.fromJS(resultData200, _mappings);
+            result200 = ApplicationUserDto.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -901,7 +902,60 @@ export class UserClient implements IUserClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<AuthenticateResponseDto>(<any>null);
+        return _observableOf<ApplicationUserDto>(<any>null);
+    }
+
+    user_Register(model: RegisterDto): Observable<ApplicationUserDto> {
+        let url_ = this.baseUrl + "/api/User/register";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUser_Register(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUser_Register(<any>response_);
+                } catch (e) {
+                    return <Observable<ApplicationUserDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ApplicationUserDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUser_Register(response: HttpResponseBase): Observable<ApplicationUserDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = ApplicationUserDto.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ApplicationUserDto>(<any>null);
     }
 }
 
@@ -1574,64 +1628,13 @@ export interface ICreateRestaurantDto extends IRestaruantDTO {
     dayOfWeekOpenTimes: DayOfWeekOpenTimesDto[] | undefined;
 }
 
-export class UserDto implements IUserDto {
+export class ApplicationUserDto implements IApplicationUserDto {
     id!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    username!: string | undefined;
-    password!: string | undefined;
-
-    constructor(data?: IUserDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any, _mappings?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.username = _data["username"];
-            this.password = _data["password"];
-        }
-    }
-
-    static fromJS(data: any, _mappings?: any): UserDto {
-        data = typeof data === 'object' ? data : {};
-        return createInstance<UserDto>(data, _mappings, UserDto);
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["username"] = this.username;
-        data["password"] = this.password;
-        return data; 
-    }
-}
-
-export interface IUserDto {
-    id: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    username: string | undefined;
-    password: string | undefined;
-}
-
-export class AuthenticateResponseDto implements IAuthenticateResponseDto {
-    id!: string | undefined;
-    firstName!: string | undefined;
-    lastName!: string | undefined;
-    username!: string | undefined;
+    userName!: string | undefined;
+    role!: string | undefined;
     token!: string | undefined;
 
-    constructor(data?: IAuthenticateResponseDto) {
+    constructor(data?: IApplicationUserDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1643,42 +1646,39 @@ export class AuthenticateResponseDto implements IAuthenticateResponseDto {
     init(_data?: any, _mappings?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.username = _data["username"];
+            this.userName = _data["userName"];
+            this.role = _data["role"];
             this.token = _data["token"];
         }
     }
 
-    static fromJS(data: any, _mappings?: any): AuthenticateResponseDto {
+    static fromJS(data: any, _mappings?: any): ApplicationUserDto {
         data = typeof data === 'object' ? data : {};
-        return createInstance<AuthenticateResponseDto>(data, _mappings, AuthenticateResponseDto);
+        return createInstance<ApplicationUserDto>(data, _mappings, ApplicationUserDto);
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["username"] = this.username;
+        data["userName"] = this.userName;
+        data["role"] = this.role;
         data["token"] = this.token;
         return data; 
     }
 }
 
-export interface IAuthenticateResponseDto {
+export interface IApplicationUserDto {
     id: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    username: string | undefined;
+    userName: string | undefined;
+    role: string | undefined;
     token: string | undefined;
 }
 
-export class AuthenticateRequestDto implements IAuthenticateRequestDto {
+export class LoginDto implements ILoginDto {
     username!: string;
     password!: string;
 
-    constructor(data?: IAuthenticateRequestDto) {
+    constructor(data?: ILoginDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1694,9 +1694,9 @@ export class AuthenticateRequestDto implements IAuthenticateRequestDto {
         }
     }
 
-    static fromJS(data: any, _mappings?: any): AuthenticateRequestDto {
+    static fromJS(data: any, _mappings?: any): LoginDto {
         data = typeof data === 'object' ? data : {};
-        return createInstance<AuthenticateRequestDto>(data, _mappings, AuthenticateRequestDto);
+        return createInstance<LoginDto>(data, _mappings, LoginDto);
     }
 
     toJSON(data?: any) {
@@ -1707,9 +1707,51 @@ export class AuthenticateRequestDto implements IAuthenticateRequestDto {
     }
 }
 
-export interface IAuthenticateRequestDto {
+export interface ILoginDto {
     username: string;
     password: string;
+}
+
+export class RegisterDto implements IRegisterDto {
+    username!: string;
+    password!: string;
+    confirmPassword!: string;
+
+    constructor(data?: IRegisterDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.username = _data["username"];
+            this.password = _data["password"];
+            this.confirmPassword = _data["confirmPassword"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): RegisterDto {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<RegisterDto>(data, _mappings, RegisterDto);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["username"] = this.username;
+        data["password"] = this.password;
+        data["confirmPassword"] = this.confirmPassword;
+        return data; 
+    }
+}
+
+export interface IRegisterDto {
+    username: string;
+    password: string;
+    confirmPassword: string;
 }
 
 function jsonParse(json: any, reviver?: any) {

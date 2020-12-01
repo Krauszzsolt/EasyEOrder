@@ -38,18 +38,4 @@
   }
 }
 
-::ng-deep .mat-form-field.mat-focused {
-    .mat-form-field-label {
-        color: $orange;
-    }
-    .mat-form-field-ripple {
-        background-color: $orange;
-    }
-    .mat-form-field-required-marker {
-        color:$orange;
-    }
-    .mat-input-element {
-        color: $white;
-    }
-}
 

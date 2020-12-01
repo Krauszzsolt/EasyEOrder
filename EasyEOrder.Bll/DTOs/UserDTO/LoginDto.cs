@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EasyEOrder.Bll.DTOs
+namespace EasyEOrder.Bll.DTOs.UserDTO
 {
-    public class AuthenticateRequestDto
+    public class LoginDto
     {
         [Required]
         public string Username { get; set; }

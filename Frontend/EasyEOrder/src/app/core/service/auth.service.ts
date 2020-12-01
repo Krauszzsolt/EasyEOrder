@@ -1,54 +1,56 @@
-import { HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { tokenNotExpired } from "angular2-jwt";
-import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
-import {
-  AuthenticateRequestDto,
-  AuthenticateResponseDto,
-  UserClient,
-  UserDto,
-} from "src/app/shared/client/clients";
+import { HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { tokenNotExpired } from 'angular2-jwt';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ApplicationUserDto, LoginDto, RegisterDto, UserClient } from 'src/app/shared/client/clients';
+
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
-  cachedRequests: Array<HttpRequest<any>> = [];
+  private currentUserSubject: BehaviorSubject<ApplicationUserDto>;
 
-  constructor(private ClienService: UserClient) {}
-
-  public collectFailedRequest(request): void {
-    this.cachedRequests.push(request);
+  constructor(private usersService: UserClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<ApplicationUserDto>(JSON.parse(localStorage.getItem('currentUser')));
   }
 
-  public retryFailedRequests(): void {
-    // retry the requests. this method can
-    // be called after the token is refreshed
+  public get currentUserValue(): ApplicationUserDto {
+    return this.currentUserSubject.value;
+  }
+
+  public getUser(): Observable<ApplicationUserDto> {
+    return this.currentUserSubject.asObservable();
   }
 
   public getToken(): string {
-    return localStorage.getItem("token");
+    return localStorage.getItem('token');
   }
 
-  public isAuthenticated(): boolean {
-    // get the token
-    const token = this.getToken();
-    // return a boolean reflecting
-    // whether or not the token is expired
-    return tokenNotExpired(null, token);
-  }
-
-  public login(
-    model: AuthenticateRequestDto
-  ): Observable<AuthenticateResponseDto> {
-    return this.ClienService.user_Authenticate(model).pipe(
+  public login(loginDto: LoginDto): Observable<ApplicationUserDto> {
+    return this.usersService.user_Authenticate(loginDto).pipe(
       tap((x) => {
-        console.log(x), localStorage.setItem("token", x.token);
+        localStorage.setItem('token', x.token);
+        localStorage.setItem('currentUser', JSON.stringify(x));
+        this.currentUserSubject.next(x);
       })
     );
   }
 
-  public test(): Observable<UserDto[]> {
-    return this.ClienService.user_GetAll();
+  public register(registerDto: RegisterDto): Observable<any> {
+    return this.usersService.user_Register(registerDto).pipe(
+      tap((x) => {
+        localStorage.setItem('token', x.token);
+        localStorage.setItem('currentUser', JSON.stringify(x));
+      })
+    );
+  }
+
+  public logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(undefined);
+    this.router.navigateByUrl('login');
   }
 }

@@ -1,4 +1,6 @@
 ﻿using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.UserDTO;
+using EasyEOrder.Bll.Exceptions;
 using EasyEOrder.Bll.Helpers;
 using EasyEOrder.Bll.Interfaces;
 using EasyEOrder.Dal.Entities;
@@ -27,7 +29,7 @@ namespace EasyEOrder.Bll.Services
             _userManager = userManager;
         }
 
-        public async Task<AuthenticateResponseDto> AuthenticateAsync(AuthenticateRequestDto model)
+        public async Task<ApplicationUserDto> AuthenticateAsync(LoginDto model)
         {
 
 
@@ -40,20 +42,14 @@ namespace EasyEOrder.Bll.Services
                 {
                     if (user == null) return null;
 
-                    var userDto = new UserDto
+                    var userDto = new ApplicationUserDto
                     {
-
                         Id = user.Id,
-                        FirstName = user.UserName,
-                        LastName = user.UserName,
-                        Username = user.UserName,
-                        Password = user.PasswordHash
+                        UserName = user.UserName,
+                        Token = GenerateJwtToken(user.Id)
                     };
 
-                    // authentication successful so generate jwt token
-                    var token = generateJwtToken(userDto);
-
-                    return new AuthenticateResponseDto(userDto, token);
+                    return userDto;
 
                 }
                 else
@@ -68,45 +64,92 @@ namespace EasyEOrder.Bll.Services
 
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<ApplicationUserDto> RegisterAsync(RegisterDto model)
         {
-            return _userManager.Users.Select(user => new UserDto
+            var newUser = new MyUser()
+            {
+                UserName = model.Username
+            };
+
+            var result = await _userManager.CreateAsync(newUser, model.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, "User");
+
+                var role = await GetRoleAsync(newUser);
+
+                // authentication successful so generate jwt token
+                var token = GenerateJwtToken(newUser.Id);
+
+                var userDto = new ApplicationUserDto(newUser)
+                {
+                    Token = token,
+                    Role = role
+                };
+
+                return userDto;
+            }
+            else
+            {
+                throw new RegistrationException(string.Join(" ", result.Errors.Select(e => e.Description)));
+            }
+        }
+
+        public IEnumerable<ApplicationUserDto> GetAll()
+        {
+            return _userManager.Users.Select(user => new ApplicationUserDto
             {
                 Id = user.Id,
-                FirstName = user.UserName,
-                LastName = user.UserName,
-                Username = user.UserName,
+                UserName = user.UserName
+
             });
 
         }
 
-        public UserDto GetById(string id)
+        public ApplicationUserDto GetById(string id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
-            return new UserDto
+            return new ApplicationUserDto
             {
                 Id = user.Id,
-                FirstName = user.UserName,
-                LastName = user.UserName,
-                Username = user.UserName,
+                UserName = user.UserName,
             };
         }
 
         // helper methods
 
-        private string generateJwtToken(UserDto user)
+        private string GenerateJwtToken(string userId)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", userId.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        private async Task<string> GetRoleAsync(MyUser user)
+        {
+            // get user roles
+            var roles = await _userManager.GetRolesAsync(user);
+
+            if (roles.Any())
+            {
+                return roles[0];
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+
     }
 }

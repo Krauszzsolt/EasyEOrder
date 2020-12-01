@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyEOrder.Api.Helpers;
 using EasyEOrder.Bll.DTOs;
+using EasyEOrder.Bll.DTOs.UserDTO;
+using EasyEOrder.Bll.Exceptions;
 using EasyEOrder.Bll.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,14 +26,14 @@ namespace EasyEOrder.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult<List<UserDto>> GetAll()
+        public ActionResult<List<ApplicationUserDto>> GetAll()
         {
             var users = _userService.GetAll().ToList();
             return Ok(users);
         }
 
         [HttpPost("authenticate")]
-        public async Task<ActionResult<AuthenticateResponseDto>> Authenticate(AuthenticateRequestDto model)
+        public async Task<ActionResult<ApplicationUserDto>> Authenticate(LoginDto model)
         {
             var response = await _userService.AuthenticateAsync(model);
 
@@ -40,6 +42,25 @@ namespace EasyEOrder.Api.Controllers
 
             return Ok(response);
         }
-      
+
+        [HttpPost("register")]
+        public async Task<ActionResult<ApplicationUserDto>> Register(RegisterDto model)
+        {
+            try
+            {
+                var response = await _userService.RegisterAsync(model);
+
+                return Ok(response);
+            }
+            catch (RegistrationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "Registration failed." });
+            }
+        }
+
     }
 }
