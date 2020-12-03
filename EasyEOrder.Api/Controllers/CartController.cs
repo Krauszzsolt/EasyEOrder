@@ -24,8 +24,7 @@ namespace EasyEOrder.Api.Controllers
         [HttpGet]
         public Task<CartDto> Get()
         {
-            //[FromQuery]String userId
-            return _cartService.GetCart();
+            return _cartService.GetCart(CurrentUser.Id);
         }
 
         //// GET api/<controller>/5
@@ -41,16 +40,17 @@ namespace EasyEOrder.Api.Controllers
         {
             //, [FromQuery] string UserId
             //Todo Add to list by Id
-            return _cartService.AddToCart(FoodId);
+
+            return _cartService.AddToCart(FoodId, CurrentUser.Id);
         }
 
         // POST api/<controller>
         [HttpPost("Buy")]
-        public Task BuyCartContent()
+        public async Task BuyCartContent()
         {
             // Is this post or get?
             //Todo Add to list by Id
-            return null;
+            await _cartService.DeleteCart(CurrentUser.Id);
         }
 
         //// PUT api/<controller>/5
@@ -61,10 +61,10 @@ namespace EasyEOrder.Api.Controllers
 
         // DELETE api/<controller>/5
         [HttpPost("RemoveFromCart")]
-        public Task RemoveFromCart([FromBody] Guid Id)
+        public async Task RemoveFromCart([FromBody] Guid FoodId)
         {
             //Is this post or Delete?
-            return null;
+            await _cartService.DeleteFromCart(FoodId ,CurrentUser.Id);
         }
     }
 }

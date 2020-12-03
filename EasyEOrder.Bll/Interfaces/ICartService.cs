@@ -8,8 +8,13 @@ namespace EasyEOrder.Bll.Interfaces
 {
     public interface ICartService
     {
-        public Task<CartDto> GetCart();
-        public Task AddToCart(Guid foodId);
+        public Task<CartDto> GetCart(string userId);
+        public Task AddToCart(Guid foodId, string userId);
+
+        public Task DeleteCart(string userId);
+        public Task DeleteFromCart(Guid FoodId, string userId);
+   
+        
 
     }
 }

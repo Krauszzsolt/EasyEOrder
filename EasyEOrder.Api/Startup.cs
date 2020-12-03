@@ -105,6 +105,8 @@ namespace EasyEOrder
 
             app.UseRouting();
 
+            app.UseExceptionHandler("/error"); //Error handler Controller
+
             app.UseCors(x => x
              .AllowAnyMethod()
              .AllowAnyHeader()

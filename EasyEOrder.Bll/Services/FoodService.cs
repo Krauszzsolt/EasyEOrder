@@ -110,42 +110,6 @@ namespace EasyEOrder.Bll.Services
                 .ToList();
         }
 
-        //public async Task<FoodCreateSelectItemsDto> GetFoodCreateSelectItems()
-        //{
-        //    List<SelectListItem> MenuIds = await _context.Menus
-        //        .Select(x =>
-        //        new SelectListItem
-        //        {
-        //            Value = x.Id.ToString(),
-        //            Text = x.Name
-        //        })
-        //        .ToListAsync();
-
-        //    var CategoriesmMap = new Dictionary<string, string>();
-
-        //    CategoriesmMap.Add("soup", "Leves");
-        //    CategoriesmMap.Add("meat", "Főétel");
-
-        //    var AllergensMap = new Dictionary<string, string>();
-
-        //    AllergensMap.Add("Gluten", "Glutén");
-        //    AllergensMap.Add("Laktoz", "Laktóz");
-
-
-        //    List<SelectListItem> Categories = Enum.GetValues(typeof(FoodCategories)).Cast<FoodCategories>().Select(v => new SelectListItem
-        //    {
-        //        Text = CategoriesmMap.GetValueOrDefault(v.ToString()),
-        //        Value = ((int)v).ToString()
-        //    }).ToList();
-
-        //    List<SelectListItem> Allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().Select(v => new SelectListItem
-        //    {
-        //        Text = AllergensMap.GetValueOrDefault(v.ToString()),
-        //        Value = ((int)v).ToString()
-        //    }).ToList();
-
-        //    return new FoodCreateSelectItemsDto { Menu = MenuIds, Category = Categories, Allergen = Allergens };
-        //}
 
         public async Task<List<FoodDto>> GetFoods()
         {
@@ -187,7 +151,7 @@ namespace EasyEOrder.Bll.Services
 
             };
 
-            if(foodCreateDto.Id != null)
+            if (foodCreateDto.Id != null)
             {
                 entity.Id = foodCreateDto.Id;
             }
@@ -251,8 +215,16 @@ namespace EasyEOrder.Bll.Services
         public async Task DeleteFood(Guid Id)
         {
             var food = _context.Foods.FirstOrDefault(x => x.Id == Id);
-            _context.Foods.Remove(food);
-            _context.SaveChanges();
+            if (food == null)
+            {
+                throw new MyNotFoundException("Food not found!");
+            }
+            else
+            {
+                _context.Foods.Remove(food);
+                _context.SaveChanges();
+
+            }
 
         }
     }

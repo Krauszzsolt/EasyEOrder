@@ -39,23 +39,23 @@ namespace EasyEOrder.Api.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async void Post([FromBody]FoodCreateDto newFood)
+        public async Task Post([FromBody]FoodCreateDto newFood)
         {
             await _foodService.AddFood(newFood);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async void Put(Guid id, [FromBody]FoodCreateDto newFood)
+        public async Task Put(Guid id, [FromBody]FoodCreateDto newFood)
         {
-            await _foodService.EditFood(newFood, id);
+              await _foodService.EditFood(newFood, id);
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public async void Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            await _foodService.DeleteFood(id);
+             await _foodService.DeleteFood(id);
         }
     }
 }
