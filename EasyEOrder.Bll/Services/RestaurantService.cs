@@ -25,7 +25,7 @@ namespace EasyEOrder.Bll.Services
             _context = context;
         }
 
-        public async Task<PageableList<RestaruantDTO>> GetAllRestaurant(PageableRequestQuery requestQuery)
+        public async Task<PageableList<RestaruantDTO>> GetAllRestaurant(PageableRequestQuery? requestQuery)
         {
             var restaurantList = (await _context.Restaurants.Select(r => new RestaruantDTO
             {

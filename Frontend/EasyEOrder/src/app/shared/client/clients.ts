@@ -20,7 +20,7 @@ export interface ICartClient {
     cart_Get(): Observable<CartDto>;
     cart_AddToCart(foodId: string): Observable<void>;
     cart_BuyCartContent(): Observable<void>;
-    cart_RemoveFromCart(id: string): Observable<void>;
+    cart_RemoveFromCart(foodId: string): Observable<void>;
 }
 
 @Injectable()
@@ -175,11 +175,11 @@ export class CartClient implements ICartClient {
         return _observableOf<void>(<any>null);
     }
 
-    cart_RemoveFromCart(id: string): Observable<void> {
+    cart_RemoveFromCart(foodId: string): Observable<void> {
         let url_ = this.baseUrl + "/api/Cart/RemoveFromCart";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(id);
+        const content_ = JSON.stringify(foodId);
 
         let options_ : any = {
             body: content_,
@@ -225,7 +225,7 @@ export class CartClient implements ICartClient {
 }
 
 export interface IFoodClient {
-    food_GetAll(menuId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto>;
+    food_GetAll(menuId: string, searchTerm: string | null, index: number | null, pageSize: number | null): Observable<PageableListOfFoodGroupByTypeDto>;
     food_Post(newFood: FoodCreateDto): Observable<void>;
     food_Get(id: string): Observable<FoodDetailsDto>;
     food_Put(id: string, newFood: FoodCreateDto): Observable<void>;
@@ -243,7 +243,7 @@ export class FoodClient implements IFoodClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    food_GetAll(menuId: string, searchTerm: string | null, index: number, pageSize: number): Observable<PageableListOfFoodGroupByTypeDto> {
+    food_GetAll(menuId: string, searchTerm: string | null, index: number | null, pageSize: number | null): Observable<PageableListOfFoodGroupByTypeDto> {
         let url_ = this.baseUrl + "/api/Food?";
         if (menuId === undefined || menuId === null)
             throw new Error("The parameter 'menuId' must be defined and cannot be null.");
@@ -253,13 +253,13 @@ export class FoodClient implements IFoodClient {
             throw new Error("The parameter 'searchTerm' must be defined.");
         else if(searchTerm !== null)
             url_ += "SearchTerm=" + encodeURIComponent("" + searchTerm) + "&";
-        if (index === undefined || index === null)
-            throw new Error("The parameter 'index' must be defined and cannot be null.");
-        else
+        if (index === undefined)
+            throw new Error("The parameter 'index' must be defined.");
+        else if(index !== null)
             url_ += "Index=" + encodeURIComponent("" + index) + "&";
-        if (pageSize === undefined || pageSize === null)
-            throw new Error("The parameter 'pageSize' must be defined and cannot be null.");
-        else
+        if (pageSize === undefined)
+            throw new Error("The parameter 'pageSize' must be defined.");
+        else if(pageSize !== null)
             url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -508,7 +508,7 @@ export class FoodClient implements IFoodClient {
 }
 
 export interface IRestaurantClient {
-    restaurant_GetAllRestaurant(index: number, pageSize: number): Observable<PageableListOfRestaruantDTO>;
+    restaurant_GetAllRestaurant(index: number | null, pageSize: number | null): Observable<PageableListOfRestaruantDTO>;
     restaurant_AddRestaurant(restaurant: CreateRestaurantDto): Observable<void>;
     restaurant_GetRestaurant(id: string): Observable<RestaruantDetailDto>;
     restaurant_EditRestaurant(id: string, restaurant: RestaruantDTO): Observable<void>;
@@ -526,15 +526,15 @@ export class RestaurantClient implements IRestaurantClient {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    restaurant_GetAllRestaurant(index: number, pageSize: number): Observable<PageableListOfRestaruantDTO> {
+    restaurant_GetAllRestaurant(index: number | null, pageSize: number | null): Observable<PageableListOfRestaruantDTO> {
         let url_ = this.baseUrl + "/api/Restaurant?";
-        if (index === undefined || index === null)
-            throw new Error("The parameter 'index' must be defined and cannot be null.");
-        else
+        if (index === undefined)
+            throw new Error("The parameter 'index' must be defined.");
+        else if(index !== null)
             url_ += "Index=" + encodeURIComponent("" + index) + "&";
-        if (pageSize === undefined || pageSize === null)
-            throw new Error("The parameter 'pageSize' must be defined and cannot be null.");
-        else
+        if (pageSize === undefined)
+            throw new Error("The parameter 'pageSize' must be defined.");
+        else if(pageSize !== null)
             url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
         url_ = url_.replace(/[?&]$/, "");
 

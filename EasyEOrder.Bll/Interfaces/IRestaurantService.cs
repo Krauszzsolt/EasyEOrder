@@ -11,7 +11,7 @@ namespace EasyEOrder.Bll.Interfaces
 {
     public interface IRestaurantService
     {
-        public Task<PageableList<RestaruantDTO>> GetAllRestaurant(PageableRequestQuery requestQuery);
+        public Task<PageableList<RestaruantDTO>> GetAllRestaurant(PageableRequestQuery? requestQuery);
 
         public Task<RestaruantDetailDto> GetRestaurant(Guid id);
 

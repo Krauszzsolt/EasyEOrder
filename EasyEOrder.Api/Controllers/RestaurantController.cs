@@ -25,7 +25,7 @@ namespace EasyEOrder.Api.Controllers
         }
         // GET: api/<RestaurantController>
         [HttpGet]
-        public Task<PageableList<RestaruantDTO>> GetAllRestaurant([FromQuery]PageableRequestQuery requestQuery)
+        public Task<PageableList<RestaruantDTO>> GetAllRestaurant([FromQuery]PageableRequestQuery? requestQuery)
         {
             return _restaurantService.GetAllRestaurant(requestQuery);
         }
