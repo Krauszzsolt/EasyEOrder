@@ -30,20 +30,15 @@ export class FoodAddComponent implements OnInit {
   ];
   foodCreateDto: FoodCreateDto;
 
-  // foodDetailsDto:FoodDetailsDto
-
   ngOnInit(): void {
-    // this.foodService.getFood(this.id).subscribe((x) => {
-    //   this.foodDetailsDto = x;
-    // });
 
     this.foodForm = this.formBuilder.group({
       name: ['', Validators.required],
-      price: [0],
-      description: [''],
-      allergens: [],
-      category: [],
-      menuId: [],
+      price: [, Validators.required],
+      description: ['', Validators.required],
+      allergens: [, Validators.required],
+      category: [, Validators.required],
+      menuId: [, Validators.required],
     });
   }
 
@@ -52,7 +47,6 @@ export class FoodAddComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // stop here if form is invalid
     if (this.foodForm.invalid) {
       return;
     }
