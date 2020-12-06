@@ -28,7 +28,7 @@ namespace EasyEOrder.Bll.Services
         {
             var foodGroupByTypeDtoList = (await _context.Foods
                    .Include(x => x.FoodAllergens)
-                   .Where(x => x.MenuId == new Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7")) // query.menuId
+                   .Where(x => x.MenuId == query.MenuId) //new Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7")) // 
                    .ToListAsync())
                    .GroupBy(f => f.Category)
                    .Select(x => new FoodGroupByTypeDto()

@@ -141,7 +141,7 @@ namespace EasyEOrder.Dal.DBContext
                 Name = "Da Giovanni",
                 Address = "Bp., 1117 Karinthy F. út 22",
                 Email = "Da-Giovanni@pizza.hu",
-                MenuId = new System.Guid("7b21b274-71fe-492a-8fed-f9a21c5a2c01"),
+                MenuId = new System.Guid("9ba36e79-1d88-4e73-b961-e75fa011a3e7"),
 
             });
 
