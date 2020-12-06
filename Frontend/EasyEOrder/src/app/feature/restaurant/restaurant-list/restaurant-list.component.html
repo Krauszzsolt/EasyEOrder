@@ -1,3 +1,16 @@
-<p>
-  restaurant-list works!
-</p>
+<div class="container">
+  <div class="row">
+  </div>
+
+  <div class="row" *ngIf="pageableListOfRestaruantDTO">
+    <mat-card *ngFor="let restaruant of pageableListOfRestaruantDTO.data;  index as i">
+      <img class="cover" src='/assets/img/rest_1.jpg' alt="icon" />
+      <mat-card-title class="title">
+        {{ restaruant.name }}
+      </mat-card-title>
+      <mat-card-content class="content">
+        <mat-card-actions><button mat-button class="download-button" (click)="select(restaruant.menuId)">Kiválasztás</button></mat-card-actions> 
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

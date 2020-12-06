@@ -1,3 +1,9 @@
-<p>
-  food-list works!
-</p>
+<div  *ngIf="menuId">
+
+
+  <h1>Étterem kiválasztva!</h1>
+</div>
+
+<div *ngIf="!menuId">
+  <h1>Kérem válasszon étermet!</h1>
+</div>

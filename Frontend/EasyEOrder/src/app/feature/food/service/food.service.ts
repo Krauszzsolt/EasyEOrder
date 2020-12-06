@@ -8,6 +8,8 @@ import { FoodClient, FoodCreateDto, PageableListOfFoodGroupByTypeDto } from 'src
 export class FoodService {
   constructor(private foodClient: FoodClient) {}
 
+
+
   GetAllFood(menuId: string, searchTerm?: string, index?: number, pageSize?: number): Observable<PageableListOfFoodGroupByTypeDto> {
     return this.foodClient.food_GetAll(menuId, searchTerm, index, pageSize);
   }

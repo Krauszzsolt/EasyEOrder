@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./food-list.component.scss']
 })
 export class FoodListComponent implements OnInit {
-
+public menuId = localStorage.getItem('menuId');
   constructor() { }
 
   ngOnInit() {

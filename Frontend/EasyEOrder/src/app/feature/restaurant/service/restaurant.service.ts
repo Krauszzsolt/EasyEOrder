@@ -11,4 +11,8 @@ export class RestaurantService {
   getRestaurant(): Observable<PageableListOfRestaruantDTO> {
     return this.restaurantClient.restaurant_GetAllRestaurant(0, 1);
   }
+
+  setMenuId(id: string) {
+    localStorage.setItem('menuId', id);
+  }
 }
