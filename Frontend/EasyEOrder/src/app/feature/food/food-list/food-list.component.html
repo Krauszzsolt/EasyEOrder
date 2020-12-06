@@ -1,9 +1,30 @@
-<div  *ngIf="menuId">
-
-
-  <h1>Étterem kiválasztva!</h1>
-</div>
-
-<div *ngIf="!menuId">
-  <h1>Kérem válasszon étermet!</h1>
+<div *ngIf="menuId">
+  <div  *ngIf="foodList" class="container">
+    <div *ngFor="let foodCategory of foodList.data" >
+      <div  >
+        <h2>{{ categoryOptions[foodCategory.category-1] }}</h2>
+        <div class="row">
+          <mat-card *ngFor="let food of foodCategory.foods; index as i">
+            <img class="cover" src="/assets/img/rest_1.jpg" alt="icon" />
+            <mat-card-title class="title">
+              {{ food.name }}
+             
+            </mat-card-title>
+            <mat-card-subtitle>   {{ food.price }} - ft</mat-card-subtitle>
+            <mat-card-content class="content">
+              <mat-card-actions><button mat-button class="download-button" (click)="detail(food.id)">Részletek</button></mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button (click)="add()" mat-fab color="warn">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="!menuId">
+    <h1>Kérem válasszon étermet!</h1>
+  </div>
 </div>

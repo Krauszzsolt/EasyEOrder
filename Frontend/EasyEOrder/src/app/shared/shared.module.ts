@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatSelectModule, MatToolbarModule } from '@angular/material';
+import { MatCardModule, MatDialogModule, MatIconModule, MatProgressSpinnerModule, MatSelectModule, MatToolbarModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { MatDialogWrapperComponent } from './dialog/mat-dialog-wrapper.component';
@@ -29,6 +29,7 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
     MatSelectModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
+    MatIconModule
   ],
   exports: [
     MatSidenavModule,
@@ -47,6 +48,7 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
+    MatIconModule
   ],
   entryComponents: [MatDialogWrapperComponent],
 })

@@ -11,7 +11,7 @@ export class FoodService {
 
 
   GetAllFood(menuId: string, searchTerm?: string, index?: number, pageSize?: number): Observable<PageableListOfFoodGroupByTypeDto> {
-    return this.foodClient.food_GetAll(menuId, searchTerm, index, pageSize);
+    return this.foodClient.food_GetAll(menuId, '', 1, 1);
   }
 
   getFood(id: string) {
