@@ -25,7 +25,6 @@ export class FoodListComponent implements OnInit {
   ngOnInit() {
     this.user = this.authService.getUser();
     this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
-      console.log(resp);
       this.foodList = resp;
     });
   }
@@ -37,7 +36,11 @@ export class FoodListComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
+        this.foodList = resp;
+      });
+    });
   }
 
   public add() {
@@ -47,6 +50,10 @@ export class FoodListComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
+        this.foodList = resp;
+      });
+    });
   }
 }

@@ -21,7 +21,6 @@ export class RestaurantListComponent implements OnInit {
   ngOnInit() {
     this.restaurantService.getRestaurant().subscribe((x) => {
       this.pageableListOfRestaruantDTO = x;
-      console.log(this.pageableListOfRestaruantDTO);
     });
     this.user = this.authService.getUser();
   }
