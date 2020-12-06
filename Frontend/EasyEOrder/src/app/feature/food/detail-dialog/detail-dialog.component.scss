@@ -1,0 +1,57 @@
+
+@import '../../../app.component.scss';
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h4 {
+  word-wrap: break-word;
+  text-align:center;
+  width: 25vw;
+}
+.mat-card-content {
+  height: auto;
+  width: 25vw;
+  .title-input {
+    font-size: 1.2rem;
+    padding: 2rem 0;
+  }
+}
+.cover{
+    width: 20rem;
+    max-height: 20vh;
+    object-fit: cover;        
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.side-buffer {
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.mat-card-content {
+  div {
+    padding: 0.5rem;
+  }
+  button {
+    background-color: $orange;
+  }
+}
+.description-container{
+    height: 100px;
+}
+::ng-deep .mat-form-field.mat-focused {
+  .mat-form-field-label {
+    color: $orange;
+  }
+  .mat-form-field-ripple {
+    background-color: $orange;
+  }
+  .mat-form-field-required-marker {
+    color: $orange;
+  }
+  .mat-input-element {
+    color: $white;
+  }
+}

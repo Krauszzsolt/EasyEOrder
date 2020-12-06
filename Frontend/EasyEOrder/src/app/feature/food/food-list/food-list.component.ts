@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { ApplicationUserDto, PageableListOfFoodGroupByTypeDto } from 'src/app/shared/client/clients';
+import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
 import { FoodAddComponent } from '../food-add/food-add.component';
 import { FoodService } from '../service/food.service';
 
@@ -29,17 +30,17 @@ export class FoodListComponent implements OnInit {
     });
   }
 
-  public detail(id: number) {
-    const dialogRef = this.dialog.open(FoodAddComponent, {
+  public detail(id: string) {
+    const dialogRef = this.dialog.open(DetailDialogComponent, {
       data: {
-        id: this.menuId,
+        id,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  public add(id: number) {
+  public add() {
     const dialogRef = this.dialog.open(FoodAddComponent, {
       data: {
         id: this.menuId,

@@ -1,14 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="center">
-  <h2>Új feladat hozzáadása</h2>
+  <h2>Új étel hozzáadása</h2>
 </div>
 <mat-card-content >
   <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
     <div fxLayout="column">
-      <!-- <div fxLayout="column">      
-        <button mat-raised-button (click)="fileInput.click()" type="button">Choose File</button>
-        <input hidden type="file" #fileInput (change)="onFileChange($event)" />
-      </div> -->
-
       <div fxLayout="column">
         <mat-form-field appearance="fill">
           <mat-label>Étel neve</mat-label>

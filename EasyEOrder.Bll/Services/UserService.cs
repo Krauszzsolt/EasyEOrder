@@ -42,12 +42,15 @@ namespace EasyEOrder.Bll.Services
                 {
                     if (user == null) return null;
 
+                    var role = await GetRoleAsync(user);
                     var userDto = new ApplicationUserDto
                     {
                         Id = user.Id,
                         UserName = user.UserName,
-                        Token = GenerateJwtToken(user.Id)
+                        Token = GenerateJwtToken(user.Id),
+                        Role = role
                     };
+
 
                     return userDto;
 
