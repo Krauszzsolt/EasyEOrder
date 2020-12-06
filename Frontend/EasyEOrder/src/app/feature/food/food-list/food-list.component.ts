@@ -30,13 +30,21 @@ export class FoodListComponent implements OnInit {
   }
 
   public detail(id: number) {
-    const dialogRef = this.dialog.open(FoodAddComponent);
+    const dialogRef = this.dialog.open(FoodAddComponent, {
+      data: {
+        id: this.menuId,
+      },
+    });
 
     dialogRef.afterClosed().subscribe((result) => {});
-  }  
-  
+  }
+
   public add(id: number) {
-    const dialogRef = this.dialog.open(FoodAddComponent);
+    const dialogRef = this.dialog.open(FoodAddComponent, {
+      data: {
+        id: this.menuId,
+      },
+    });
 
     dialogRef.afterClosed().subscribe((result) => {});
   }

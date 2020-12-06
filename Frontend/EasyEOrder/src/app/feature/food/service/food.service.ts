@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FoodClient, FoodCreateDto, PageableListOfFoodGroupByTypeDto } from 'src/app/shared/client/clients';
+import { FoodClient, FoodCreateDto, FoodDetailsDto, PageableListOfFoodGroupByTypeDto } from 'src/app/shared/client/clients';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class FoodService {
     return this.foodClient.food_GetAll(menuId, '', 1, 1);
   }
 
-  getFood(id: string) {
+  getFood(id: string): Observable<FoodDetailsDto> {
     return this.foodClient.food_Get(id);
   }
 

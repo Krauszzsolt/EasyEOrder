@@ -1,3 +1,60 @@
-<p>
-  food-add works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <h2>Új feladat hozzáadása</h2>
+</div>
+<mat-card-content >
+  <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="column">
+      <!-- <div fxLayout="column">      
+        <button mat-raised-button (click)="fileInput.click()" type="button">Choose File</button>
+        <input hidden type="file" #fileInput (change)="onFileChange($event)" />
+      </div> -->
+
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Étel neve</mat-label>
+          <input  matInput formControlName="name" />
+          <mat-error *ngIf="f.name.errors && f.name.errors.required">Mező kitöltése kötelező  </mat-error>
+        </mat-form-field>
+      </div>
+
+      
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Étel ára</mat-label>
+          <input type="number" matInput formControlName="price" />
+          <mat-error *ngIf="f.price.errors && f.price.errors.required">Mező kitöltése kötelező  </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Leírás</mat-label>
+          <textarea formControlName="description" matInput placeholder="Étel leírás"></textarea>
+          <mat-error *ngIf="f.description.errors && f.description.errors.required">Mező kitöltése kötelező  </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div  fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Allergének</mat-label>
+          <mat-select formControlName="allergens" multiple >
+          <mat-option *ngFor="let allergen of allergens" [value]="allergen.index">{{allergen.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Kategória kiválasztása</mat-label>
+          <mat-select formControlName="category" >
+            <mat-option *ngFor="let category of categories" [value]="category.index">{{category.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+     
+      <div class="top-buffer-2" fxLayout="row" fxLayoutAlign="center">
+        <button *ngIf="!loading" [disabled]="loading" mat-flat-button color="primary">Hozzáadás</button>
+      </div>
+    </div>
+  </form>
+</mat-card-content>
