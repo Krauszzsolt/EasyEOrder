@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CartClient } from 'src/app/shared/client/clients';
+import { CartClient, CartDto } from 'src/app/shared/client/clients';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +18,9 @@ export class CartService {
 
   buyCart(): Observable<void> {
     return this.cartClient.cart_BuyCartContent();
+  }
+
+  getCart(): Observable<CartDto> {
+    return this.cartClient.cart_Get();
   }
 }

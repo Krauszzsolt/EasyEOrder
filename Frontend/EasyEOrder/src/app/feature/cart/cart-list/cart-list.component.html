@@ -1,3 +1,26 @@
-<p>
-  cart-list works!
-</p>
+<div *ngIf="cartDto">
+  <div *ngIf="this.cartDto.foods.length"class="container">
+    <div class="row">
+      <mat-card *ngFor="let food of cartDto.foods; index as i">
+        <img class="cover" src="/assets/img/rest_1.jpg" alt="icon" />
+        <mat-card-title class="title">
+          {{ food.name }}
+        </mat-card-title>
+        <mat-card-subtitle> {{ food.price }} - ft</mat-card-subtitle>
+        <mat-card-content class="content">
+          <mat-card-actions><button mat-button class="download-button" (click)="delete(food.id)">Törlés</button></mat-card-actions> 
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div  fxLayout="column" fxLayoutAlign="center center">
+      <button mat-button class="buy-button" (click)="buyCart()">Megveszem</button>
+
+    </div>
+  </div>
+  <div *ngIf="!this.cartDto.foods.length">
+    <h2>Még nem választott ételt!</h2>
+  </div>
+</div>
+<div *ngIf=" !cartDto ">
+  <h2>Még nem választott ételt!</h2>
+</div>
