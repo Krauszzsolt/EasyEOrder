@@ -214,13 +214,14 @@ namespace EasyEOrder.Bll.Services
 
         public async Task DeleteFood(Guid Id)
         {
-            var food = _context.Foods.FirstOrDefault(x => x.Id == Id);
+            var food = _context.Foods.Include(x => x.CartFoods).FirstOrDefault(x => x.Id == Id);
             if (food == null)
             {
                 throw new MyNotFoundException("Food not found!");
             }
             else
             {
+                _context.CartFoods.RemoveRange(food.CartFoods);
                 _context.Foods.Remove(food);
                 _context.SaveChanges();
 
