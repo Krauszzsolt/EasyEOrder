@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginDto).subscribe(
       (resp) => {
-        this.router.navigateByUrl('/food');
+        this.router.navigateByUrl('/restaurant');
       },
       (error) => {
         console.log(error);

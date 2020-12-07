@@ -2,12 +2,13 @@
   <span [routerLink]="['/food']">EasyEOrder</span>
   <span *ngIf="(user | async)" class="user-name">{{(user | async).userName}}</span>
   <span class="example-spacer"></span>
-  
-  
+
+
   <!-- Bejelentkezett felhasználó esetén -->
-  <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar>  
-  <button *ngIf="(user | async)" mat-button [routerLink]="['/food']">Ételek</button>
+  <!-- <mat-search-bar  [(ngModel)]="search" (keyup)='searchEvetn()'></mat-search-bar> -->
+
   <button *ngIf="(user | async)" mat-button [routerLink]="['/cart']">Rendelések</button>
+  <button *ngIf="(user | async)" mat-button [routerLink]="['/food']">Ételek</button>
   <button *ngIf="(user | async)" mat-button [routerLink]="['/restaurant']">Éttermek</button>
   <button *ngIf="(user | async)" mat-button (click)="logout()">Kijelentkezés</button>
 

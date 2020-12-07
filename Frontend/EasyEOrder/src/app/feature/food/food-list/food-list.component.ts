@@ -24,9 +24,12 @@ export class FoodListComponent implements OnInit {
   public menuId = localStorage.getItem('menuId');
   ngOnInit() {
     this.user = this.authService.getUser();
-    this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
-      this.foodList = resp;
-    });
+    if(this.menuId){
+
+      this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
+        this.foodList = resp;
+      });
+    }
   }
 
   public detail(id: string) {
