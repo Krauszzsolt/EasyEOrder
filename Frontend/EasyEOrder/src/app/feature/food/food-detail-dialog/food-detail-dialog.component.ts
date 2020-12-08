@@ -8,12 +8,12 @@ import { FoodService } from '../service/food.service';
 
 @Component({
   selector: 'app-detail-dialog',
-  templateUrl: './detail-dialog.component.html',
-  styleUrls: ['./detail-dialog.component.scss'],
+  templateUrl: './food-detail-dialog.component.html',
+  styleUrls: ['./food-detail-dialog.component.scss'],
 })
-export class DetailDialogComponent implements OnInit {
+export class FoodDetailDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<DetailDialogComponent>,
+    public dialogRef: MatDialogRef<FoodDetailDialogComponent>,
     private authService: AuthService,
     private cartService: CartService,
     private foodService: FoodService,

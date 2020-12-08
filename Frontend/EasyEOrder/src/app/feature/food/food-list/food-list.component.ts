@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { ApplicationUserDto, PageableListOfFoodGroupByTypeDto } from 'src/app/shared/client/clients';
-import { DetailDialogComponent } from '../detail-dialog/detail-dialog.component';
-import { FoodAddComponent } from '../food-add/food-add.component';
+import { FoodAddComponent } from '../food-add-dialog/food-add.component';
+import { FoodDetailDialogComponent } from '../food-detail-dialog/food-detail-dialog.component';
 import { FoodService } from '../service/food.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { FoodService } from '../service/food.service';
 })
 export class FoodListComponent implements OnInit {
   constructor(public dialog: MatDialog, private foodService: FoodService, private authService: AuthService, private router: Router) {}
-  public search$: Observable<String>;
+  public search$: Observable<string>;
   public user: Observable<ApplicationUserDto> = new Observable();
   foodList: PageableListOfFoodGroupByTypeDto;
 
@@ -24,8 +24,7 @@ export class FoodListComponent implements OnInit {
   public menuId = localStorage.getItem('menuId');
   ngOnInit() {
     this.user = this.authService.getUser();
-    if(this.menuId){
-
+    if (this.menuId) {
       this.foodService.GetAllFood(this.menuId).subscribe((resp) => {
         this.foodList = resp;
       });
@@ -33,7 +32,7 @@ export class FoodListComponent implements OnInit {
   }
 
   public detail(id: string) {
-    const dialogRef = this.dialog.open(DetailDialogComponent, {
+    const dialogRef = this.dialog.open(FoodDetailDialogComponent, {
       data: {
         id,
       },
