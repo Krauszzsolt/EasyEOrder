@@ -52,7 +52,6 @@ namespace EasyEOrder.Bll.Services
                 _context.Carts.Update(cart);
             }
 
-
             var cartFood = new CartFood
             {
                 Cart = cart,

@@ -180,7 +180,7 @@ namespace EasyEOrder.Bll.Services
             {
                 Id = Id,
                 Name = foodCreateDto.Name,
-                MenuId = new Guid("fe1ee058-9e79-4544-bf93-026f477fe844"),
+                MenuId = foodCreateDto.MenuId,
                 Description = foodCreateDto.Description,
                 //Category = foodCreateDto.Category,
                 FoodAllergens = allergens,
